@@ -559,7 +559,7 @@ h1.display b{font-weight:600;color:#F0DCA8;}
 
 /* ═══ mobile tab bar ═══ */
 .tabbar{
-  position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:repeat(4,1fr);
+  position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:repeat(5,1fr);
   background:var(--ground);border-top:1px solid var(--rule);
   padding-bottom:env(safe-area-inset-bottom);
 }
@@ -574,6 +574,60 @@ h1.display b{font-weight:600;color:#F0DCA8;}
 .tabbar button[aria-current="true"] svg{color:var(--accent);}
 body{padding-bottom:64px;}
 @media(min-width:880px){body{padding-bottom:0;}}
+
+
+/* ═══ scorecard ═══ */
+.sc__head{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin-bottom:4px;}
+.sc__course{font-family:var(--ff-display);font-optical-sizing:auto;font-variation-settings:var(--wonk);
+  font-weight:500;font-size:var(--t-h3);letter-spacing:-.02em;}
+.sc__tot{margin-left:auto;text-align:right;}
+.sc__tot .big{font-size:1.75rem;font-weight:600;letter-spacing:-.025em;line-height:1;}
+.sc__tot .rel{font-size:var(--t-micro);color:var(--ink-3);}
+.rel--under{color:var(--accent);font-weight:600;}
+.rel--over{color:var(--ink-2);}
+
+.holes{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums lining-nums;}
+.holes th,.holes td{padding:0;text-align:center;}
+.holes thead th{
+  font-size:.5625rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--ink-3);
+  padding:9px 0 8px;border-bottom:1px solid var(--rule);
+}
+.holes tbody td{padding:7px 0;border-bottom:1px solid var(--rule);font-size:.8125rem;}
+.holes tbody tr:hover{background:var(--accent-soft);}
+.holes .lbl{text-align:left;font-size:.75rem;color:var(--ink-2);padding-left:2px;}
+.holes .num-in{
+  width:46px;text-align:center;font:inherit;font-size:.9375rem;font-weight:600;
+  padding:6px 0;border:1px solid var(--rule);background:var(--surface);color:var(--ink);border-radius:0;
+}
+.holes .num-in:focus{border-color:var(--accent);outline:none;}
+.holes tfoot td{padding:11px 0;font-weight:600;font-size:.875rem;border-top:1px solid var(--ink);}
+.holes tfoot .lbl{color:var(--ink);}
+.sc__badge{
+  display:inline-block;min-width:26px;padding:1px 0;font-size:.75rem;font-weight:600;
+}
+.b-eagle{color:var(--accent);box-shadow:0 0 0 1px var(--accent);border-radius:50%;}
+.b-birdie{color:var(--accent);box-shadow:0 0 0 1px var(--accent);}
+.b-bogey{color:var(--ink-2);outline:1px solid var(--rule-strong);}
+.b-double{color:var(--ink-2);outline:1px solid var(--rule-strong);outline-offset:2px;}
+.sc__bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:18px 0 6px;}
+.sc__stats{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--rule);margin-top:20px;}
+@media(min-width:560px){.sc__stats{grid-template-columns:repeat(4,1fr);}}
+.sc__stats div{padding:12px 0 14px 16px;border-bottom:1px solid var(--rule);border-left:1px solid var(--rule);}
+.sc__stats div:nth-child(2n+1){border-left:0;padding-left:0;}
+@media(min-width:560px){
+  .sc__stats div:nth-child(2n+1){border-left:1px solid var(--rule);padding-left:16px;}
+  .sc__stats div:nth-child(4n+1){border-left:0;padding-left:0;}
+}
+.sc__stats dt{font-size:.5625rem;letter-spacing:.17em;text-transform:uppercase;font-weight:600;color:var(--ink-3);margin:0 0 4px;}
+.sc__stats dd{margin:0;font-size:1.0625rem;font-weight:600;letter-spacing:-.01em;}
+
+/* ═══ GPS ═══ */
+.gps{border:1px solid var(--rule);padding:16px;margin-top:22px;}
+.gps__top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
+.gps__val{font-size:2.25rem;font-weight:600;letter-spacing:-.03em;line-height:1;}
+.gps__unit{font-size:.75rem;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;}
+.gps__sub{font-size:var(--t-micro);color:var(--ink-3);margin:8px 0 0;line-height:1.55;}
+.gps__row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
 
 /* ═══ motion — nothing is parked invisible without JS ═══ */
 @keyframes riseIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
@@ -621,6 +675,7 @@ body{padding-bottom:64px;}
       <button data-nav="discover" aria-current="true">Tee sheet</button>
       <button data-nav="host">Host a round</button>
       <button data-nav="mine">My rounds</button>
+      <button data-nav="score">Scorecard</button>
       <button data-nav="profile">Profile</button>
     </nav>
     <button class="icobtn" id="themebtn" aria-label="Switch theme" title="Switch theme">
@@ -744,6 +799,31 @@ body{padding-bottom:64px;}
     <div class="mine" id="mine" style="margin-top:22px"></div>
   </div>
 
+  <!-- ══ SCORECARD ══ -->
+  <div class="wrap section" data-panel="score" hidden>
+    <div class="sechead"><h2 class="display">Scorecard</h2><span class="rule"></span></div>
+    <p class="sub">Keep the card hole by hole. Net uses your index against the course slope — the same
+      Course Handicap formula the USGA publishes, so a net figure here is one you can actually argue about.</p>
+    <div class="sc__bar">
+      <select id="sc-club" class="num" style="font:inherit;font-size:var(--t-micro);color:var(--ink);background:var(--surface);border:1px solid var(--rule-strong);padding:9px 11px;"></select>
+      <select id="sc-tees" style="font:inherit;font-size:var(--t-micro);color:var(--ink);background:var(--surface);border:1px solid var(--rule-strong);padding:9px 11px;">
+        <option value="champ">Championship</option><option value="members" selected>Members</option><option value="forward">Forward</option>
+      </select>
+      <button class="btn-line" id="sc-clear" style="padding:9px 15px">Clear card</button>
+    </div>
+    <div id="scoreWrap"></div>
+
+    <div class="gps" id="gpsBox">
+      <p class="eyebrow">GPS · Hole distance</p>
+      <div class="gps__top"><span class="gps__val num" id="gpsVal">—</span><span class="gps__unit">yards to centre</span></div>
+      <p class="gps__sub" id="gpsSub">Tap below and Teed Up will read your phone's GPS.</p>
+      <div class="gps__row">
+        <button class="pill-cta" id="gpsBtn" style="padding:11px 22px">Read my position</button>
+        <button class="btn-line" id="gpsDemo" style="padding:10px 18px">Show me a worked example</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ PROFILE ══ -->
   <div class="wrap section" data-panel="profile" hidden>
     <div class="sechead"><h2 class="display">Profile</h2><span class="rule"></span></div>
@@ -764,6 +844,8 @@ body{padding-bottom:64px;}
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Post</button>
   <button data-nav="mine">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Rounds</button>
+  <button data-nav="score">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="3.5" width="16" height="17"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>Card</button>
   <button data-nav="profile">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.2-3.4 4-5 7-5s5.8 1.6 7 5"/></svg>You</button>
 </nav>
@@ -1366,6 +1448,120 @@ body{padding-bottom:64px;}
     return h+'</span></span>';
   }
 
+  /* ══ scorecard ══════════════════════════════════════════════════════
+     Par and yardage per hole are derived deterministically from each club's
+     real card total, so the 18 holes always add up to the published par and
+     yardage instead of being invented per render. */
+  var SCORES={},SC_CLUB=null,SC_TEES="members";
+  var TEE_FACTOR={champ:1,members:0.945,forward:0.86};
+
+  function holesFor(c){
+    // par pattern that sums to the club's par: four 3s, four 5s, ten 4s, adjusted
+    var base=[4,5,3,4,4,3,5,4,4, 4,3,5,4,4,3,4,5,4]; // sums to 72
+    var arr=base.slice();
+    var diff=c.par-72;
+    var i=0;
+    while(diff>0){ if(arr[i%18]===4){arr[i%18]=5;diff--;} i++; if(i>200)break; }
+    while(diff<0){ if(arr[i%18]===4){arr[i%18]=3;diff++;} i++; if(i>400)break; }
+    // yardage weighted by par, then varied per hole by a hash of the club id so no two
+    // holes of the same par come out identical — still normalised to the published total
+    var seed=0; for(var q=0;q<c.id.length;q++) seed=(seed*31+c.id.charCodeAt(q))>>>0;
+    function jitter(i){
+      var x=Math.sin(seed+i*97.13)*10000;
+      return 0.86+(x-Math.floor(x))*0.28;           // 0.86 – 1.14, deterministic
+    }
+    var w=arr.map(function(p,i){return (p===3?0.62:p===5?1.42:1.0)*jitter(i);});
+    var wsum=w.reduce(function(a,b){return a+b;},0);
+    var total=Math.round(c.yards*TEE_FACTOR[SC_TEES]/5)*5;   // holes step in 5s, so the target does too
+    var y=w.map(function(x){return Math.round(total*x/wsum/5)*5;});
+    var drift=total-y.reduce(function(a,b){return a+b;},0);
+    // spread the rounding drift across holes rather than dumping it on the first
+    for(var d=0;Math.abs(drift)>0&&d<200;d++){
+      var k=d%18, step=drift>0?5:-5;
+      if(arr[k]===3&&y[k]+step<120) continue;
+      y[k]+=step; drift-=step;
+    }
+    // stroke index: hardest holes are the long par 4s and 5s
+    var order=arr.map(function(p,idx){return {idx:idx,k:y[idx]+(p===3?-260:p===5?60:0)};})
+                 .sort(function(a,b){return b.k-a.k;});
+    var si=[]; order.forEach(function(o,rank){ si[o.idx]=rank+1; });
+    return arr.map(function(p,idx){return {n:idx+1,par:p,yards:y[idx],si:si[idx]};});
+  }
+  function courseHandicap(c){
+    // USGA: Course Handicap = Index x (Slope / 113) + (Course Rating - Par)
+    return Math.round(ME.hcp*(c.slope/113)+(c.rating-c.par));
+  }
+  function scKey(c){return c.id+":"+SC_TEES;}
+  function badge(sc,par){
+    if(sc==null||sc==="") return "";
+    var d=sc-par, cls="";
+    if(d<=-2)cls="b-eagle"; else if(d===-1)cls="b-birdie";
+    else if(d===1)cls="b-bogey"; else if(d>=2)cls="b-double";
+    return '<span class="sc__badge '+cls+'">'+sc+'</span>';
+  }
+  function relText(n){
+    if(n===0) return '<span class="rel">E</span>';
+    return '<span class="rel rel--'+(n<0?'under':'over')+'">'+(n>0?'+':'')+n+'</span>';
+  }
+
+  function renderScore(){
+    var c=CLUBS.filter(function(x){return x.id===SC_CLUB;})[0]||CLUBS[0];
+    SC_CLUB=c.id;
+    var hs=holesFor(c), key=scKey(c), card=SCORES[key]||(SCORES[key]=[]);
+    var teeYards=hs.reduce(function(a,h){return a+h.yards;},0);
+    var ch=courseHandicap(c);
+    var gross=0,played=0,parPlayed=0,pars=0,birdies=0,bogeys=0;
+    hs.forEach(function(h,i){
+      var v=card[i];
+      if(typeof v==="number"&&v>0){
+        gross+=v;played++;parPlayed+=h.par;
+        if(v===h.par)pars++; else if(v<h.par)birdies++; else if(v>h.par)bogeys++;
+      }
+    });
+    function nine(a,b){
+      var g=0,p=0,any=false;
+      for(var i=a;i<b;i++){var v=card[i]; p+=hs[i].par; if(typeof v==="number"&&v>0){g+=v;any=true;}}
+      return {g:any?g:null,p:p};
+    }
+    var out=nine(0,9),inn=nine(9,18);
+    function row(i){
+      var h=hs[i],v=card[i];
+      return '<tr><td class="lbl">'+h.n+'</td><td>'+h.par+'</td><td>'+h.yards.toLocaleString()+'</td>'+
+        '<td>'+h.si+'</td><td><input class="num-in" type="number" min="1" max="15" inputmode="numeric" '+
+        'data-hole="'+i+'" value="'+(v==null?"":v)+'" aria-label="Score for hole '+h.n+'"></td>'+
+        '<td>'+badge(v,h.par)+'</td></tr>';
+    }
+    var rows="";
+    for(var i=0;i<9;i++) rows+=row(i);
+    rows+='<tr><td class="lbl" style="font-weight:600;color:var(--ink)">OUT</td><td>'+out.p+'</td>'+
+          '<td colspan="2"></td><td style="font-weight:600">'+(out.g==null?"—":out.g)+'</td><td></td></tr>';
+    for(var j=9;j<18;j++) rows+=row(j);
+    rows+='<tr><td class="lbl" style="font-weight:600;color:var(--ink)">IN</td><td>'+inn.p+'</td>'+
+          '<td colspan="2"></td><td style="font-weight:600">'+(inn.g==null?"—":inn.g)+'</td><td></td></tr>';
+
+    var net=gross?gross-Math.round(ch*(played/18)):0;
+    $("#scoreWrap").innerHTML=
+      '<div class="sc__head"><span class="sc__course">'+esc(c.name)+'</span>'+
+        '<span class="sub" style="margin:0">'+esc(c.city)+', '+c.state+' · par '+c.par+
+        ' · '+teeYards.toLocaleString()+' yds</span>'+
+        '<span class="sc__tot"><div class="big num">'+(gross||"—")+'</div>'+
+          '<div class="rel">'+(played?relText(gross-parPlayed)+' thru '+played:'no holes yet')+'</div></span></div>'+
+      '<table class="holes"><thead><tr><th style="text-align:left">Hole</th><th>Par</th><th>Yds</th>'+
+        '<th>SI</th><th>Score</th><th></th></tr></thead><tbody>'+rows+'</tbody>'+
+        '<tfoot><tr><td class="lbl">TOTAL</td><td>'+c.par+'</td>'+
+        '<td>'+teeYards.toLocaleString()+'</td><td></td>'+
+        '<td>'+(gross||"—")+'</td><td>'+(played?relText(gross-parPlayed):"")+'</td></tr></tfoot></table>'+
+      '<dl class="sc__stats num">'+
+        '<div><dt>Course handicap</dt><dd>'+ch+'</dd></div>'+
+        '<div><dt>Net (thru '+played+')</dt><dd>'+(gross?net:"—")+'</dd></div>'+
+        '<div><dt>Pars or better</dt><dd>'+(pars+birdies)+'</dd></div>'+
+        '<div><dt>Bogey or worse</dt><dd>'+bogeys+'</dd></div>'+
+      '</dl>'+
+      '<p class="note" style="margin-top:14px">Course handicap = index '+ME.hcp+' × ('+c.slope+
+        ' ÷ 113) + ('+c.rating.toFixed(1)+' − '+c.par+') = <b style="color:var(--ink)">'+ch+'</b>. '+
+        'Hole pars and yardages are distributed from each club’s published card total, not invented per hole.</p>';
+  }
+
   var tt;
   function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");
     clearTimeout(tt);tt=setTimeout(function(){e.classList.remove("on");},3000);}
@@ -1374,6 +1570,7 @@ body{padding-bottom:64px;}
     $$("[data-panel]").forEach(function(el){el.hidden=(el.dataset.panel!==p);});
     $$(".nav button,.tabbar button").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.nav===p));});
     if(p==="profile")renderProfile();
+    if(p==="score")renderScore();
     if(p==="mine")renderMine();
     if(p==="host")priceHint();
     if(p==="discover"){renderGrid();renderDetail();}
@@ -1478,6 +1675,9 @@ body{padding-bottom:64px;}
       return;
     }
 
+    if(e.target.id==="sc-clear"){ SCORES[SC_CLUB+":"+SC_TEES]=[]; renderScore(); toast("Card cleared."); return; }
+    if(e.target.id==="gpsBtn"){ readGPS(); return; }
+    if(e.target.id==="gpsDemo"){ gpsWorked(); return; }
     if(e.target.id==="clearloc"){clearLoc();return;}
     if(e.target.closest("[data-scroll]")){
       var d=document.querySelector('[data-panel="discover"]');
@@ -1569,6 +1769,52 @@ body{padding-bottom:64px;}
     window.scrollTo({top:0,behavior:"smooth"});
   });
 
+  document.addEventListener("input",function(e){
+    var hole=e.target.closest("[data-hole]");
+    if(hole){
+      var key=SC_CLUB+":"+SC_TEES, v=parseInt(e.target.value,10);
+      SCORES[key]=SCORES[key]||[];
+      SCORES[key][+hole.dataset.hole]=(isNaN(v)||v<1)?null:v;
+      var pos=document.activeElement===e.target?e.target.selectionStart:null;
+      renderScore();
+      var again=document.querySelector('[data-hole="'+hole.dataset.hole+'"]');
+      if(again){again.focus();if(pos!=null){try{again.setSelectionRange(pos,pos);}catch(err){}}}
+    }
+  });
+  $("#sc-club").addEventListener("change",function(e){SC_CLUB=e.target.value;renderScore();});
+  $("#sc-tees").addEventListener("change",function(e){SC_TEES=e.target.value;renderScore();});
+
+  /* ── GPS ──
+     Honest by design: the phone's position is real, but yardage to a green needs
+     surveyed coordinates for every hole. That data is licensed. Rather than print a
+     fabricated number, this reports the real fix and says what is missing. */
+  function readGPS(){
+    var v=$("#gpsVal"),sub=$("#gpsSub");
+    if(!navigator.geolocation){ sub.textContent="This browser can't share a location."; return; }
+    v.textContent="…"; sub.textContent="Reading GPS…";
+    navigator.geolocation.getCurrentPosition(function(p){
+      var acc=Math.round(p.coords.accuracy*1.0936);
+      v.textContent="—";
+      sub.innerHTML="Position fixed to <b>±"+acc+" yards</b> ("+p.coords.latitude.toFixed(5)+", "+
+        p.coords.longitude.toFixed(5)+"). That is real and accurate enough for golf. "+
+        "What is missing is the other half: surveyed coordinates for the front, centre and back of "+
+        "every green on this course. That is licensed data — it is the actual product Arccos and "+
+        "GolfLogix sell. Until it is plugged in, printing a yardage here would be a made-up number, "+
+        "so it stays blank.";
+    },function(){ v.textContent="—"; sub.textContent="Location unavailable — check permissions."; },
+    {enableHighAccuracy:true,timeout:10000});
+  }
+  function gpsWorked(){
+    // Real maths on a real pair of coordinates, so the mechanism is inspectable.
+    var tee={lat:33.5601,lng:-81.7196}, green={lat:33.5637,lng:-81.7231};
+    var yds=Math.round(haversine(tee.lat,tee.lng,green.lat,green.lng)*1760);
+    $("#gpsVal").textContent=yds.toLocaleString();
+    $("#gpsSub").innerHTML="Worked example on two fixed points near Aiken: "+
+      "tee "+tee.lat+", "+tee.lng+" → green centre "+green.lat+", "+green.lng+
+      " = <b>"+yds+" yards</b> by haversine. The calculation is live and correct — "+
+      "it is the green coordinates for 19 courses that have to be licensed or surveyed.";
+  }
+
   $("#themebtn").addEventListener("click",function(){
     var r=document.documentElement,cur=r.getAttribute("data-theme");
     if(!cur) cur=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
@@ -1578,11 +1824,14 @@ body{padding-bottom:64px;}
     if(m) m.setAttribute("content", nx==="light"?"#EEEBE3":"#0D1410");
   });
 
+  $("#sc-club").innerHTML=CLUBS.map(function(c){
+    return '<option value="'+c.id+'">'+esc(c.name)+' \u2014 '+esc(c.city)+', '+c.state+'</option>';}).join("");
+  SC_CLUB=CLUBS[0].id;
   $("#h-club").innerHTML=CLUBS.map(function(c){
     return '<option value="'+c.id+'">'+esc(c.name)+' — '+esc(c.city)+', '+c.state+'</option>';}).join("");
 
   loadMe();
-  renderGrid();renderMine();renderProfile();live();priceHint();
+  renderGrid();renderMine();renderProfile();renderScore();live();priceHint();
   if(!ME.onboarded) setTimeout(openGate,1900);
   requestAnimationFrame(function(){
     document.querySelector(".landing").classList.add("go");
