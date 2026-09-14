@@ -437,8 +437,20 @@ h1.display b{font-weight:600;color:#F0DCA8;}
 .card__price .per{font-size:.625rem;color:var(--ink-3);}
 .card__dist{margin-left:auto;font-size:.625rem;color:var(--ink-3);white-space:nowrap;}
 
-.tee{grid-template-columns:auto minmax(0,1fr) auto;}
-.tee__price{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
+.tee{grid-template-columns:auto minmax(0,1fr) auto;column-gap:10px;}
+.tee__price{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px;max-width:46%;}
+/* phone: stop squeezing three columns — price and actions get their own row */
+@media(max-width:600px){
+  .tee{grid-template-columns:auto minmax(0,1fr);row-gap:12px;}
+  .tee__price{
+    grid-column:1/-1;max-width:none;text-align:left;
+    flex-direction:row;align-items:center;justify-content:space-between;
+    gap:10px;flex-wrap:wrap;padding-top:0;
+  }
+  .tee__amt{font-size:1.375rem;}
+  .tee__break{flex:1 1 auto;text-align:left;}
+  .teeacts{flex-direction:row;align-items:center;gap:8px;flex:0 0 auto;}
+}
 .tee__amt{font-size:1.25rem;font-weight:600;letter-spacing:-.02em;line-height:1;}
 .tee__break{font-size:.625rem;color:var(--ink-3);line-height:1.35;}
 .surge{
@@ -466,6 +478,102 @@ h1.display b{font-weight:600;color:#F0DCA8;}
 .money:focus-within{border-color:var(--ink);}
 .check{display:flex;align-items:center;gap:9px;font-size:var(--t-micro);color:var(--ink-2);cursor:pointer;}
 .check input{width:16px;height:16px;accent-color:var(--accent);}
+
+
+/* ═══ auth / onboarding ═══ */
+.gate{
+  position:fixed;inset:0;z-index:90;display:grid;place-items:center;
+  background:rgba(6,10,7,.80);backdrop-filter:blur(8px);padding:20px;
+}
+.gate__card{
+  width:100%;max-width:420px;background:var(--ground);border:1px solid var(--rule-strong);
+  padding:26px 22px calc(24px + env(safe-area-inset-bottom));max-height:92svh;overflow:auto;
+}
+.gate__card h2{font-weight:400;font-size:var(--t-h3);line-height:1.1;margin:8px 0 6px;}
+.gate__card .sub{margin:0 0 18px;}
+.steps{display:flex;gap:5px;margin-bottom:16px;}
+.steps i{flex:1;height:2px;background:var(--rule);}
+.steps i.on{background:var(--accent);}
+.gate__foot{display:flex;gap:10px;align-items:center;margin-top:18px;}
+.ghost{cursor:pointer;color:var(--ink-3);font-size:var(--t-micro);font-weight:600;text-decoration:underline;text-underline-offset:3px;}
+.chiprow{display:flex;gap:8px;flex-wrap:wrap;}
+.chipsel{
+  cursor:pointer;padding:9px 14px;border:1px solid var(--rule-strong);color:var(--ink-2);
+  font-size:var(--t-micro);font-weight:600;transition:all var(--fast);
+}
+.chipsel[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink);}
+
+/* ═══ reputation ═══ */
+.stars{display:inline-flex;align-items:center;gap:3px;vertical-align:middle;}
+.stars svg{width:11px;height:11px;}
+.stars .s{color:var(--accent);}
+.stars .e{color:var(--pip-empty);}
+.rep{display:inline-flex;align-items:center;gap:6px;font-size:.6875rem;color:var(--ink-3);flex-wrap:wrap;min-width:0;}
+.rep b{color:var(--ink);font-weight:600;}
+.avatar{
+  width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+  background:var(--accent-soft);color:var(--accent);font-size:.625rem;font-weight:700;letter-spacing:.04em;
+  border:1px solid var(--rule);
+}
+.tee__who{display:flex;align-items:center;gap:9px;min-width:0;}
+.hostline{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;}
+.newhost{color:var(--ink-3);font-style:normal;}
+
+/* ═══ bidding ═══ */
+.teeacts{display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+.offer{
+  cursor:pointer;padding:7px 14px;border:1px dashed var(--rule-strong);color:var(--ink-2);
+  font-size:.6875rem;font-weight:600;white-space:nowrap;border-radius:999px;
+  transition:all var(--fast);
+}
+.offer:hover{border-style:solid;color:var(--ink);border-color:var(--ink);}
+.bidbox{
+  grid-column:1/-1;display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  padding:12px;margin-top:10px;background:var(--surface);border:1px solid var(--rule);
+}
+.bidbox .money{flex:0 0 130px;}
+.bidbox .note{flex-basis:100%;}
+.bidstate{font-size:.6875rem;font-weight:600;padding:4px 9px;border-radius:999px;white-space:nowrap;}
+.bidstate--sent{background:var(--accent-soft);color:var(--accent);}
+.bidstate--ok{background:var(--accent-soft);color:var(--accent);}
+.bidstate--no{background:var(--rule);color:var(--ink-3);}
+
+/* ═══ profile ═══ */
+.prof{display:grid;gap:0;}
+.prof__top{display:flex;gap:16px;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--rule);}
+.prof__av{
+  width:62px;height:62px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+  background:var(--accent-soft);color:var(--accent);font-size:1.0625rem;font-weight:700;letter-spacing:.04em;
+  border:1px solid var(--rule-strong);
+}
+.prof__n{font-family:var(--ff-display);font-optical-sizing:auto;font-variation-settings:var(--wonk);
+  font-weight:500;font-size:var(--t-h3);letter-spacing:-.02em;line-height:1.1;}
+.prof__meta{font-size:var(--t-micro);color:var(--ink-3);margin-top:3px;}
+.prof__row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule);font-size:var(--t-body);}
+.prof__row span:first-child{color:var(--ink-3);font-size:var(--t-micro);letter-spacing:.06em;text-transform:uppercase;font-weight:600;}
+.prof__row b{font-weight:600;}
+.ratebtns{display:flex;gap:4px;}
+.ratebtns button{cursor:pointer;padding:2px;color:var(--pip-empty);transition:color var(--fast);}
+.ratebtns button.lit{color:var(--accent);}
+.ratebtns svg{width:20px;height:20px;display:block;}
+
+/* ═══ mobile tab bar ═══ */
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:repeat(4,1fr);
+  background:var(--ground);border-top:1px solid var(--rule);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+@media(min-width:880px){.tabbar{display:none;}}
+.tabbar button{
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 8px;
+  font-size:.5625rem;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--ink-3);
+  transition:color var(--fast);
+}
+.tabbar button svg{width:17px;height:17px;}
+.tabbar button[aria-current="true"]{color:var(--ink);}
+.tabbar button[aria-current="true"] svg{color:var(--accent);}
+body{padding-bottom:64px;}
+@media(min-width:880px){body{padding-bottom:0;}}
 
 /* ═══ motion — nothing is parked invisible without JS ═══ */
 @keyframes riseIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
@@ -513,6 +621,7 @@ h1.display b{font-weight:600;color:#F0DCA8;}
       <button data-nav="discover" aria-current="true">Tee sheet</button>
       <button data-nav="host">Host a round</button>
       <button data-nav="mine">My rounds</button>
+      <button data-nav="profile">Profile</button>
     </nav>
     <button class="icobtn" id="themebtn" aria-label="Switch theme" title="Switch theme">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -635,11 +744,78 @@ h1.display b{font-weight:600;color:#F0DCA8;}
     <div class="mine" id="mine" style="margin-top:22px"></div>
   </div>
 
+  <!-- ══ PROFILE ══ -->
+  <div class="wrap section" data-panel="profile" hidden>
+    <div class="sechead"><h2 class="display">Profile</h2><span class="rule"></span></div>
+    <div class="prof" id="prof" style="margin-top:22px"></div>
+  </div>
+
   <div class="wrap foot">
     <span>Teed Up — demo build. Photography licensed via Adobe Stock. Clubs are fictional.</span>
     <span class="num">Columbia, SC</span>
   </div>
 </main>
+
+
+<nav class="tabbar" aria-label="Sections">
+  <button data-nav="discover" aria-current="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>Tee sheet</button>
+  <button data-nav="host">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Post</button>
+  <button data-nav="mine">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Rounds</button>
+  <button data-nav="profile">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.2-3.4 4-5 7-5s5.8 1.6 7 5"/></svg>You</button>
+</nav>
+
+<div class="gate" id="gate" hidden>
+  <div class="gate__card">
+    <div class="steps"><i class="on" id="st1"></i><i id="st2"></i><i id="st3"></i></div>
+
+    <div data-step="1">
+      <p class="eyebrow">Teed Up · Est. 2026</p>
+      <h2 class="display">Members vouch for who they bring.</h2>
+      <p class="sub">So everyone here has a name and a rating. Takes about thirty seconds.</p>
+      <div class="form" style="gap:14px">
+        <div class="field"><label for="u-name">Your name</label><input id="u-name" type="text" autocomplete="name" placeholder="Brad Valdes"></div>
+        <div class="field"><label for="u-email">Email</label><input id="u-email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com"></div>
+      </div>
+      <div class="gate__foot"><button class="pill-cta" data-step-next="1">Continue</button>
+        <span class="ghost" data-guest>Look around first</span></div>
+    </div>
+
+    <div data-step="2" hidden>
+      <p class="eyebrow">Step two</p>
+      <h2 class="display">How do you play?</h2>
+      <p class="sub">Hosts see this before they accept you. Be honest — pace matters more than handicap.</p>
+      <div class="form" style="gap:14px">
+        <div class="pair">
+          <div class="field"><label for="u-hcp">Handicap index</label><input id="u-hcp" type="number" step="0.1" min="-5" max="54" value="12.4" inputmode="decimal"></div>
+          <div class="field"><label for="u-home">Home club</label><input id="u-home" type="text" placeholder="Columbia CC"></div>
+        </div>
+        <div class="field"><label>I'm mostly here to</label>
+          <div class="chiprow" id="roleRow">
+            <button type="button" class="chipsel" data-role="guest" aria-pressed="true">Claim seats</button>
+            <button type="button" class="chipsel" data-role="host" aria-pressed="false">Post seats</button>
+            <button type="button" class="chipsel" data-role="both" aria-pressed="false">Both</button>
+          </div>
+        </div>
+      </div>
+      <div class="gate__foot"><button class="pill-cta" data-step-next="2">Continue</button>
+        <span class="ghost" data-step-back="2">Back</span></div>
+    </div>
+
+    <div data-step="3" hidden>
+      <p class="eyebrow">Last thing</p>
+      <h2 class="display">Both sides get rated.</h2>
+      <p class="sub">You rate the member who hosted you. They rate you. Both scores are visible before anyone commits — that is the entire trust model, and it is why a stranger gets on the first tee at all.</p>
+      <div class="prof__row"><span>Starting rating</span><b>Unrated · 0 rounds</b></div>
+      <div class="prof__row"><span>Shows to hosts</span><b id="sumLine">—</b></div>
+      <div class="gate__foot"><button class="pill-cta" data-step-next="3">Start browsing</button>
+        <span class="ghost" data-step-back="3">Back</span></div>
+    </div>
+  </div>
+</div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -715,117 +891,171 @@ h1.display b{font-weight:600;color:#F0DCA8;}
     par:71,yards:6730,rating:73.4,slope:136,fee:340,style:"links",walk:true,caddie:true,
     blurb:"Six holes run along the headland and the other twelve spend the round trying to get you back there. There is no public tee time and there never has been. Morning fog usually clears by ten; the club will hold your time if it hasn't.",
     dress:"Collar required. No denim anywhere on property.",
-    tees:[{t:"9:30",m:"AM",who:"Cal R.",note:"Members tees · caddie · walking",cap:4,taken:2,seat:8500,surge:true},
-          {t:"1:20",m:"PM",who:"Miriam O.",note:"Members tees · walking",cap:4,taken:3,seat:6800,surge:false},
-          {t:"3:10",m:"PM",who:"Josh P.",note:"Twilight · walking",cap:4,taken:4,seat:5200,surge:false}]},
+    tees:[{t:"9:30",m:"AM",who:"Cal R.",initials:"CR",rate:4.4,rounds:14,note:"Members tees · caddie · walking",cap:4,taken:2,seat:8500,surge:true},
+          {t:"1:20",m:"PM",who:"Miriam O.",initials:"MO",rate:4.5,rounds:8,note:"Members tees · walking",cap:4,taken:3,seat:6800,surge:false},
+          {t:"3:10",m:"PM",who:"Josh P.",initials:"JP",rate:4.2,rounds:39,note:"Twilight · walking",cap:4,taken:4,seat:5200,surge:false}]},
 
    {id:"montauk",name:"Montauk Head",city:"Montauk",state:"NY",zip:"11954",lat:41.036,lng:-71.954,
     img:"assets/club-10.jpg",det:"assets/d-club-10.jpg",tier:"unicorn",tag:"Invitation only",
     par:70,yards:6584,rating:73.9,slope:142,fee:400,style:"links",walk:true,caddie:true,
     blurb:"A hundred and ten members, no guest play without one of them standing beside you on the first tee. Fescue that goes silver when the wind picks up off the Atlantic, which it does every afternoon from April.",
     dress:"Jacket in the clubhouse. Walking only.",
-    tees:[{t:"8:10",m:"AM",who:"Whit S.",note:"Members tees · caddie",cap:4,taken:3,seat:12000,surge:true},
-          {t:"11:40",m:"AM",who:"Peter G.",note:"Members tees · caddie",cap:4,taken:2,seat:9500,surge:true},
-          {t:"2:30",m:"PM",who:"Anne D.",note:"Back nine only · walking",cap:3,taken:3,seat:7000,surge:false}]},
+    tees:[{t:"8:10",m:"AM",who:"Whit S.",initials:"WS",rate:4.2,rounds:42,note:"Members tees · caddie",cap:4,taken:3,seat:12000,surge:true},
+          {t:"11:40",m:"AM",who:"Peter G.",initials:"PG",rate:4.2,rounds:37,note:"Members tees · caddie",cap:4,taken:2,seat:9500,surge:true},
+          {t:"2:30",m:"PM",who:"Anne D.",initials:"AD",rate:4.3,rounds:10,note:"Back nine only · walking",cap:3,taken:3,seat:7000,surge:false}]},
 
    {id:"isla",name:"Isla Marina",city:"Key Biscayne",state:"FL",zip:"33149",lat:25.694,lng:-80.163,
     img:"assets/club-8.jpg",det:"assets/d-club-8.jpg",tier:"national",tag:"Atlantic on seven holes",
     par:72,yards:7038,rating:74.4,slope:139,fee:275,style:"parkland",walk:false,caddie:true,
     blurb:"Royal palms, a seawall, and seven holes where a pushed drive is in the Atlantic. The wind gets up around noon and the back nine plays two clubs longer than the card says.",
     dress:"Collar required. Shorts permitted.",
-    tees:[{t:"7:30",m:"AM",who:"Rafael O.",note:"Members tees · caddies",cap:4,taken:2,seat:2400,surge:false},
-          {t:"10:40",m:"AM",who:"Sloane B.",note:"Championship tees · riding",cap:4,taken:1,seat:3600,surge:true},
-          {t:"4:10",m:"PM",who:"Dev P.",note:"Twilight · riding",cap:4,taken:2,seat:1500,surge:false}]},
+    tees:[{t:"7:30",m:"AM",who:"Rafael O.",initials:"RO",rate:4.5,rounds:9,note:"Members tees · caddies",cap:4,taken:2,seat:2400,surge:false},
+          {t:"10:40",m:"AM",who:"Sloane B.",initials:"SB",rate:4.3,rounds:40,note:"Championship tees · riding",cap:4,taken:1,seat:3600,surge:true},
+          {t:"4:10",m:"PM",who:"Dev P.",initials:"DP",rate:4.5,rounds:57,note:"Twilight · riding",cap:4,taken:2,seat:1500,surge:false}]},
 
    {id:"sable",name:"Sable Dunes",city:"Bandon",state:"OR",zip:"97411",lat:43.119,lng:-124.408,
     img:"assets/club-4.jpg",det:"assets/d-club-4.jpg",tier:"national",tag:"True links",
     par:70,yards:6642,rating:72.9,slope:133,fee:295,style:"links",walk:true,caddie:true,
     blurb:"True links — gorse, heather, and no carts at any price. Bring the low ball flight and a jacket; the afternoon wind off the Pacific routinely adds two clubs coming home.",
     dress:"Collar required. Walking only, no exceptions.",
-    tees:[{t:"8:20",m:"AM",who:"Iain M.",note:"Caddie included · walking",cap:4,taken:2,seat:2800,surge:false},
-          {t:"12:40",m:"PM",who:"Gwen T.",note:"Second loop · walking",cap:4,taken:2,seat:1900,surge:false},
-          {t:"4:00",m:"PM",who:"Aaron D.",note:"Twilight · walking",cap:4,taken:4,seat:1400,surge:false}]},
+    tees:[{t:"8:20",m:"AM",who:"Iain M.",initials:"IM",rate:4.6,rounds:19,note:"Caddie included · walking",cap:4,taken:2,seat:2800,surge:false},
+          {t:"12:40",m:"PM",who:"Gwen T.",initials:"GT",rate:4.7,rounds:42,note:"Second loop · walking",cap:4,taken:2,seat:1900,surge:false},
+          {t:"4:00",m:"PM",who:"Aaron D.",initials:"AD",rate:5.0,rounds:41,note:"Twilight · walking",cap:4,taken:4,seat:1400,surge:false}]},
 
    {id:"ravinia",name:"Ravinia Oaks",city:"Lake Forest",state:"IL",zip:"60045",lat:42.259,lng:-87.841,
     img:"assets/club-11.jpg",det:"assets/d-club-11.jpg",tier:"national",tag:"1919 routing",
     par:72,yards:6910,rating:73.7,slope:140,fee:225,style:"parkland",walk:true,caddie:true,
     blurb:"Two-hundred-year-old bur oaks, a creek that crosses six times, and greens that were rebuilt to the original 1919 contours in 2021. It is a short season and the members guard it.",
     dress:"Collar required. No denim.",
-    tees:[{t:"7:50",m:"AM",who:"Hal W.",note:"Members tees · caddie · walking",cap:4,taken:2,seat:2100,surge:false},
-          {t:"11:10",m:"AM",who:"Corinne M.",note:"Championship tees · caddie",cap:4,taken:3,seat:2600,surge:true},
-          {t:"3:20",m:"PM",who:"Bill T.",note:"Twilight · walking",cap:4,taken:2,seat:1200,surge:false}]},
+    tees:[{t:"7:50",m:"AM",who:"Hal W.",initials:"HW",rate:4.6,rounds:8,note:"Members tees · caddie · walking",cap:4,taken:2,seat:2100,surge:false},
+          {t:"11:10",m:"AM",who:"Corinne M.",initials:"CM",rate:5.0,rounds:7,note:"Championship tees · caddie",cap:4,taken:3,seat:2600,surge:true},
+          {t:"3:20",m:"PM",who:"Bill T.",initials:"BT",rate:4.6,rounds:13,note:"Twilight · walking",cap:4,taken:2,seat:1200,surge:false}]},
 
    {id:"kohala",name:"Kohala Black",city:"Waimea",state:"HI",zip:"96743",lat:20.023,lng:-155.668,
     img:"assets/club-13.jpg",det:"assets/d-club-13.jpg",tier:"national",tag:"Lava coastline",
     par:72,yards:7085,rating:74.1,slope:137,fee:310,style:"links",walk:false,caddie:false,
     blurb:"Fairway cut straight through jet-black lava with the Pacific breaking on the rocks below. Trade winds every afternoon. Lose one in the lava and leave it — the rock will take the skin off your hand.",
     dress:"Collar required. Shorts permitted.",
-    tees:[{t:"7:10",m:"AM",who:"Kai L.",note:"Members tees · riding",cap:4,taken:1,seat:1600,surge:false},
-          {t:"1:50",m:"PM",who:"Marisa H.",note:"Forward tees · riding",cap:4,taken:2,seat:1100,surge:false},
-          {t:"4:40",m:"PM",who:"Ben A.",note:"Nine holes · twilight",cap:4,taken:3,seat:750,surge:false}]},
+    tees:[{t:"7:10",m:"AM",who:"Kai L.",initials:"KL",rate:4.4,rounds:14,note:"Members tees · riding",cap:4,taken:1,seat:1600,surge:false},
+          {t:"1:50",m:"PM",who:"Marisa H.",initials:"MH",rate:4.6,rounds:41,note:"Forward tees · riding",cap:4,taken:2,seat:1100,surge:false},
+          {t:"4:40",m:"PM",who:"Ben A.",initials:"BA",rate:4.4,rounds:57,note:"Nine holes · twilight",cap:4,taken:3,seat:750,surge:false}]},
 
    {id:"saguaro",name:"Saguaro Bluff",city:"Scottsdale",state:"AZ",zip:"85262",lat:33.494,lng:-111.926,
     img:"assets/club-9.jpg",det:"assets/d-club-9.jpg",tier:"elite",tag:"Desert target golf",
     par:72,yards:7180,rating:74.0,slope:143,fee:195,style:"parkland",walk:false,caddie:true,
     blurb:"Emerald corridors between saguaro and red sandstone, with forced carries that look worse from the tee than they play. High season is January to April and the sheet is full most of it.",
     dress:"Collar required. Shorts permitted.",
-    tees:[{t:"6:50",m:"AM",who:"Trey V.",note:"Members tees · riding",cap:4,taken:2,seat:900,surge:false},
-          {t:"9:20",m:"AM",who:"Paula R.",note:"Championship tees · caddie",cap:4,taken:1,seat:1400,surge:true},
-          {t:"2:40",m:"PM",who:"Owen C.",note:"Twilight rate · riding",cap:4,taken:3,seat:475,surge:false}]},
+    tees:[{t:"6:50",m:"AM",who:"Trey V.",initials:"TV",rate:4.7,rounds:11,note:"Members tees · riding",cap:4,taken:2,seat:900,surge:false},
+          {t:"9:20",m:"AM",who:"Paula R.",initials:"PR",rate:4.6,rounds:45,note:"Championship tees · caddie",cap:4,taken:1,seat:1400,surge:true},
+          {t:"2:40",m:"PM",who:"Owen C.",initials:"OC",rate:4.3,rounds:11,note:"Twilight rate · riding",cap:4,taken:3,seat:475,surge:false}]},
 
    {id:"balcones",name:"Balcones Reach",city:"Boerne",state:"TX",zip:"78006",lat:29.795,lng:-98.732,
     img:"assets/club-12.jpg",det:"assets/d-club-12.jpg",tier:"elite",tag:"Limestone and live oak",
     par:71,yards:6875,rating:73.2,slope:138,fee:170,style:"parkland",walk:true,caddie:false,
     blurb:"Cut through limestone shelf and live oak on the edge of the hill country. Firm ground almost year round, and a closing stretch along a dry creek bed that has ended more matches than the front nine ever has.",
     dress:"Collar required. Denim permitted.",
-    tees:[{t:"7:30",m:"AM",who:"Cody M.",note:"Members tees · walking",cap:4,taken:2,seat:600,surge:false},
-          {t:"10:00",m:"AM",who:"Reese N.",note:"Championship tees",cap:4,taken:2,seat:825,surge:true},
-          {t:"5:10",m:"PM",who:"Jo D.",note:"Twilight · walking",cap:4,taken:3,seat:350,surge:false}]},
+    tees:[{t:"7:30",m:"AM",who:"Cody M.",initials:"CM",rate:4.6,rounds:9,note:"Members tees · walking",cap:4,taken:2,seat:600,surge:false},
+          {t:"10:00",m:"AM",who:"Reese N.",initials:"RN",rate:4.6,rounds:44,note:"Championship tees",cap:4,taken:2,seat:825,surge:true},
+          {t:"5:10",m:"PM",who:"Jo D.",initials:"JD",rate:4.3,rounds:48,note:"Twilight · walking",cap:4,taken:3,seat:350,surge:false}]},
+
+   {id:"seabrook",name:"Seabrook Head",city:"Kiawah Island",state:"SC",zip:"29455",lat:32.608,lng:-80.085,
+    img:"assets/club-14.jpg",det:"assets/d-club-14.jpg",tier:"national",tag:"Dunes and sea oats",
+    par:72,yards:7156,rating:74.8,slope:145,fee:295,style:"links",walk:true,caddie:true,
+    blurb:"Barrier-island golf with the dunes left where they were. The closing four run along the beach ridge and the wind decides all of them. Ocean holes at low tide play a different course than at high.",
+    dress:"Collar required. Soft spikes.",
+    tees:[{t:"8:00",m:"AM",who:"Walt H.",initials:"WH",rate:4.9,rounds:46,note:"Members tees \u00b7 caddie \u00b7 walking",cap:4,taken:2,seat:2600,surge:true},
+          {t:"11:20",m:"AM",who:"Sunni K.",initials:"SK",rate:4.7,rounds:18,note:"Members tees \u00b7 walking",cap:4,taken:2,seat:1900,surge:false},
+          {t:"4:20",m:"PM",who:"Grant E.",initials:"GE",rate:4.4,rounds:9,note:"Twilight \u00b7 walking",cap:4,taken:3,seat:1100,surge:false}]},
+
+   {id:"moss",name:"Moss Creek Landing",city:"Hilton Head Island",state:"SC",zip:"29926",lat:32.216,lng:-80.752,
+    img:"assets/club-15.jpg",det:"assets/d-club-15.jpg",tier:"elite",tag:"Live oaks and lagoons",
+    par:72,yards:6905,rating:73.5,slope:137,fee:185,style:"parkland",walk:false,caddie:false,
+    blurb:"Two-hundred-year-old live oaks hung with Spanish moss, lagoons on eleven holes, and greens that run faster than they look in the humidity. A gentle walk and a hard score.",
+    dress:"Collar required. Shorts permitted.",
+    tees:[{t:"7:40",m:"AM",who:"Dana R.",initials:"DR",rate:4.8,rounds:31,note:"Members tees \u00b7 carts",cap:4,taken:1,seat:525,surge:false},
+          {t:"10:50",m:"AM",who:"Phil O.",initials:"PO",rate:4.6,rounds:22,note:"Championship tees",cap:4,taken:2,seat:700,surge:true},
+          {t:"3:30",m:"PM",who:"Trish B.",initials:"TB",rate:5.0,rounds:12,note:"Twilight \u00b7 carts",cap:4,taken:2,seat:300,surge:false}]},
+
+   {id:"sandhurst",name:"Sandhurst Pines",city:"Camden",state:"SC",zip:"29020",lat:34.246,lng:-80.607,
+    img:"assets/club-16.jpg",det:"assets/d-club-16.jpg",tier:"elite",tag:"Sandhills waste areas",
+    par:71,yards:6780,rating:72.8,slope:134,fee:135,style:"parkland",walk:true,caddie:false,
+    blurb:"Longleaf pine and native sand, restored to bare waste rather than raked bunkers. It drains in an hour and plays firm from February through November. The best walking ground in the state.",
+    dress:"Collar required. Denim permitted.",
+    tees:[{t:"7:10",m:"AM",who:"Earl S.",initials:"ES",rate:4.9,rounds:58,note:"Members tees \u00b7 walking",cap:4,taken:2,seat:325,surge:false},
+          {t:"9:40",m:"AM",who:"Maya T.",initials:"MT",rate:4.5,rounds:14,note:"Members tees \u00b7 walking",cap:4,taken:1,seat:400,surge:false},
+          {t:"2:20",m:"PM",who:"Rick D.",initials:"RD",rate:4.2,rounds:7,note:"Twilight \u00b7 walking",cap:4,taken:3,seat:175,surge:false}]},
+
+   {id:"caesars",name:"Caesars Ridge",city:"Travelers Rest",state:"SC",zip:"29690",lat:34.968,lng:-82.443,
+    img:"assets/club-17.jpg",det:"assets/d-club-17.jpg",tier:"elite",tag:"Blue Ridge foothills",
+    par:72,yards:7042,rating:74.3,slope:142,fee:160,style:"parkland",walk:false,caddie:true,
+    blurb:"Upstate golf with real elevation — a hundred and eighty feet of fall on the twelfth alone, and blue ridges stacked behind every green on the back nine. Peak colour is the last week of October and the sheet is gone by August.",
+    dress:"Collar required. No denim.",
+    tees:[{t:"8:30",m:"AM",who:"Boyd M.",initials:"BM",rate:4.7,rounds:27,note:"Members tees \u00b7 caddie",cap:4,taken:2,seat:650,surge:true},
+          {t:"12:10",m:"PM",who:"Ansel P.",initials:"AP",rate:4.8,rounds:35,note:"Championship tees \u00b7 riding",cap:4,taken:1,seat:800,surge:false},
+          {t:"4:00",m:"PM",who:"Kate L.",initials:"KL",rate:4.3,rounds:11,note:"Twilight \u00b7 riding",cap:4,taken:2,seat:275,surge:false}]},
+
+   {id:"hammock",name:"Hammock Creek",city:"Pawleys Island",state:"SC",zip:"29585",lat:33.430,lng:-79.122,
+    img:"assets/club-18.jpg",det:"assets/d-club-18.jpg",tier:"elite",tag:"Tidal creek golf",
+    par:72,yards:6940,rating:73.6,slope:139,fee:150,style:"parkland",walk:true,caddie:false,
+    blurb:"Greens that jut into brackish marsh with oyster banks for a hazard line. Tide changes the look of six holes twice a day. Bring more ball than you think and play to the fat side of everything.",
+    dress:"Collar required. Shorts permitted.",
+    tees:[{t:"7:20",m:"AM",who:"Cal B.",initials:"CB",rate:4.6,rounds:24,note:"Members tees \u00b7 walking",cap:4,taken:2,seat:390,surge:false},
+          {t:"10:30",m:"AM",who:"Ivy N.",initials:"IN",rate:4.9,rounds:41,note:"Members tees \u00b7 carts",cap:4,taken:2,seat:500,surge:true},
+          {t:"5:00",m:"PM",who:"Drew F.",initials:"DF",rate:4.1,rounds:5,note:"Nine holes \u00b7 twilight",cap:4,taken:3,seat:160,surge:false}]},
+
+   {id:"maybank",name:"Maybank River",city:"Bluffton",state:"SC",zip:"29910",lat:32.237,lng:-80.860,
+    img:"assets/club-19.jpg",det:"assets/d-club-19.jpg",tier:"elite",tag:"On the May River",
+    par:72,yards:7085,rating:74.0,slope:140,fee:205,style:"parkland",walk:true,caddie:true,
+    blurb:"Fairways between moss-hung oaks that open onto the May River, with shrimp boats working behind the fifteenth green. Bermuda cut tight enough that every miss around the green is a decision.",
+    dress:"Collar required. No denim in the clubhouse.",
+    tees:[{t:"8:10",m:"AM",who:"Susannah W.",initials:"SW",rate:5.0,rounds:52,note:"Members tees \u00b7 caddie \u00b7 walking",cap:4,taken:3,seat:750,surge:true},
+          {t:"11:50",m:"AM",who:"Reid C.",initials:"RC",rate:4.4,rounds:16,note:"Championship tees",cap:4,taken:1,seat:600,surge:false},
+          {t:"3:50",m:"PM",who:"Nan G.",initials:"NG",rate:4.7,rounds:29,note:"Twilight \u00b7 walking",cap:4,taken:2,seat:290,surge:false}]},
 
    {id:"kestrel",name:"Kestrel Ridge",city:"Aiken",state:"SC",zip:"29801",lat:33.560,lng:-81.720,
     img:"assets/club-1.jpg",det:"assets/d-club-1.jpg",tier:"elite",tag:"Ross restoration",
     par:72,yards:7104,rating:74.2,slope:141,fee:165,style:"parkland",walk:true,caddie:true,
     blurb:"A 1928 Ross routing restored in 2019 — the greens were pushed back to their original edges, which is why the bunkering suddenly makes sense again. Firm and fast May through October.",
     dress:"Collar required. No denim in the clubhouse.",
-    tees:[{t:"7:20",m:"AM",who:"Hollis P.",note:"Members tees · walking",cap:4,taken:2,seat:700,surge:false},
-          {t:"9:50",m:"AM",who:"Dane W.",note:"Championship tees · caddies booked",cap:4,taken:3,seat:1100,surge:true},
-          {t:"2:10",m:"PM",who:"Ruth A.",note:"Twilight rate · riding",cap:4,taken:4,seat:400,surge:false}]},
+    tees:[{t:"7:20",m:"AM",who:"Hollis P.",initials:"HP",rate:4.6,rounds:54,note:"Members tees · walking",cap:4,taken:2,seat:700,surge:false},
+          {t:"9:50",m:"AM",who:"Dane W.",initials:"DW",rate:4.4,rounds:42,note:"Championship tees · caddies booked",cap:4,taken:3,seat:1100,surge:true},
+          {t:"2:10",m:"PM",who:"Ruth A.",initials:"RA",rate:4.9,rounds:28,note:"Twilight rate · riding",cap:4,taken:4,seat:400,surge:false}]},
 
    {id:"blackwater",name:"Blackwater Cay",city:"Beaufort",state:"SC",zip:"29902",lat:32.432,lng:-80.670,
     img:"assets/club-2.jpg",det:"assets/d-club-2.jpg",tier:"elite",tag:"Tidal marsh",
     par:71,yards:6842,rating:73.8,slope:138,fee:210,style:"parkland",walk:false,caddie:false,
     blurb:"Built through tidal marsh, so the wind is the defence and water is genuinely in play on nine holes. The island green at 14 has taken more balls this season than the rest of the back nine combined.",
     dress:"Collar required. Soft spikes only.",
-    tees:[{t:"8:00",m:"AM",who:"Marcus L.",note:"Members tees · carts included",cap:4,taken:1,seat:550,surge:false},
-          {t:"11:30",m:"AM",who:"Priya N.",note:"Forward tees · casual pace",cap:4,taken:2,seat:425,surge:false},
-          {t:"3:40",m:"PM",who:"Tom B.",note:"Nine holes · twilight",cap:3,taken:3,seat:275,surge:false}]},
+    tees:[{t:"8:00",m:"AM",who:"Marcus L.",initials:"ML",rate:4.4,rounds:55,note:"Members tees · carts included",cap:4,taken:1,seat:550,surge:false},
+          {t:"11:30",m:"AM",who:"Priya N.",initials:"PN",rate:4.3,rounds:54,note:"Forward tees · casual pace",cap:4,taken:2,seat:425,surge:false},
+          {t:"3:40",m:"PM",who:"Tom B.",initials:"TB",rate:4.3,rounds:41,note:"Nine holes · twilight",cap:3,taken:3,seat:275,surge:false}]},
 
    {id:"pinewild",name:"Pinewild Hollow",city:"Southern Pines",state:"NC",zip:"28387",lat:35.174,lng:-79.394,
     img:"assets/club-3.jpg",det:"assets/d-club-3.jpg",tier:"elite",tag:"Sandhills turf",
     par:72,yards:6988,rating:73.1,slope:135,fee:145,style:"parkland",walk:true,caddie:true,
     blurb:"Sandhills turf over a clay base — it drains an hour after a thunderstorm and plays the same in February as in July. The most walkable routing on this list; no green sits more than eighty yards from the next tee.",
     dress:"Collar required. Denim permitted outside the grill room.",
-    tees:[{t:"7:40",m:"AM",who:"Ellis R.",note:"Members tees · walking · caddie",cap:4,taken:2,seat:500,surge:false},
-          {t:"10:20",m:"AM",who:"Sam K.",note:"Championship tees",cap:4,taken:1,seat:650,surge:true},
-          {t:"1:00",m:"PM",who:"Nora V.",note:"Members tees · walking",cap:4,taken:3,seat:325,surge:false}]},
+    tees:[{t:"7:40",m:"AM",who:"Ellis R.",initials:"ER",rate:4.4,rounds:36,note:"Members tees · walking · caddie",cap:4,taken:2,seat:500,surge:false},
+          {t:"10:20",m:"AM",who:"Sam K.",initials:"SK",rate:4.9,rounds:51,note:"Championship tees",cap:4,taken:1,seat:650,surge:true},
+          {t:"1:00",m:"PM",who:"Nora V.",initials:"NV",rate:4.5,rounds:43,note:"Members tees · walking",cap:4,taken:3,seat:325,surge:false}]},
 
    {id:"caledon",name:"Caledon Palms",city:"Palm Beach Gardens",state:"FL",zip:"33418",lat:26.823,lng:-80.138,
     img:"assets/club-5.jpg",det:"assets/d-club-5.jpg",tier:"elite",tag:"Hardest card here",
     par:72,yards:7211,rating:75.0,slope:144,fee:185,style:"parkland",walk:false,caddie:true,
     blurb:"The longest and hardest card on this list — 144 slope from the tips, and the water hazards are the kind you don't reload from. Play it one set forward the first time; everyone says that and everyone ignores it.",
     dress:"Collar required. No denim.",
-    tees:[{t:"7:00",m:"AM",who:"Dee S.",note:"Members tees · caddies",cap:4,taken:3,seat:850,surge:false},
-          {t:"9:10",m:"AM",who:"Victor H.",note:"Championship tees · riding",cap:4,taken:1,seat:1250,surge:true},
-          {t:"2:50",m:"PM",who:"Lena F.",note:"Twilight rate · riding",cap:4,taken:2,seat:450,surge:false}]},
+    tees:[{t:"7:00",m:"AM",who:"Dee S.",initials:"DS",rate:5.0,rounds:12,note:"Members tees · caddies",cap:4,taken:3,seat:850,surge:false},
+          {t:"9:10",m:"AM",who:"Victor H.",initials:"VH",rate:4.6,rounds:15,note:"Championship tees · riding",cap:4,taken:1,seat:1250,surge:true},
+          {t:"2:50",m:"PM",who:"Lena F.",initials:"LF",rate:4.8,rounds:14,note:"Twilight rate · riding",cap:4,taken:2,seat:450,surge:false}]},
 
    {id:"vermillion",name:"Vermillion Wash",city:"Palm Desert",state:"CA",zip:"92260",lat:33.722,lng:-116.374,
     img:"assets/club-7.jpg",det:"assets/d-club-7.jpg",tier:"private",tag:"Best value here",
     par:72,yards:7020,rating:73.6,slope:132,fee:130,style:"parkland",walk:false,caddie:false,
     blurb:"Desert target golf with generous landing areas — forgiving off the tee, punishing around the greens. Best value on the sheet from June to September, when nobody wants the heat.",
     dress:"Collar required. Shorts permitted.",
-    tees:[{t:"6:40",m:"AM",who:"Rafa G.",note:"Members tees · riding",cap:4,taken:1,seat:180,surge:false},
-          {t:"10:50",m:"AM",who:"Bev C.",note:"Forward tees · riding",cap:4,taken:2,seat:240,surge:false},
-          {t:"5:00",m:"PM",who:"Nate W.",note:"Nine holes · twilight",cap:4,taken:2,seat:95,surge:false}]}
+    tees:[{t:"6:40",m:"AM",who:"Rafa G.",initials:"RG",rate:4.9,rounds:31,note:"Members tees · riding",cap:4,taken:1,seat:180,surge:false},
+          {t:"10:50",m:"AM",who:"Bev C.",initials:"BC",rate:4.1,rounds:47,note:"Forward tees · riding",cap:4,taken:2,seat:240,surge:false},
+          {t:"5:00",m:"PM",who:"Nate W.",initials:"NW",rate:4.2,rounds:40,note:"Nine holes · twilight",cap:4,taken:2,seat:95,surge:false}]}
   ];
 
   var TIERLABEL={unicorn:"Invitation only",national:"Top 100",elite:"Private",private:"Private"};
@@ -838,6 +1068,28 @@ h1.display b{font-weight:600;color:#F0DCA8;}
   var esc=function(x){return String(x).replace(/[&<>"]/g,function(c){
     return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});};
   var money=function(n){return "$"+Math.round(n).toLocaleString();};
+
+  /* ── the signed-in member ── */
+  var ME={name:"",email:"",hcp:12.4,home:"",role:"guest",rate:0,rounds:0,onboarded:false};
+  function loadMe(){
+    try{var raw=localStorage.getItem("teedup.me");if(raw)ME=Object.assign(ME,JSON.parse(raw));}catch(e){}
+  }
+  function saveMe(){ try{localStorage.setItem("teedup.me",JSON.stringify(ME));}catch(e){} }
+  function initialsOf(n){
+    var p=(n||"").trim().split(/\s+/).filter(Boolean);
+    if(!p.length) return "—";
+    return (p[0][0]+(p.length>1?p[p.length-1][0]:"")).toUpperCase();
+  }
+  var STAR='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.45L12 17.45 6.2 20.5l1.1-6.45-4.7-4.6 6.5-.95z"/></svg>';
+  function stars(v){
+    var h='<span class="stars" aria-label="'+(v?v.toFixed(1):"unrated")+' out of 5">';
+    for(var i=1;i<=5;i++) h+='<span class="'+(v>=i-0.25?"s":"e")+'">'+STAR+'</span>';
+    return h+'</span>';
+  }
+  function repHTML(t){
+    if(!t.rounds) return '<span class="rep newhost">New host</span>';
+    return '<span class="rep">'+stars(t.rate)+'<b>'+t.rate.toFixed(1)+'</b> · '+t.rounds+' rounds</span>';
+  }
 
   var openSeats=function(c){return c.tees.reduce(function(a,t){return a+Math.max(0,t.cap-t.taken);},0);};
   var nextTee=function(c){for(var i=0;i<c.tees.length;i++){if(c.tees[i].taken<c.tees[i].cap)return c.tees[i];}return null;};
@@ -991,17 +1243,31 @@ h1.display b{font-weight:600;color:#F0DCA8;}
       '<div class="sheet"><h4>Tee sheet</h4><p class="sub" style="margin-bottom:10px">Tuesday 15 September</p>'+
       c.tees.map(function(t,i){
         var key=c.id+":"+i, mine=joined.indexOf(key)>-1, left=t.cap-t.taken;
+        var bid=BIDS[key];
         return '<div class="tee">'+
           '<div class="tee__t num">'+t.t+'</div>'+
-          '<div><div class="tee__who">'+esc(t.who)+(t.surge?'<span class="surge">Weekend rate</span>':'')+'</div>'+
+          '<div><div class="tee__who">'+
+              '<span class="avatar">'+esc(t.initials||initialsOf(t.who))+'</span>'+
+              '<span class="hostline"><span>'+esc(t.who)+(t.surge?'<span class="surge">Weekend</span>':'')+'</span>'+
+              repHTML(t)+'</span></div>'+
             '<div class="tee__note">'+esc(t.note)+'</div>'+
             '<div class="pips">'+pipsHTML(t)+'</div></div>'+
           '<div class="tee__price num"><div class="tee__amt">'+money(allIn(c,t))+'</div>'+
             '<div class="tee__break">'+money(t.seat)+' seat + '+money(c.fee)+' club</div>'+
+            '<div class="teeacts">'+
             (mine?'<button class="claim claim--in" disabled>Claimed</button>'
-                 :left>0?'<button class="claim" data-join="'+key+'">Claim seat</button>'
+                 :left>0?'<button class="claim" data-join="'+key+'">Claim at '+money(allIn(c,t))+'</button>'+
+                         (bid?'<span class="bidstate bidstate--'+bid.state+'">'+esc(bid.msg)+'</span>'
+                             :'<button class="offer" data-offer="'+key+'">Make an offer</button>')
                         :'<button class="claim" disabled>Full</button>')+
-          '</div>'+
+            '</div></div>'+
+          (OPENBID===key?
+            '<div class="bidbox"><div class="money"><span>$</span>'+
+              '<input type="number" id="bidamt" min="0" step="25" value="'+Math.round(t.seat*0.8)+'" inputmode="numeric"></div>'+
+              '<button class="claim" data-sendbid="'+key+'">Send offer</button>'+
+              '<span class="ghost" data-cancelbid>Cancel</span>'+
+              '<p class="note">Asking '+money(t.seat)+' for the seat. Your offer covers the seat only — the '+
+              money(c.fee)+' club fee is fixed. The host has two hours to accept or counter.</p></div>':'')+
         '</div>';
       }).join("")+
       '<p class="dress">'+esc(c.dress)+(c.caddie?' Caddie programme available — book 48 hours out.':'')+'</p></div>';
@@ -1017,7 +1283,8 @@ h1.display b{font-weight:600;color:#F0DCA8;}
       return '<div class="mine__row"><div class="mine__t num">'+t.t+'</div>'+
         '<div><div class="mine__n">'+esc(c.name)+'</div>'+
         '<div class="mine__d num">'+esc(c.city)+', '+c.state+' · '+esc(t.who)+' · '+
-          money(t.seat)+' seat + '+money(c.fee)+' club = <b style="color:var(--ink)">'+money(allIn(c,t))+'</b></div></div></div>';
+          money(t.seat)+' seat + '+money(c.fee)+' club = <b style="color:var(--ink)">'+money(allIn(c,t))+'</b></div>'+
+        '<div style="margin-top:7px">'+rateWidget(k)+'</div></div></div>';
     }).join("");
     h.innerHTML=rows+'<div class="mine__row"><div class="mine__t num">'+money(total)+
       '</div><div><div class="mine__n">Total committed</div>'+
@@ -1044,13 +1311,69 @@ h1.display b{font-weight:600;color:#F0DCA8;}
       money(seat)+' to you, '+money(c.fee)+' to the club.';
   }
 
+  var BIDS={},OPENBID=null,RATED={};
+
+  function sendBid(key,amount){
+    var p=key.split(":"),c=CLUBS.filter(function(x){return x.id===p[0];})[0],t=c.tees[+p[1]];
+    var ratio=amount/t.seat;
+    BIDS[key]={state:"sent",msg:"Offer sent · "+money(amount)};
+    OPENBID=null;renderDetail();
+    toast("Offer of "+money(amount)+" sent to "+t.who);
+    setTimeout(function(){
+      if(ratio>=0.85){
+        t.seat=amount;
+        BIDS[key]={state:"ok",msg:"Accepted at "+money(amount)};
+        toast(t.who+" accepted — "+money(allIn(c,t))+" all-in");
+      }else{
+        var counter=Math.round((t.seat*0.92)/25)*25;
+        BIDS[key]={state:"no",msg:"Countered at "+money(counter)};
+        toast(t.who+" countered at "+money(counter));
+      }
+      renderDetail();renderGrid();
+    },2200);
+  }
+
+  function renderProfile(){
+    var host=$("#prof");
+    if(!ME.onboarded){
+      host.innerHTML='<p class="empty">You’re browsing as a guest. '+
+        '<span class="clearloc" id="signupnow">Create a profile</span> to claim a seat.</p>';
+      return;
+    }
+    var spend=joined.reduce(function(a,k){
+      var p=k.split(":"),c=CLUBS.filter(function(x){return x.id===p[0];})[0];return a+allIn(c,c.tees[+p[1]]);},0);
+    host.innerHTML=
+      '<div class="prof__top"><div class="prof__av">'+esc(initialsOf(ME.name))+'</div>'+
+      '<div><div class="prof__n">'+esc(ME.name||"Unnamed")+'</div>'+
+      '<div class="prof__meta">'+(ME.home?esc(ME.home)+' · ':'')+'Index '+ME.hcp+'</div></div></div>'+
+      '<div class="prof__row"><span>Your rating as a guest</span><b>'+
+        (ME.rounds?stars(ME.rate)+' '+ME.rate.toFixed(1)+' · '+ME.rounds+' rounds':'Unrated · 0 rounds')+'</b></div>'+
+      '<div class="prof__row"><span>Here to</span><b>'+
+        ({guest:"Claim seats",host:"Post seats",both:"Both"}[ME.role]||"Claim seats")+'</b></div>'+
+      '<div class="prof__row"><span>Seats claimed</span><b class="num">'+joined.length+'</b></div>'+
+      '<div class="prof__row"><span>Committed</span><b class="num">'+money(spend)+'</b></div>'+
+      '<div class="prof__row"><span>Email</span><b style="font-weight:500;color:var(--ink-2)">'+esc(ME.email||"—")+'</b></div>'+
+      '<p class="note" style="margin-top:18px">Hosts see your name, index, home club and rating before they accept. '+
+      'You see theirs. Neither side can hide a bad record.</p>'+
+      '<div class="gate__foot"><span class="ghost" id="signout">Sign out</span></div>';
+  }
+
+  function rateWidget(key){
+    var done=RATED[key];
+    if(done) return '<span class="rep">You rated '+stars(done)+' <b>'+done.toFixed(1)+'</b></span>';
+    var h='<span class="rep" style="gap:8px">Rate your host <span class="ratebtns" data-rate="'+key+'">';
+    for(var i=1;i<=5;i++) h+='<button data-star="'+i+'" aria-label="'+i+' stars">'+STAR+'</button>';
+    return h+'</span></span>';
+  }
+
   var tt;
   function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");
     clearTimeout(tt);tt=setTimeout(function(){e.classList.remove("on");},3000);}
 
   function show(p){
     $$("[data-panel]").forEach(function(el){el.hidden=(el.dataset.panel!==p);});
-    $$(".nav button").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.nav===p));});
+    $$(".nav button,.tabbar button").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.nav===p));});
+    if(p==="profile")renderProfile();
     if(p==="mine")renderMine();
     if(p==="host")priceHint();
     if(p==="discover"){renderGrid();renderDetail();}
@@ -1071,7 +1394,90 @@ h1.display b{font-weight:600;color:#F0DCA8;}
     renderGrid();
   }
 
+  /* ── onboarding ── */
+  var STEP=1;
+  function gateStep(n){
+    STEP=n;
+    ["1","2","3"].forEach(function(k){
+      var el=document.querySelector('[data-step="'+k+'"]'); if(el) el.hidden=(k!==String(n));
+      var dot=$("#st"+k); if(dot) dot.classList.toggle("on", +k<=n);
+    });
+    if(n===3){
+      $("#sumLine").textContent=(ME.name||"You")+" \u00b7 index "+ME.hcp+(ME.home?" \u00b7 "+ME.home:"");
+    }
+  }
+  function openGate(){ $("#gate").hidden=false; gateStep(1);
+    $("#u-name").value=ME.name||""; $("#u-email").value=ME.email||""; }
+  function closeGate(){ $("#gate").hidden=true; }
+  function requireAccount(why){
+    if(ME.onboarded) return true;
+    toast(why||"Create a profile first \u2014 hosts need a name and a rating.");
+    openGate(); return false;
+  }
+
   document.addEventListener("click",function(e){
+    /* onboarding */
+    if(e.target.closest("[data-guest]")){ closeGate(); return; }
+    var back=e.target.closest("[data-step-back]");
+    if(back){ gateStep(+back.dataset.stepBack-1); return; }
+    var nxt=e.target.closest("[data-step-next]");
+    if(nxt){
+      var st=+nxt.dataset.stepNext;
+      if(st===1){
+        var nm=$("#u-name").value.trim();
+        if(nm.split(/\s+/).filter(Boolean).length<2){ toast("First and last name \u2014 hosts see it."); return; }
+        ME.name=nm; ME.email=$("#u-email").value.trim(); gateStep(2); return;
+      }
+      if(st===2){
+        ME.hcp=parseFloat($("#u-hcp").value)||12.4;
+        ME.home=$("#u-home").value.trim();
+        gateStep(3); return;
+      }
+      ME.onboarded=true; saveMe(); closeGate(); renderProfile(); renderDetail();
+      toast("Welcome, "+ME.name.split(" ")[0]+". You\u2019re unrated until your first round.");
+      return;
+    }
+    var role=e.target.closest("[data-role]");
+    if(role){
+      ME.role=role.dataset.role;
+      $$("#roleRow .chipsel").forEach(function(b){b.setAttribute("aria-pressed",String(b===role));});
+      return;
+    }
+    if(e.target.id==="signupnow"){ openGate(); return; }
+    if(e.target.id==="signout"){
+      ME={name:"",email:"",hcp:12.4,home:"",role:"guest",rate:0,rounds:0,onboarded:false};
+      try{localStorage.removeItem("teedup.me");}catch(err){}
+      renderProfile(); toast("Signed out."); return;
+    }
+
+    /* bidding */
+    var off=e.target.closest("[data-offer]");
+    if(off){ if(!requireAccount("Create a profile before making an offer.")) return;
+      OPENBID=off.dataset.offer; renderDetail();
+      setTimeout(function(){var f=$("#bidamt"); if(f){f.focus();f.select();}},60); return; }
+    if(e.target.closest("[data-cancelbid]")){ OPENBID=null; renderDetail(); return; }
+    var sb=e.target.closest("[data-sendbid]");
+    if(sb){
+      var amt=Math.max(0,parseFloat(($("#bidamt")||{}).value||0)||0);
+      if(!amt){ toast("Enter an amount."); return; }
+      sendBid(sb.dataset.sendbid, amt); return;
+    }
+
+    /* rating a host */
+    var star=e.target.closest("[data-star]");
+    if(star){
+      var wrap=star.closest("[data-rate]");
+      if(wrap){
+        var v=+star.dataset.star;
+        RATED[wrap.dataset.rate]=v;
+        ME.rounds+=1;
+        ME.rate=ME.rounds===1?4.8:Math.min(5,(ME.rate*(ME.rounds-1)+4.8)/ME.rounds);
+        saveMe(); renderMine(); renderProfile();
+        toast("Thanks \u2014 "+v+" stars logged. "+ (ME.rounds===1?"Your own rating is live now.":""));
+      }
+      return;
+    }
+
     if(e.target.id==="clearloc"){clearLoc();return;}
     if(e.target.closest("[data-scroll]")){
       var d=document.querySelector('[data-panel="discover"]');
@@ -1098,6 +1504,7 @@ h1.display b{font-weight:600;color:#F0DCA8;}
     }
     var j=e.target.closest("[data-join]");
     if(j){
+      if(!requireAccount("Create a profile before claiming \u2014 the member needs to know who you are.")) return;
       var p=j.dataset.join.split(":"),c=CLUBS.filter(function(x){return x.id===p[0];})[0],t=c.tees[+p[1]];
       if(t.taken<t.cap && joined.indexOf(j.dataset.join)===-1){
         t.taken++;joined.push(j.dataset.join);
@@ -1174,7 +1581,9 @@ h1.display b{font-weight:600;color:#F0DCA8;}
   $("#h-club").innerHTML=CLUBS.map(function(c){
     return '<option value="'+c.id+'">'+esc(c.name)+' — '+esc(c.city)+', '+c.state+'</option>';}).join("");
 
-  renderGrid();renderMine();live();priceHint();
+  loadMe();
+  renderGrid();renderMine();renderProfile();live();priceHint();
+  if(!ME.onboarded) setTimeout(openGate,1900);
   requestAnimationFrame(function(){
     document.querySelector(".landing").classList.add("go");
     reveal();
