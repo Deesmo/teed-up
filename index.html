@@ -1,3 +1,11 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%;display:block}[hidden]{display:none!important}</style>
+</head>
+<body>
 <title>Teed Up</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
@@ -171,8 +179,10 @@ button{font:inherit;color:inherit;}
 }
 @media(min-width:900px){.hero__in{padding-block:150px 44px;min-height:498px;}}
 .eyebrow{
-  font-size:.625rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;
+  font-size:clamp(.5rem,.42rem + .34vw,.625rem);
+  letter-spacing:.16em;text-transform:uppercase;font-weight:700;
   color:var(--on-photo);opacity:.78;
+  max-width:100%;overflow-wrap:anywhere;
 }
 .hero h1{
   font-family:"Fraunces",Georgia,serif;
@@ -830,3 +840,6 @@ button{font:inherit;color:inherit;}
   renderList(); renderDetail(); renderMine(); renderLive();
 })();
 </script>
+
+</body>
+</html>
