@@ -3,9 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<style>:root{color-scheme:dark light}body{margin:0}img{max-width:100%;display:block}[hidden]{display:none!important}</style>
-</head>
-<body>
 <title>Teed Up</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
@@ -19,7 +16,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=Archivo:wght@400;500;600&display=swap">
-
+<style>:root{color-scheme:dark light}body{margin:0}img{max-width:100%;display:block}[hidden]{display:none!important}</style>
+</head>
+<body>
 <script>document.documentElement.classList.add('js');</script>
 
 <style>
@@ -386,6 +385,88 @@ h1.display b{font-weight:600;color:#F0DCA8;}
 }
 .toast.on{transform:translateX(-50%) translateY(0);}
 
+
+/* ═══ location search ═══ */
+.search{display:grid;gap:10px;margin-bottom:18px;}
+.search__row{display:flex;gap:8px;align-items:stretch;}
+.search__field{
+  flex:1;display:flex;align-items:center;gap:10px;min-width:0;
+  border:1px solid var(--rule-strong);background:var(--surface);padding:0 13px;
+}
+.search__field:focus-within{border-color:var(--ink);}
+.search__field svg{flex:0 0 auto;color:var(--ink-3);}
+.search__field input{
+  flex:1;min-width:0;font:inherit;font-size:var(--t-body);color:var(--ink);
+  background:none;border:0;padding:12px 0;outline:none;
+}
+.search__field input::placeholder{color:var(--ink-3);}
+.near{
+  flex:0 0 auto;cursor:pointer;padding:0 15px;border:1px solid var(--rule-strong);
+  color:var(--ink);font-size:var(--t-micro);font-weight:600;white-space:nowrap;
+  transition:background var(--fast),border-color var(--fast);
+}
+.near:hover{background:var(--accent-soft);border-color:var(--ink);}
+.near[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink);}
+.search__meta{
+  display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;
+  font-size:var(--t-micro);color:var(--ink-3);
+}
+.search__meta b{color:var(--ink);font-weight:600;}
+.clearloc{cursor:pointer;color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
+.sortby{margin-left:auto;display:flex;align-items:center;gap:7px;}
+.sortby select{
+  font:inherit;font-size:var(--t-micro);color:var(--ink);background:var(--surface);
+  border:1px solid var(--rule);padding:5px 8px;border-radius:0;
+}
+
+/* ═══ pricing ═══ */
+.tier{
+  font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  padding:3px 7px;border:1px solid currentColor;white-space:nowrap;
+}
+.tier--unicorn{color:#D9A441;}
+.tier--national{color:var(--accent);}
+.tier--elite{color:var(--ink-2);}
+.tier--private{color:var(--ink-3);}
+.card__price{
+  display:flex;align-items:baseline;gap:6px;margin-top:7px;
+  padding-top:8px;border-top:1px solid var(--rule);
+}
+.card__price .from{font-size:.5625rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:600;}
+.card__price .amt{font-size:1.0625rem;font-weight:600;letter-spacing:-.02em;}
+.card__price .per{font-size:.625rem;color:var(--ink-3);}
+.card__dist{margin-left:auto;font-size:.625rem;color:var(--ink-3);white-space:nowrap;}
+
+.tee{grid-template-columns:auto minmax(0,1fr) auto;}
+.tee__price{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
+.tee__amt{font-size:1.25rem;font-weight:600;letter-spacing:-.02em;line-height:1;}
+.tee__break{font-size:.625rem;color:var(--ink-3);line-height:1.35;}
+.surge{
+  display:inline-block;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:700;color:#D9A441;border:1px solid currentColor;padding:2px 6px;margin-left:6px;
+}
+.askrow{
+  display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+  padding:14px 0;border-top:1px solid var(--rule);
+}
+.askrow .lbl{font-size:.5625rem;letter-spacing:.17em;text-transform:uppercase;font-weight:600;color:var(--ink-3);}
+.askrow .v{font-size:var(--t-micro);color:var(--ink-2);}
+.askrow .v b{color:var(--ink);font-weight:600;}
+
+/* price hint in the host form */
+.hint{
+  border:1px solid var(--rule);padding:12px 14px;font-size:var(--t-micro);
+  color:var(--ink-2);line-height:1.55;
+}
+.hint b{color:var(--ink);font-weight:600;}
+.hint .big{font-size:1.125rem;font-weight:600;letter-spacing:-.02em;color:var(--ink);}
+.money{display:flex;align-items:center;border:1px solid var(--rule-strong);background:var(--surface);}
+.money span{padding:0 0 0 12px;color:var(--ink-3);font-size:var(--t-body);}
+.money input{flex:1;min-width:0;border:0;background:none;padding:11px 12px 11px 4px;font:inherit;font-size:var(--t-body);color:var(--ink);outline:none;}
+.money:focus-within{border-color:var(--ink);}
+.check{display:flex;align-items:center;gap:9px;font-size:var(--t-micro);color:var(--ink-2);cursor:pointer;}
+.check input{width:16px;height:16px;accent-color:var(--accent);}
+
 /* ═══ motion — nothing is parked invisible without JS ═══ */
 @keyframes riseIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
 @keyframes lineUp{from{transform:translateY(105%);}to{transform:translateY(0);}}
@@ -454,7 +535,7 @@ h1.display b{font-weight:600;color:#F0DCA8;}
         <span class="ln"><span class="z zl2"><b>worth finding.</b></span></span>
       </h1>
       <span class="hairline z z2"></span>
-      <p class="landing__lead z z3">Members post the empty seats in their group. You claim one, pay the guest fee, and play courses that don't take public tee times.</p>
+      <p class="landing__lead z z3">Members post the empty seats in their group and name their price. You pay it, plus the club’s guest fee, and play courses that don’t take public tee times.</p>
       <div class="landing__acts z z4">
         <button class="pill-cta" data-scroll>Browse today's sheet</button>
         <button class="btn-line" data-nav="host">Post a seat</button>
@@ -470,7 +551,28 @@ h1.display b{font-weight:600;color:#F0DCA8;}
       <h2 class="display">Today's tee sheet</h2>
       <span class="rule"></span>
     </div>
-    <p class="sub">Seven clubs within a day's drive. Guest fees are what the member is charged — you settle in the pro shop.</p>
+    <p class="sub">Thirteen private clubs. The price you see is all-in: the club's guest fee plus whatever the member is asking for the seat. They set that number, not us.</p>
+
+    <div class="search">
+      <div class="search__row">
+        <label class="search__field">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+          <input id="q" type="search" autocomplete="off" placeholder="Zip, city, state, or club — try 33139, Miami, or Scottsdale">
+        </label>
+        <button class="near" id="nearbtn" aria-pressed="false">Near me</button>
+      </div>
+      <div class="search__meta">
+        <span id="resultLine">—</span>
+        <span class="sortby"><label for="sortsel" style="color:var(--ink-3)">Sort</label>
+          <select id="sortsel">
+            <option value="relevance">Relevance</option>
+            <option value="price-asc">Price: low to high</option>
+            <option value="price-desc">Price: high to low</option>
+            <option value="distance">Distance</option>
+            <option value="seats">Seats open</option>
+          </select></span>
+      </div>
+    </div>
 
     <div class="filters" role="group" aria-label="Filter clubs">
       <button data-filter="all" aria-pressed="true">All clubs</button>
@@ -492,7 +594,7 @@ h1.display b{font-weight:600;color:#F0DCA8;}
   <!-- ══ HOST ══ -->
   <div class="wrap section" data-panel="host" hidden>
     <div class="sechead"><h2 class="display">Post a seat</h2><span class="rule"></span></div>
-    <p class="sub">You're the member. Say when you're going out and how many you're short — the seat holds for two hours.</p>
+    <p class="sub">You're the member. Say when you're going out, how many you're short, and what the seat is worth. You keep everything above the club's guest fee.</p>
     <div class="two" style="margin-top:26px">
       <form class="form" id="hostform">
         <div class="field"><label for="h-club">Your club</label><select id="h-club" name="club"></select></div>
@@ -506,16 +608,22 @@ h1.display b{font-weight:600;color:#F0DCA8;}
           <div class="field"><label for="h-tees">Tees</label>
             <select id="h-tees" name="tees"><option>Championship</option><option selected>Members</option><option>Forward</option></select></div>
         </div>
+        <div class="field"><label for="h-seatprice">Your price per seat</label>
+          <div class="money"><span>$</span><input type="number" id="h-seatprice" name="seatprice" min="0" step="25" value="450" inputmode="numeric"></div>
+        </div>
+        <div class="hint" id="priceHint">—</div>
+        <label class="check"><input type="checkbox" id="h-surge" name="surge"> Weekend / high-demand date</label>
         <div class="field"><label for="h-note">Note for the group</label>
           <input type="text" id="h-note" name="note" value="Walking, brisk pace — out in under four hours"></div>
         <div><button class="pill-cta" type="submit">Post to the sheet</button></div>
         <p class="note">Guest fee is collected in the pro shop, not here. Cancel up to 24 hours out with no penalty.</p>
       </form>
       <div class="rules">
-        <div class="sechead" style="margin-bottom:16px"><h2 class="display" style="font-size:var(--t-h3)">House rules</h2><span class="rule"></span></div>
-        <p><b>Pace is the whole thing.</b> Groups that post here play ready golf. If the sheet says four hours, the member means four hours.</p>
-        <p><b>Dress to the club, not to the app.</b> Every club here requires a collar. Three still say no denim in the clubhouse — it's on each listing.</p>
-        <p><b>The member is responsible for you.</b> Their name is on the guest register. Show up on time and tip the caddie properly.</p>
+        <div class="sechead" style="margin-bottom:16px"><h2 class="display" style="font-size:var(--t-h3)">How pricing works</h2><span class="rule"></span></div>
+        <p><b>You set your own number.</b> The club's guest fee is fixed — that goes to the pro shop. Everything on top of it is yours, and it's yours to name. A seat at a course nobody can get on is worth what someone will pay for it.</p>
+        <p><b>Weekends and majors weeks price differently.</b> Flag the date as high-demand and it's marked on the sheet. Saturday mornings at a top-100 club clear at three to five times a Tuesday afternoon.</p>
+        <p><b>You're paid when the round is played,</b> not when the seat is claimed. Guest cancels inside 24 hours, you keep half.</p>
+        <p><b>The member is still responsible for the guest.</b> Your name is on the register. Price accordingly, and decline anyone you wouldn't put in your own group.</p>
       </div>
     </div>
   </div>
@@ -538,77 +646,280 @@ h1.display b{font-weight:600;color:#F0DCA8;}
 <script>
 (function(){
   "use strict";
+
+  /* ── places: metro centroids + ZIP3 prefixes, so a real zip resolves ── */
+  var PLACES=[
+   {n:"Miami",s:"FL",lat:25.775,lng:-80.194,z:["330","331","332","333"]},
+   {n:"Fort Lauderdale",s:"FL",lat:26.122,lng:-80.137,z:["333"]},
+   {n:"Palm Beach",s:"FL",lat:26.705,lng:-80.037,z:["334"]},
+   {n:"Orlando",s:"FL",lat:28.538,lng:-81.379,z:["327","328"]},
+   {n:"Tampa",s:"FL",lat:27.951,lng:-82.457,z:["335","336"]},
+   {n:"Naples",s:"FL",lat:26.142,lng:-81.795,z:["341"]},
+   {n:"Charleston",s:"SC",lat:32.777,lng:-79.931,z:["294"]},
+   {n:"Columbia",s:"SC",lat:34.001,lng:-81.035,z:["290","292"]},
+   {n:"Aiken",s:"SC",lat:33.560,lng:-81.720,z:["298"]},
+   {n:"Beaufort",s:"SC",lat:32.432,lng:-80.670,z:["299"]},
+   {n:"Greenville",s:"SC",lat:34.853,lng:-82.394,z:["296"]},
+   {n:"Charlotte",s:"NC",lat:35.227,lng:-80.843,z:["282"]},
+   {n:"Raleigh",s:"NC",lat:35.780,lng:-78.639,z:["276"]},
+   {n:"Pinehurst",s:"NC",lat:35.195,lng:-79.469,z:["283"]},
+   {n:"Southern Pines",s:"NC",lat:35.174,lng:-79.394,z:["283"]},
+   {n:"Savannah",s:"GA",lat:32.081,lng:-81.091,z:["314"]},
+   {n:"Atlanta",s:"GA",lat:33.749,lng:-84.388,z:["303","300","301"]},
+   {n:"Augusta",s:"GA",lat:33.471,lng:-81.975,z:["309"]},
+   {n:"Nashville",s:"TN",lat:36.163,lng:-86.781,z:["372"]},
+   {n:"New York",s:"NY",lat:40.713,lng:-74.006,z:["100","101","102","104","111","112","113","114","116"]},
+   {n:"Montauk",s:"NY",lat:41.036,lng:-71.954,z:["119"]},
+   {n:"The Hamptons",s:"NY",lat:40.937,lng:-72.185,z:["119"]},
+   {n:"Boston",s:"MA",lat:42.360,lng:-71.058,z:["021","022","024"]},
+   {n:"Washington",s:"DC",lat:38.907,lng:-77.037,z:["200","202","203","204"]},
+   {n:"Philadelphia",s:"PA",lat:39.952,lng:-75.164,z:["191"]},
+   {n:"Chicago",s:"IL",lat:41.878,lng:-87.630,z:["606","607","608"]},
+   {n:"Lake Forest",s:"IL",lat:42.259,lng:-87.841,z:["600"]},
+   {n:"Detroit",s:"MI",lat:42.331,lng:-83.046,z:["482"]},
+   {n:"Minneapolis",s:"MN",lat:44.978,lng:-93.265,z:["554","553"]},
+   {n:"Dallas",s:"TX",lat:32.777,lng:-96.797,z:["752","753"]},
+   {n:"Houston",s:"TX",lat:29.760,lng:-95.370,z:["770","772"]},
+   {n:"Austin",s:"TX",lat:30.267,lng:-97.743,z:["787"]},
+   {n:"San Antonio",s:"TX",lat:29.424,lng:-98.494,z:["782"]},
+   {n:"Boerne",s:"TX",lat:29.795,lng:-98.732,z:["780"]},
+   {n:"Denver",s:"CO",lat:39.739,lng:-104.990,z:["802","801"]},
+   {n:"Phoenix",s:"AZ",lat:33.448,lng:-112.074,z:["850"]},
+   {n:"Scottsdale",s:"AZ",lat:33.494,lng:-111.926,z:["852"]},
+   {n:"Las Vegas",s:"NV",lat:36.170,lng:-115.140,z:["891"]},
+   {n:"Los Angeles",s:"CA",lat:34.052,lng:-118.244,z:["900","902","904","906"]},
+   {n:"San Diego",s:"CA",lat:32.716,lng:-117.161,z:["921"]},
+   {n:"Palm Desert",s:"CA",lat:33.722,lng:-116.374,z:["922"]},
+   {n:"Palm Springs",s:"CA",lat:33.830,lng:-116.545,z:["922"]},
+   {n:"San Francisco",s:"CA",lat:37.775,lng:-122.419,z:["941"]},
+   {n:"Carmel",s:"CA",lat:36.555,lng:-121.923,z:["939"]},
+   {n:"Monterey",s:"CA",lat:36.600,lng:-121.894,z:["939"]},
+   {n:"Portland",s:"OR",lat:45.515,lng:-122.678,z:["972"]},
+   {n:"Bandon",s:"OR",lat:43.119,lng:-124.408,z:["974"]},
+   {n:"Seattle",s:"WA",lat:47.606,lng:-122.332,z:["981"]},
+   {n:"Waimea",s:"HI",lat:20.023,lng:-155.668,z:["967"]},
+   {n:"Kona",s:"HI",lat:19.640,lng:-155.997,z:["967"]},
+   {n:"Honolulu",s:"HI",lat:21.307,lng:-157.858,z:["968"]}
+  ];
+  var STATES={AL:"Alabama",AZ:"Arizona",CA:"California",CO:"Colorado",CT:"Connecticut",DC:"Washington DC",
+    FL:"Florida",GA:"Georgia",HI:"Hawaii",IL:"Illinois",MA:"Massachusetts",MI:"Michigan",MN:"Minnesota",
+    NC:"North Carolina",NV:"Nevada",NY:"New York",OR:"Oregon",PA:"Pennsylvania",SC:"South Carolina",
+    TN:"Tennessee",TX:"Texas",WA:"Washington"};
+
+  /* ── clubs ──
+     guestFee = what the club charges (fixed, goes to the pro shop)
+     tee.seat = what the MEMBER charges for the seat. That is the product. */
   var CLUBS=[
-   {id:"kestrel",name:"Kestrel Ridge",loc:"Aiken, South Carolina",img:"assets/club-1.jpg",det:"assets/d-club-1.jpg",
-    par:72,yards:7104,rating:74.2,slope:141,fee:165,style:"parkland",walk:true,caddie:true,tag:"Ross restoration",
-    blurb:"A 1928 Ross routing restored in 2019 — the greens were pushed back to their original edges, which is why the bunkering suddenly makes sense again. Firm and fast May through October.",
-    dress:"Collar required. No denim in the clubhouse.",
-    tees:[{t:"7:20",m:"AM",who:"Hollis P.",note:"Members tees · walking",cap:4,taken:2},
-          {t:"9:50",m:"AM",who:"Dane W.",note:"Championship tees · caddies booked",cap:4,taken:3},
-          {t:"2:10",m:"PM",who:"Ruth A.",note:"Twilight rate · riding",cap:4,taken:4}]},
-   {id:"blackwater",name:"Blackwater Cay",loc:"Beaufort, South Carolina",img:"assets/club-2.jpg",det:"assets/d-club-2.jpg",
-    par:71,yards:6842,rating:73.8,slope:138,fee:210,style:"parkland",walk:false,caddie:false,tag:"Tidal marsh",
-    blurb:"Built through tidal marsh, so the wind is the defence and water is genuinely in play on nine holes. The island green at 14 has taken more balls this season than the rest of the back nine combined.",
-    dress:"Collar required. Soft spikes only.",
-    tees:[{t:"8:00",m:"AM",who:"Marcus L.",note:"Members tees · carts included",cap:4,taken:1},
-          {t:"11:30",m:"AM",who:"Priya N.",note:"Forward tees · casual pace",cap:4,taken:2},
-          {t:"3:40",m:"PM",who:"Tom B.",note:"Nine holes · twilight",cap:3,taken:3}]},
-   {id:"pinewild",name:"Pinewild Hollow",loc:"Southern Pines, North Carolina",img:"assets/club-3.jpg",det:"assets/d-club-3.jpg",
-    par:72,yards:6988,rating:73.1,slope:135,fee:145,style:"parkland",walk:true,caddie:true,tag:"Sandhills turf",
-    blurb:"Sandhills turf over a clay base — it drains an hour after a thunderstorm and plays the same in February as in July. The most walkable routing on this list; no green sits more than eighty yards from the next tee.",
-    dress:"Collar required. Denim permitted outside the grill room.",
-    tees:[{t:"7:40",m:"AM",who:"Ellis R.",note:"Members tees · walking · caddie",cap:4,taken:2},
-          {t:"10:20",m:"AM",who:"Sam K.",note:"Championship tees",cap:4,taken:1},
-          {t:"1:00",m:"PM",who:"Nora V.",note:"Members tees · walking",cap:4,taken:3}]},
-   {id:"sable",name:"Sable Dunes",loc:"Bandon, Oregon",img:"assets/club-4.jpg",det:"assets/d-club-4.jpg",
-    par:70,yards:6642,rating:72.9,slope:133,fee:295,style:"links",walk:true,caddie:true,tag:"True links",
+   {id:"mirren",name:"Cape Mirren",city:"Carmel",state:"CA",zip:"93923",lat:36.555,lng:-121.923,
+    img:"assets/club-6.jpg",det:"assets/d-club-6.jpg",tier:"unicorn",tag:"Six holes on the headland",
+    par:71,yards:6730,rating:73.4,slope:136,fee:340,style:"links",walk:true,caddie:true,
+    blurb:"Six holes run along the headland and the other twelve spend the round trying to get you back there. There is no public tee time and there never has been. Morning fog usually clears by ten; the club will hold your time if it hasn't.",
+    dress:"Collar required. No denim anywhere on property.",
+    tees:[{t:"9:30",m:"AM",who:"Cal R.",note:"Members tees · caddie · walking",cap:4,taken:2,seat:8500,surge:true},
+          {t:"1:20",m:"PM",who:"Miriam O.",note:"Members tees · walking",cap:4,taken:3,seat:6800,surge:false},
+          {t:"3:10",m:"PM",who:"Josh P.",note:"Twilight · walking",cap:4,taken:4,seat:5200,surge:false}]},
+
+   {id:"montauk",name:"Montauk Head",city:"Montauk",state:"NY",zip:"11954",lat:41.036,lng:-71.954,
+    img:"assets/club-10.jpg",det:"assets/d-club-10.jpg",tier:"unicorn",tag:"Invitation only",
+    par:70,yards:6584,rating:73.9,slope:142,fee:400,style:"links",walk:true,caddie:true,
+    blurb:"A hundred and ten members, no guest play without one of them standing beside you on the first tee. Fescue that goes silver when the wind picks up off the Atlantic, which it does every afternoon from April.",
+    dress:"Jacket in the clubhouse. Walking only.",
+    tees:[{t:"8:10",m:"AM",who:"Whit S.",note:"Members tees · caddie",cap:4,taken:3,seat:12000,surge:true},
+          {t:"11:40",m:"AM",who:"Peter G.",note:"Members tees · caddie",cap:4,taken:2,seat:9500,surge:true},
+          {t:"2:30",m:"PM",who:"Anne D.",note:"Back nine only · walking",cap:3,taken:3,seat:7000,surge:false}]},
+
+   {id:"isla",name:"Isla Marina",city:"Key Biscayne",state:"FL",zip:"33149",lat:25.694,lng:-80.163,
+    img:"assets/club-8.jpg",det:"assets/d-club-8.jpg",tier:"national",tag:"Atlantic on seven holes",
+    par:72,yards:7038,rating:74.4,slope:139,fee:275,style:"parkland",walk:false,caddie:true,
+    blurb:"Royal palms, a seawall, and seven holes where a pushed drive is in the Atlantic. The wind gets up around noon and the back nine plays two clubs longer than the card says.",
+    dress:"Collar required. Shorts permitted.",
+    tees:[{t:"7:30",m:"AM",who:"Rafael O.",note:"Members tees · caddies",cap:4,taken:2,seat:2400,surge:false},
+          {t:"10:40",m:"AM",who:"Sloane B.",note:"Championship tees · riding",cap:4,taken:1,seat:3600,surge:true},
+          {t:"4:10",m:"PM",who:"Dev P.",note:"Twilight · riding",cap:4,taken:2,seat:1500,surge:false}]},
+
+   {id:"sable",name:"Sable Dunes",city:"Bandon",state:"OR",zip:"97411",lat:43.119,lng:-124.408,
+    img:"assets/club-4.jpg",det:"assets/d-club-4.jpg",tier:"national",tag:"True links",
+    par:70,yards:6642,rating:72.9,slope:133,fee:295,style:"links",walk:true,caddie:true,
     blurb:"True links — gorse, heather, and no carts at any price. Bring the low ball flight and a jacket; the afternoon wind off the Pacific routinely adds two clubs coming home.",
     dress:"Collar required. Walking only, no exceptions.",
-    tees:[{t:"8:20",m:"AM",who:"Iain M.",note:"Caddie included · walking",cap:4,taken:2},
-          {t:"12:40",m:"PM",who:"Gwen T.",note:"Second loop · walking",cap:4,taken:2},
-          {t:"4:00",m:"PM",who:"Aaron D.",note:"Twilight · walking",cap:4,taken:4}]},
-   {id:"caledon",name:"Caledon Palms",loc:"Palm Beach Gardens, Florida",img:"assets/club-5.jpg",det:"assets/d-club-5.jpg",
-    par:72,yards:7211,rating:75.0,slope:144,fee:185,style:"parkland",walk:false,caddie:true,tag:"Hardest card here",
+    tees:[{t:"8:20",m:"AM",who:"Iain M.",note:"Caddie included · walking",cap:4,taken:2,seat:2800,surge:false},
+          {t:"12:40",m:"PM",who:"Gwen T.",note:"Second loop · walking",cap:4,taken:2,seat:1900,surge:false},
+          {t:"4:00",m:"PM",who:"Aaron D.",note:"Twilight · walking",cap:4,taken:4,seat:1400,surge:false}]},
+
+   {id:"ravinia",name:"Ravinia Oaks",city:"Lake Forest",state:"IL",zip:"60045",lat:42.259,lng:-87.841,
+    img:"assets/club-11.jpg",det:"assets/d-club-11.jpg",tier:"national",tag:"1919 routing",
+    par:72,yards:6910,rating:73.7,slope:140,fee:225,style:"parkland",walk:true,caddie:true,
+    blurb:"Two-hundred-year-old bur oaks, a creek that crosses six times, and greens that were rebuilt to the original 1919 contours in 2021. It is a short season and the members guard it.",
+    dress:"Collar required. No denim.",
+    tees:[{t:"7:50",m:"AM",who:"Hal W.",note:"Members tees · caddie · walking",cap:4,taken:2,seat:2100,surge:false},
+          {t:"11:10",m:"AM",who:"Corinne M.",note:"Championship tees · caddie",cap:4,taken:3,seat:2600,surge:true},
+          {t:"3:20",m:"PM",who:"Bill T.",note:"Twilight · walking",cap:4,taken:2,seat:1200,surge:false}]},
+
+   {id:"kohala",name:"Kohala Black",city:"Waimea",state:"HI",zip:"96743",lat:20.023,lng:-155.668,
+    img:"assets/club-13.jpg",det:"assets/d-club-13.jpg",tier:"national",tag:"Lava coastline",
+    par:72,yards:7085,rating:74.1,slope:137,fee:310,style:"links",walk:false,caddie:false,
+    blurb:"Fairway cut straight through jet-black lava with the Pacific breaking on the rocks below. Trade winds every afternoon. Lose one in the lava and leave it — the rock will take the skin off your hand.",
+    dress:"Collar required. Shorts permitted.",
+    tees:[{t:"7:10",m:"AM",who:"Kai L.",note:"Members tees · riding",cap:4,taken:1,seat:1600,surge:false},
+          {t:"1:50",m:"PM",who:"Marisa H.",note:"Forward tees · riding",cap:4,taken:2,seat:1100,surge:false},
+          {t:"4:40",m:"PM",who:"Ben A.",note:"Nine holes · twilight",cap:4,taken:3,seat:750,surge:false}]},
+
+   {id:"saguaro",name:"Saguaro Bluff",city:"Scottsdale",state:"AZ",zip:"85262",lat:33.494,lng:-111.926,
+    img:"assets/club-9.jpg",det:"assets/d-club-9.jpg",tier:"elite",tag:"Desert target golf",
+    par:72,yards:7180,rating:74.0,slope:143,fee:195,style:"parkland",walk:false,caddie:true,
+    blurb:"Emerald corridors between saguaro and red sandstone, with forced carries that look worse from the tee than they play. High season is January to April and the sheet is full most of it.",
+    dress:"Collar required. Shorts permitted.",
+    tees:[{t:"6:50",m:"AM",who:"Trey V.",note:"Members tees · riding",cap:4,taken:2,seat:900,surge:false},
+          {t:"9:20",m:"AM",who:"Paula R.",note:"Championship tees · caddie",cap:4,taken:1,seat:1400,surge:true},
+          {t:"2:40",m:"PM",who:"Owen C.",note:"Twilight rate · riding",cap:4,taken:3,seat:475,surge:false}]},
+
+   {id:"balcones",name:"Balcones Reach",city:"Boerne",state:"TX",zip:"78006",lat:29.795,lng:-98.732,
+    img:"assets/club-12.jpg",det:"assets/d-club-12.jpg",tier:"elite",tag:"Limestone and live oak",
+    par:71,yards:6875,rating:73.2,slope:138,fee:170,style:"parkland",walk:true,caddie:false,
+    blurb:"Cut through limestone shelf and live oak on the edge of the hill country. Firm ground almost year round, and a closing stretch along a dry creek bed that has ended more matches than the front nine ever has.",
+    dress:"Collar required. Denim permitted.",
+    tees:[{t:"7:30",m:"AM",who:"Cody M.",note:"Members tees · walking",cap:4,taken:2,seat:600,surge:false},
+          {t:"10:00",m:"AM",who:"Reese N.",note:"Championship tees",cap:4,taken:2,seat:825,surge:true},
+          {t:"5:10",m:"PM",who:"Jo D.",note:"Twilight · walking",cap:4,taken:3,seat:350,surge:false}]},
+
+   {id:"kestrel",name:"Kestrel Ridge",city:"Aiken",state:"SC",zip:"29801",lat:33.560,lng:-81.720,
+    img:"assets/club-1.jpg",det:"assets/d-club-1.jpg",tier:"elite",tag:"Ross restoration",
+    par:72,yards:7104,rating:74.2,slope:141,fee:165,style:"parkland",walk:true,caddie:true,
+    blurb:"A 1928 Ross routing restored in 2019 — the greens were pushed back to their original edges, which is why the bunkering suddenly makes sense again. Firm and fast May through October.",
+    dress:"Collar required. No denim in the clubhouse.",
+    tees:[{t:"7:20",m:"AM",who:"Hollis P.",note:"Members tees · walking",cap:4,taken:2,seat:700,surge:false},
+          {t:"9:50",m:"AM",who:"Dane W.",note:"Championship tees · caddies booked",cap:4,taken:3,seat:1100,surge:true},
+          {t:"2:10",m:"PM",who:"Ruth A.",note:"Twilight rate · riding",cap:4,taken:4,seat:400,surge:false}]},
+
+   {id:"blackwater",name:"Blackwater Cay",city:"Beaufort",state:"SC",zip:"29902",lat:32.432,lng:-80.670,
+    img:"assets/club-2.jpg",det:"assets/d-club-2.jpg",tier:"elite",tag:"Tidal marsh",
+    par:71,yards:6842,rating:73.8,slope:138,fee:210,style:"parkland",walk:false,caddie:false,
+    blurb:"Built through tidal marsh, so the wind is the defence and water is genuinely in play on nine holes. The island green at 14 has taken more balls this season than the rest of the back nine combined.",
+    dress:"Collar required. Soft spikes only.",
+    tees:[{t:"8:00",m:"AM",who:"Marcus L.",note:"Members tees · carts included",cap:4,taken:1,seat:550,surge:false},
+          {t:"11:30",m:"AM",who:"Priya N.",note:"Forward tees · casual pace",cap:4,taken:2,seat:425,surge:false},
+          {t:"3:40",m:"PM",who:"Tom B.",note:"Nine holes · twilight",cap:3,taken:3,seat:275,surge:false}]},
+
+   {id:"pinewild",name:"Pinewild Hollow",city:"Southern Pines",state:"NC",zip:"28387",lat:35.174,lng:-79.394,
+    img:"assets/club-3.jpg",det:"assets/d-club-3.jpg",tier:"elite",tag:"Sandhills turf",
+    par:72,yards:6988,rating:73.1,slope:135,fee:145,style:"parkland",walk:true,caddie:true,
+    blurb:"Sandhills turf over a clay base — it drains an hour after a thunderstorm and plays the same in February as in July. The most walkable routing on this list; no green sits more than eighty yards from the next tee.",
+    dress:"Collar required. Denim permitted outside the grill room.",
+    tees:[{t:"7:40",m:"AM",who:"Ellis R.",note:"Members tees · walking · caddie",cap:4,taken:2,seat:500,surge:false},
+          {t:"10:20",m:"AM",who:"Sam K.",note:"Championship tees",cap:4,taken:1,seat:650,surge:true},
+          {t:"1:00",m:"PM",who:"Nora V.",note:"Members tees · walking",cap:4,taken:3,seat:325,surge:false}]},
+
+   {id:"caledon",name:"Caledon Palms",city:"Palm Beach Gardens",state:"FL",zip:"33418",lat:26.823,lng:-80.138,
+    img:"assets/club-5.jpg",det:"assets/d-club-5.jpg",tier:"elite",tag:"Hardest card here",
+    par:72,yards:7211,rating:75.0,slope:144,fee:185,style:"parkland",walk:false,caddie:true,
     blurb:"The longest and hardest card on this list — 144 slope from the tips, and the water hazards are the kind you don't reload from. Play it one set forward the first time; everyone says that and everyone ignores it.",
     dress:"Collar required. No denim.",
-    tees:[{t:"7:00",m:"AM",who:"Dee S.",note:"Members tees · caddies",cap:4,taken:3},
-          {t:"9:10",m:"AM",who:"Victor H.",note:"Championship tees · riding",cap:4,taken:1},
-          {t:"2:50",m:"PM",who:"Lena F.",note:"Twilight rate · riding",cap:4,taken:2}]},
-   {id:"mirren",name:"Cape Mirren",loc:"Carmel, California",img:"assets/club-6.jpg",det:"assets/d-club-6.jpg",
-    par:71,yards:6730,rating:73.4,slope:136,fee:340,style:"links",walk:true,caddie:true,tag:"Six holes on the headland",
-    blurb:"Six holes run along the headland and the other twelve spend the round trying to get you back there. Morning fog usually clears by ten; the club will hold your time if it hasn't.",
-    dress:"Collar required. No denim anywhere on property.",
-    tees:[{t:"9:30",m:"AM",who:"Cal R.",note:"Members tees · caddie · walking",cap:4,taken:2},
-          {t:"1:20",m:"PM",who:"Miriam O.",note:"Members tees · walking",cap:4,taken:3},
-          {t:"3:10",m:"PM",who:"Josh P.",note:"Twilight · walking",cap:4,taken:4}]},
-   {id:"vermillion",name:"Vermillion Wash",loc:"Palm Desert, California",img:"assets/club-7.jpg",det:"assets/d-club-7.jpg",
-    par:72,yards:7020,rating:73.6,slope:132,fee:130,style:"parkland",walk:false,caddie:false,tag:"Best value here",
+    tees:[{t:"7:00",m:"AM",who:"Dee S.",note:"Members tees · caddies",cap:4,taken:3,seat:850,surge:false},
+          {t:"9:10",m:"AM",who:"Victor H.",note:"Championship tees · riding",cap:4,taken:1,seat:1250,surge:true},
+          {t:"2:50",m:"PM",who:"Lena F.",note:"Twilight rate · riding",cap:4,taken:2,seat:450,surge:false}]},
+
+   {id:"vermillion",name:"Vermillion Wash",city:"Palm Desert",state:"CA",zip:"92260",lat:33.722,lng:-116.374,
+    img:"assets/club-7.jpg",det:"assets/d-club-7.jpg",tier:"private",tag:"Best value here",
+    par:72,yards:7020,rating:73.6,slope:132,fee:130,style:"parkland",walk:false,caddie:false,
     blurb:"Desert target golf with generous landing areas — forgiving off the tee, punishing around the greens. Best value on the sheet from June to September, when nobody wants the heat.",
     dress:"Collar required. Shorts permitted.",
-    tees:[{t:"6:40",m:"AM",who:"Rafa G.",note:"Members tees · riding",cap:4,taken:1},
-          {t:"10:50",m:"AM",who:"Bev C.",note:"Forward tees · riding",cap:4,taken:2},
-          {t:"5:00",m:"PM",who:"Nate W.",note:"Nine holes · twilight",cap:4,taken:2}]}
+    tees:[{t:"6:40",m:"AM",who:"Rafa G.",note:"Members tees · riding",cap:4,taken:1,seat:180,surge:false},
+          {t:"10:50",m:"AM",who:"Bev C.",note:"Forward tees · riding",cap:4,taken:2,seat:240,surge:false},
+          {t:"5:00",m:"PM",who:"Nate W.",note:"Nine holes · twilight",cap:4,taken:2,seat:95,surge:false}]}
   ];
 
-  var joined=[], selected=null, filter="all";
-  var $=function(s,r){return (r||document).querySelector(s);};
-  var $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s));};
-  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){
+  var TIERLABEL={unicorn:"Invitation only",national:"Top 100",elite:"Private",private:"Private"};
+  var TIERBAND={unicorn:[5000,12000],national:[750,3800],elite:[275,1400],private:[95,300]};
+
+  var joined=[],selected=null,filter="all",sortBy="relevance",query="",origin=null,originName="";
+
+  var $=function(a,r){return (r||document).querySelector(a);};
+  var $$=function(a,r){return [].slice.call((r||document).querySelectorAll(a));};
+  var esc=function(x){return String(x).replace(/[&<>"]/g,function(c){
     return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});};
-  var open=function(c){return c.tees.reduce(function(n,t){return n+Math.max(0,t.cap-t.taken);},0);};
-  var next=function(c){for(var i=0;i<c.tees.length;i++){if(c.tees[i].taken<c.tees[i].cap)return c.tees[i];}return null;};
-  function match(c){
+  var money=function(n){return "$"+Math.round(n).toLocaleString();};
+
+  var openSeats=function(c){return c.tees.reduce(function(a,t){return a+Math.max(0,t.cap-t.taken);},0);};
+  var nextTee=function(c){for(var i=0;i<c.tees.length;i++){if(c.tees[i].taken<c.tees[i].cap)return c.tees[i];}return null;};
+  function cheapest(c){
+    var open=c.tees.filter(function(t){return t.taken<t.cap;});
+    var pool=open.length?open:c.tees;
+    return pool.reduce(function(m,t){return Math.min(m,t.seat);},Infinity);
+  }
+  var allIn=function(c,t){return c.fee+t.seat;};
+
+  function haversine(a,b,c,d){
+    var R=3958.8,p=Math.PI/180;
+    var dl=(c-a)*p,dg=(d-b)*p;
+    var x=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a*p)*Math.cos(c*p)*Math.sin(dg/2)*Math.sin(dg/2);
+    return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+  }
+  function distOf(c){return origin?haversine(origin.lat,origin.lng,c.lat,c.lng):null;}
+
+  /* resolve free text: zip, city, state, or a sentence containing a place */
+  function resolvePlace(raw){
+    var q=(raw||"").trim().toLowerCase();
+    if(!q) return null;
+    var zip=q.match(/\b(\d{5})\b/);
+    if(zip){
+      var p3=zip[1].slice(0,3);
+      var hit=PLACES.filter(function(p){return p.z.indexOf(p3)>-1;})[0];
+      if(hit) return {lat:hit.lat,lng:hit.lng,label:hit.n+", "+hit.s+" ("+zip[1]+")"};
+    }
+    var byName=PLACES.filter(function(p){return q.indexOf(p.n.toLowerCase())>-1;})
+                     .sort(function(a,b){return b.n.length-a.n.length;})[0];
+    if(byName) return {lat:byName.lat,lng:byName.lng,label:byName.n+", "+byName.s};
+    for(var ab in STATES){
+      var full=STATES[ab].toLowerCase();
+      if(q.indexOf(full)>-1 || new RegExp("\\b"+ab.toLowerCase()+"\\b").test(q)){
+        var inState=CLUBS.filter(function(c){return c.state===ab;});
+        if(inState.length){
+          var la=inState.reduce(function(a,c){return a+c.lat;},0)/inState.length;
+          var ln=inState.reduce(function(a,c){return a+c.lng;},0)/inState.length;
+          return {lat:la,lng:ln,label:STATES[ab]};
+        }
+      }
+    }
+    return null;
+  }
+  function textMatch(c,raw){
+    var q=(raw||"").trim().toLowerCase();
+    if(!q) return true;
+    var hay=(c.name+" "+c.city+" "+c.state+" "+(STATES[c.state]||"")+" "+c.zip+" "+c.tag+" "+c.style).toLowerCase();
+    return q.split(/\s+/).some(function(w){return w.length>2 && hay.indexOf(w)>-1;});
+  }
+
+  function passesFilter(c){
     switch(filter){
-      case "open": return open(c)>0;
+      case "open": return openSeats(c)>0;
       case "walk": return c.walk;
       case "caddie": return c.caddie;
       case "links": return c.style==="links";
       case "parkland": return c.style==="parkland";
-      case "under200": return c.fee<200;
+      case "under200": return cheapest(c)<500;
       default: return true;
     }
   }
-  function pips(t){
+  function visible(){
+    var list=CLUBS.filter(passesFilter);
+    if(query && !origin) list=list.filter(function(c){return textMatch(c,query);});
+    var scored=list.map(function(c){return {c:c,d:distOf(c)};});
+    scored.sort(function(a,b){
+      switch(sortBy){
+        case "price-asc":  return cheapest(a.c)-cheapest(b.c);
+        case "price-desc": return cheapest(b.c)-cheapest(a.c);
+        case "seats":      return openSeats(b.c)-openSeats(a.c);
+        case "distance":   return (a.d==null?1e9:a.d)-(b.d==null?1e9:b.d);
+        default:
+          if(origin) return (a.d==null?1e9:a.d)-(b.d==null?1e9:b.d);
+          var rank={unicorn:0,national:1,elite:2,private:3};
+          return rank[a.c.tier]-rank[b.c.tier];
+      }
+    });
+    return scored;
+  }
+
+  function pipsHTML(t){
     var h="";
     for(var i=0;i<t.cap;i++) h+='<span class="pip'+(i<t.taken?' pip--full':'')+'"></span>';
     var left=t.cap-t.taken;
@@ -617,21 +928,37 @@ h1.display b{font-weight:600;color:#F0DCA8;}
   }
 
   function renderGrid(){
-    var list=CLUBS.filter(match), host=$("#grid");
-    if(!list.length){host.innerHTML='<p class="empty">No clubs match that filter.</p>';return;}
-    host.innerHTML=list.map(function(c){
-      var o=open(c), nx=next(c);
+    var rows=visible(), host=$("#grid");
+    var line=$("#resultLine");
+    if(origin){
+      var near=rows.filter(function(r){return r.d!=null && r.d<=150;}).length;
+      line.innerHTML= near
+        ? '<b>'+near+'</b> club'+(near===1?'':'s')+' within 150 miles of <b>'+esc(originName)+'</b>, then the rest by distance'
+        : 'Nothing within 150 miles of <b>'+esc(originName)+'</b> — showing everywhere, nearest first';
+    }
+    else if(query) line.innerHTML='<b>'+rows.length+'</b> match'+(rows.length===1?'':'es')+' for “'+esc(query)+'”';
+    else line.innerHTML='<b>'+rows.length+'</b> clubs · every seat priced by the member hosting it';
+    if(origin||query) line.innerHTML+=' · <span class="clearloc" id="clearloc">clear</span>';
+
+    if(!rows.length){
+      host.innerHTML='<p class="empty" style="grid-column:1/-1">Nothing here yet. Try a nearby city, a state, or clear the filters.</p>';
+      return;
+    }
+    host.innerHTML=rows.map(function(r){
+      var c=r.c,o=openSeats(c),nx=nextTee(c),low=cheapest(c);
       return '<button class="card r" data-club="'+c.id+'">'+
         '<span class="card__ph"><img src="'+c.img+'" alt="'+esc(c.name)+'" loading="lazy" decoding="async">'+
           '<span class="card__flag">'+esc(c.tag)+'</span></span>'+
         '<span class="card__b">'+
-          '<span class="card__loc">'+esc(c.loc)+'</span>'+
+          '<span class="card__loc">'+esc(c.city)+', '+c.state+'</span>'+
           '<span class="card__n">'+esc(c.name)+'</span>'+
-          '<span class="card__specs num"><span><b>$'+c.fee+'</b> guest</span>'+
-            '<span>Slope <b>'+c.slope+'</b></span>'+
-            '<span class="wide-only"><b>'+c.yards.toLocaleString()+'</b> yds</span></span>'+
+          '<span class="card__specs num"><span class="tier tier--'+c.tier+'">'+TIERLABEL[c.tier]+'</span>'+
+            '<span class="wide-only">Slope <b>'+c.slope+'</b></span></span>'+
+          '<span class="card__price num"><span class="from">From</span>'+
+            '<span class="amt">'+money(c.fee+low)+'</span><span class="per">all-in</span>'+
+            (r.d!=null?'<span class="card__dist">'+Math.round(r.d).toLocaleString()+' mi</span>':'')+'</span>'+
           '<span class="card__state num">'+
-            (o?'<span class="state state--open">'+o+' seat'+(o>1?'s':'')+' open</span>'
+            (o?'<span class="state state--open">'+o+' seat'+(o>1?'s':'')+'</span>'
               :'<span class="state state--full">Sheet full</span>')+
             (nx?'<span class="card__next">Next <b>'+nx.t+'</b></span>':'')+
           '</span>'+
@@ -646,27 +973,35 @@ h1.display b{font-weight:600;color:#F0DCA8;}
     var c=CLUBS.filter(function(x){return x.id===selected;})[0];
     if(!c){wrap.hidden=true;return;}
     wrap.hidden=false;
+    var d=distOf(c);
     $("#detail").innerHTML=
       '<div class="detail__ph"><img src="'+c.det+'" alt="'+esc(c.name)+'"></div>'+
-      '<div class="detail__head"><p class="eyebrow">'+esc(c.loc)+'</p><h3>'+esc(c.name)+'</h3></div>'+
+      '<div class="detail__head"><p class="eyebrow">'+esc(c.city)+', '+(STATES[c.state]||c.state)+
+        (d!=null?' · '+Math.round(d).toLocaleString()+' miles away':'')+'</p>'+
+        '<h3>'+esc(c.name)+'</h3></div>'+
       '<dl class="stats num">'+
         '<div><dt>Par</dt><dd>'+c.par+'</dd></div>'+
         '<div><dt>Yardage</dt><dd>'+c.yards.toLocaleString()+'</dd></div>'+
         '<div><dt>Rating / Slope</dt><dd>'+c.rating.toFixed(1)+' <s>/ '+c.slope+'</s></dd></div>'+
-        '<div><dt>Guest fee</dt><dd>$'+c.fee+'</dd></div>'+
+        '<div><dt>Club guest fee</dt><dd>'+money(c.fee)+'</dd></div>'+
       '</dl>'+
       '<p class="blurb">'+esc(c.blurb)+'</p>'+
+      '<div class="askrow"><span class="lbl">How it prices</span>'+
+        '<span class="v">The club takes <b>'+money(c.fee)+'</b>. Everything above that is the member’s asking price for the seat, and they set it.</span></div>'+
       '<div class="sheet"><h4>Tee sheet</h4><p class="sub" style="margin-bottom:10px">Tuesday 15 September</p>'+
       c.tees.map(function(t,i){
         var key=c.id+":"+i, mine=joined.indexOf(key)>-1, left=t.cap-t.taken;
         return '<div class="tee">'+
           '<div class="tee__t num">'+t.t+'</div>'+
-          '<div><div class="tee__who">'+esc(t.who)+'</div>'+
+          '<div><div class="tee__who">'+esc(t.who)+(t.surge?'<span class="surge">Weekend rate</span>':'')+'</div>'+
             '<div class="tee__note">'+esc(t.note)+'</div>'+
-            '<div class="pips">'+pips(t)+'</div></div>'+
-          (mine?'<button class="claim claim--in" disabled>Claimed</button>'
-               :left>0?'<button class="claim" data-join="'+key+'">Claim seat</button>'
-                      :'<button class="claim" disabled>Full</button>')+
+            '<div class="pips">'+pipsHTML(t)+'</div></div>'+
+          '<div class="tee__price num"><div class="tee__amt">'+money(allIn(c,t))+'</div>'+
+            '<div class="tee__break">'+money(t.seat)+' seat + '+money(c.fee)+' club</div>'+
+            (mine?'<button class="claim claim--in" disabled>Claimed</button>'
+                 :left>0?'<button class="claim" data-join="'+key+'">Claim seat</button>'
+                        :'<button class="claim" disabled>Full</button>')+
+          '</div>'+
         '</div>';
       }).join("")+
       '<p class="dress">'+esc(c.dress)+(c.caddie?' Caddie programme available — book 48 hours out.':'')+'</p></div>';
@@ -674,32 +1009,53 @@ h1.display b{font-weight:600;color:#F0DCA8;}
 
   function renderMine(){
     var h=$("#mine");
-    if(!joined.length){h.innerHTML='<p class="empty">Nothing booked yet. Claim a seat from the tee sheet and it shows up here.</p>';return;}
-    h.innerHTML=joined.map(function(k){
-      var p=k.split(":"), c=CLUBS.filter(function(x){return x.id===p[0];})[0], t=c.tees[+p[1]];
+    if(!joined.length){h.innerHTML='<p class="empty">Nothing booked yet. Claim a seat from a tee sheet and it shows up here.</p>';return;}
+    var total=0;
+    var rows=joined.map(function(k){
+      var p=k.split(":"),c=CLUBS.filter(function(x){return x.id===p[0];})[0],t=c.tees[+p[1]];
+      total+=allIn(c,t);
       return '<div class="mine__row"><div class="mine__t num">'+t.t+'</div>'+
         '<div><div class="mine__n">'+esc(c.name)+'</div>'+
-        '<div class="mine__d num">'+esc(c.loc)+' · hosted by '+esc(t.who)+' · guest fee $'+c.fee+'</div></div></div>';
+        '<div class="mine__d num">'+esc(c.city)+', '+c.state+' · '+esc(t.who)+' · '+
+          money(t.seat)+' seat + '+money(c.fee)+' club = <b style="color:var(--ink)">'+money(allIn(c,t))+'</b></div></div></div>';
     }).join("");
+    h.innerHTML=rows+'<div class="mine__row"><div class="mine__t num">'+money(total)+
+      '</div><div><div class="mine__n">Total committed</div>'+
+      '<div class="mine__d">Guest fees settle in the pro shop; seat payments release after the round.</div></div></div>';
   }
 
   function live(){
-    var n=CLUBS.reduce(function(a,c){return a+open(c);},0);
-    $("#liveCount").textContent=n+" seat"+(n===1?"":"s")+" open today";
+    var n=CLUBS.reduce(function(a,c){return a+openSeats(c);},0);
+    var lo=CLUBS.reduce(function(m,c){return Math.min(m,cheapest(c)+c.fee);},Infinity);
+    var hi=CLUBS.reduce(function(m,c){return Math.max(m,c.tees.reduce(function(x,t){return Math.max(x,allIn(c,t));},0));},0);
+    $("#liveCount").textContent=n+" seats open · "+money(lo)+" to "+money(hi);
+  }
+
+  function priceHint(){
+    var c=CLUBS.filter(function(x){return x.id===$("#h-club").value;})[0];
+    if(!c) return;
+    var band=TIERBAND[c.tier], surge=$("#h-surge").checked;
+    var lo=band[0]*(surge?1.6:1), hi=band[1]*(surge?1.6:1);
+    var seat=parseFloat($("#h-seatprice").value||0)||0;
+    $("#priceHint").innerHTML=
+      'Seats at <b>'+esc(c.name)+'</b> ('+TIERLABEL[c.tier].toLowerCase()+') have been clearing between <b>'+
+      money(lo)+'</b> and <b>'+money(hi)+'</b>'+(surge?' on high-demand dates':'')+
+      '.<br>Your guest pays <span class="big">'+money(seat+c.fee)+'</span> all-in — '+
+      money(seat)+' to you, '+money(c.fee)+' to the club.';
   }
 
   var tt;
   function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");
-    clearTimeout(tt);tt=setTimeout(function(){e.classList.remove("on");},2600);}
+    clearTimeout(tt);tt=setTimeout(function(){e.classList.remove("on");},3000);}
 
   function show(p){
     $$("[data-panel]").forEach(function(el){el.hidden=(el.dataset.panel!==p);});
     $$(".nav button").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.nav===p));});
     if(p==="mine")renderMine();
+    if(p==="host")priceHint();
     if(p==="discover"){renderGrid();renderDetail();}
   }
 
-  /* reveal-on-scroll; everything is visible without JS */
   var io=null;
   function reveal(){
     if(!("IntersectionObserver" in window)){$$(".r").forEach(function(e){e.classList.add("in");});return;}
@@ -709,7 +1065,14 @@ h1.display b{font-weight:600;color:#F0DCA8;}
     $$(".r:not(.in)").forEach(function(e){io.observe(e);});
   }
 
+  function clearLoc(){
+    origin=null;originName="";query="";$("#q").value="";
+    $("#nearbtn").setAttribute("aria-pressed","false");
+    renderGrid();
+  }
+
   document.addEventListener("click",function(e){
+    if(e.target.id==="clearloc"){clearLoc();return;}
     if(e.target.closest("[data-scroll]")){
       var d=document.querySelector('[data-panel="discover"]');
       if(d && !d.hidden) d.scrollIntoView({behavior:"smooth",block:"start"});
@@ -723,7 +1086,7 @@ h1.display b{font-weight:600;color:#F0DCA8;}
     if(f){
       filter=f.dataset.filter;
       $$(".filters button").forEach(function(b){b.setAttribute("aria-pressed",String(b===f));});
-      if(selected && !CLUBS.filter(match).some(function(c){return c.id===selected;})) selected=null;
+      if(selected && !visible().some(function(r){return r.c.id===selected;})) selected=null;
       renderGrid();renderDetail();return;
     }
     var card=e.target.closest("[data-club]");
@@ -735,44 +1098,83 @@ h1.display b{font-weight:600;color:#F0DCA8;}
     }
     var j=e.target.closest("[data-join]");
     if(j){
-      var p=j.dataset.join.split(":"), c=CLUBS.filter(function(x){return x.id===p[0];})[0], t=c.tees[+p[1]];
+      var p=j.dataset.join.split(":"),c=CLUBS.filter(function(x){return x.id===p[0];})[0],t=c.tees[+p[1]];
       if(t.taken<t.cap && joined.indexOf(j.dataset.join)===-1){
         t.taken++;joined.push(j.dataset.join);
         renderGrid();renderDetail();live();
-        toast("Seat claimed — "+t.t+" at "+c.name);
+        toast("Seat claimed — "+money(allIn(c,t))+" all-in at "+c.name);
       }
       return;
     }
   });
 
+  /* search */
+  var qt;
+  $("#q").addEventListener("input",function(e){
+    clearTimeout(qt);
+    qt=setTimeout(function(){
+      query=e.target.value;
+      var place=resolvePlace(query);
+      if(place){origin={lat:place.lat,lng:place.lng};originName=place.label;
+        $("#nearbtn").setAttribute("aria-pressed","false");}
+      else {origin=null;originName="";}
+      renderGrid();
+    },180);
+  });
+  $("#sortsel").addEventListener("change",function(e){sortBy=e.target.value;renderGrid();});
+  $("#nearbtn").addEventListener("click",function(){
+    var b=$("#nearbtn");
+    if(b.getAttribute("aria-pressed")==="true"){clearLoc();return;}
+    if(!navigator.geolocation){toast("This browser can't share a location.");return;}
+    b.textContent="Locating…";
+    navigator.geolocation.getCurrentPosition(function(pos){
+      origin={lat:pos.coords.latitude,lng:pos.coords.longitude};
+      originName="your location";query="";$("#q").value="";
+      b.textContent="Near me";b.setAttribute("aria-pressed","true");
+      sortBy="distance";$("#sortsel").value="distance";
+      renderGrid();
+    },function(){
+      b.textContent="Near me";
+      toast("Location unavailable — type a zip or city instead.");
+    },{timeout:9000});
+  });
+
+  /* host form */
+  ["h-club","h-surge","h-seatprice"].forEach(function(id){
+    var el=$("#"+id); if(el) el.addEventListener("input",priceHint);
+    if(el) el.addEventListener("change",priceHint);
+  });
+
   $("#hostform").addEventListener("submit",function(e){
     e.preventDefault();
-    var f=e.target, c=CLUBS.filter(function(x){return x.id===f.club.value;})[0];
-    var raw=f.time.value||"08:40", hh=parseInt(raw.split(":")[0],10), mm=raw.split(":")[1];
+    var f=e.target,c=CLUBS.filter(function(x){return x.id===f.club.value;})[0];
+    var raw=f.time.value||"08:40",hh=parseInt(raw.split(":")[0],10),mm=raw.split(":")[1];
     var h12=hh%12; if(h12===0)h12=12;
+    var seat=Math.max(0,parseFloat(f.seatprice.value||0)||0);
     c.tees.push({t:h12+":"+mm,m:hh>=12?"PM":"AM",who:"You",
-      note:f.tees.value+" tees · "+(f.note.value||"open group"),cap:(+f.seats.value)+1,taken:1});
+      note:f.tees.value+" tees · "+(f.note.value||"open group"),
+      cap:(+f.seats.value)+1,taken:1,seat:seat,surge:$("#h-surge").checked});
     c.tees.sort(function(a,b){
-      var ka=(a.m==="AM"?0:12)+(parseInt(a.t,10)%12), kb=(b.m==="AM"?0:12)+(parseInt(b.t,10)%12);
+      var ka=(a.m==="AM"?0:12)+(parseInt(a.t,10)%12),kb=(b.m==="AM"?0:12)+(parseInt(b.t,10)%12);
       return ka-kb;});
     selected=c.id;show("discover");live();
-    toast("Posted — "+f.seats.value+" seat"+(f.seats.value==="1"?"":"s")+" at "+c.name);
+    toast("Posted — "+f.seats.value+" seat"+(f.seats.value==="1"?"":"s")+" at "+money(seat)+" each");
     window.scrollTo({top:0,behavior:"smooth"});
   });
 
   $("#themebtn").addEventListener("click",function(){
-    var r=document.documentElement, cur=r.getAttribute("data-theme");
+    var r=document.documentElement,cur=r.getAttribute("data-theme");
     if(!cur) cur=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
-    var nextT=cur==="dark"?"light":"dark";
-    r.setAttribute("data-theme",nextT);
+    var nx=cur==="dark"?"light":"dark";
+    r.setAttribute("data-theme",nx);
     var m=document.querySelector('meta[name="theme-color"]');
-    if(m) m.setAttribute("content", nextT==="light"?"#EEEBE3":"#0D1410");
+    if(m) m.setAttribute("content", nx==="light"?"#EEEBE3":"#0D1410");
   });
 
   $("#h-club").innerHTML=CLUBS.map(function(c){
-    return '<option value="'+c.id+'">'+esc(c.name)+' — '+esc(c.loc)+'</option>';}).join("");
+    return '<option value="'+c.id+'">'+esc(c.name)+' — '+esc(c.city)+', '+c.state+'</option>';}).join("");
 
-  renderGrid();renderMine();live();
+  renderGrid();renderMine();live();priceHint();
   requestAnimationFrame(function(){
     document.querySelector(".landing").classList.add("go");
     reveal();
