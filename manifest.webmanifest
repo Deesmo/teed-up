@@ -1,0 +1,16 @@
+{
+  "name": "Teed Up",
+  "short_name": "Teed Up",
+  "description": "Private-club tee sheet — claim an open seat in a member's group, or post one of your own.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#101A15",
+  "theme_color": "#101A15",
+  "icons": [
+    { "src": "assets/icon-192.png",  "sizes": "192x192",   "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png",  "sizes": "512x512",   "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-1024.png", "sizes": "1024x1024", "type": "image/png", "purpose": "maskable" }
+  ]
+}
