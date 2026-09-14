@@ -1,0 +1,35 @@
+{
+  "base": "http://127.0.0.1:8088/index.html",
+  "viewport": { "w": 390, "h": 844, "dsr": 2 },
+  "steps": [
+    {
+      "route": "#/welcome",
+      "out": "/Users/bradvaldesmacminipro/hermes-workspace/teed-off/shots-v4/welcome.png",
+      "probe": "(()=>{const o={};const wm=document.querySelector('.hero .wordmark');o.wordmarkPresent=!!wm;o.wordmarkText=wm?wm.textContent:null;o.wordmarkRect=wm?(r=>[Math.round(r.x),Math.round(r.y),Math.round(r.width),Math.round(r.height)])(wm.getBoundingClientRect()):null;o.heroBg=getComputedStyle(document.querySelector('.hero')).backgroundImage.includes('hero.jpg');const t=document.querySelector('.trust');o.trustItems=[...t.querySelectorAll('li')].map(li=>li.textContent);o.trustSeparators=[...t.querySelectorAll('li')].slice(1).map(li=>getComputedStyle(li).borderLeftWidth+' '+getComputedStyle(li).borderLeftColor);o.trustRects=[...t.querySelectorAll('li')].map(li=>{const r=li.getBoundingClientRect();return [Math.round(r.x),Math.round(r.right)]});o.navChildren=document.querySelector('#nav').childElementCount;o.appPadBottom=getComputedStyle(document.querySelector('#app')).paddingBottom;o.rootDisplay=getComputedStyle(document.querySelector('#app')).display;o.rootAlign=getComputedStyle(document.querySelector('#app')).alignItems;o.scrollH=document.querySelector('#app').scrollHeight;o.clientH=document.querySelector('#app').clientHeight;o.overflowX=document.documentElement.scrollWidth>390;return o})()"
+    },
+    {
+      "route": "#/discover",
+      "out": "/Users/bradvaldesmacminipro/hermes-workspace/teed-off/shots-v4/discover.png",
+      "pre": "document.querySelector('#app').scrollTop = 99999",
+      "probe": "(()=>{const o={};const nav=document.querySelector('#nav'),app=document.querySelector('#app');const nr=nav.getBoundingClientRect();o.navRect=[nr.x,nr.y,nr.width,nr.height];o.navBg=getComputedStyle(nav).backgroundColor;o.appPadBottom=getComputedStyle(app).paddingBottom;o.rootDisplay=getComputedStyle(app).display;o.rootAlign=getComputedStyle(app).alignItems;const cards=[...document.querySelectorAll('.card')];o.cardCount=cards.length;o.lastCardBottom=Math.round(cards[cards.length-1].getBoundingClientRect().bottom);o.navTop=Math.round(nr.top);o.gapBelowLastCard=Math.round(nr.top-cards[cards.length-1].getBoundingClientRect().bottom);o.photos=[...document.querySelectorAll('.band')].map(b=>(b.getAttribute('style')||'').match(/--photo:url\\(([^)]+)\\)/)?.[1]);o.uniquePhotos=new Set(o.photos).size;const bb=getComputedStyle(document.querySelector('.band'),'::before');o.bandBlend=bb.mixBlendMode;o.bandOpacity=bb.opacity;o.overflowX=document.documentElement.scrollWidth>390;o.scrollW=document.documentElement.scrollWidth;return o})()"
+    },
+    {
+      "route": "#/club/3",
+      "out": "/Users/bradvaldesmacminipro/hermes-workspace/teed-off/shots-v4/club-detail.png",
+      "pre": "document.querySelector('#app').scrollTop = 99999",
+      "probe": "(()=>{const o={};const nav=document.querySelector('#nav');const nr=nav.getBoundingClientRect();o.heroPhoto=(document.querySelector('.detail-hero').getAttribute('style')||'').match(/--photo:url\\(([^)]+)\\)/)?.[1];const secs=[...document.querySelectorAll('.section')];const last=secs[secs.length-1].getBoundingClientRect();o.lastSectionBottom=Math.round(last.bottom);o.navTop=Math.round(nr.top);o.gap=Math.round(nr.top-last.bottom);o.money=[...document.querySelectorAll('.money')].map(m=>m.textContent);o.overflowX=document.documentElement.scrollWidth>390;return o})()"
+    },
+    {
+      "route": "#/host",
+      "out": "/Users/bradvaldesmacminipro/hermes-workspace/teed-off/shots-v4/host.png",
+      "pre": "document.querySelector('#app').scrollTop = 99999",
+      "probe": "(()=>{const nav=document.querySelector('#nav').getBoundingClientRect();const btns=[...document.querySelectorAll('.pad .btn')];const last=btns[btns.length-1].getBoundingClientRect();return {gap:Math.round(nav.top-last.bottom),navTop:Math.round(nav.top),lastBtnBottom:Math.round(last.bottom),overflowX:document.documentElement.scrollWidth>390,scrollH:document.querySelector('#app').scrollHeight}})()"
+    },
+    {
+      "route": "#/profile",
+      "out": "/Users/bradvaldesmacminipro/hermes-workspace/teed-off/shots-v4/profile.png",
+      "pre": "document.querySelector('#app').scrollTop = 99999",
+      "probe": "(()=>{const nav=document.querySelector('#nav').getBoundingClientRect();const all=[...document.querySelectorAll('.pad > *')];const last=all[all.length-1].getBoundingClientRect();return {gap:Math.round(nav.top-last.bottom),navTop:Math.round(nav.top),lastBottom:Math.round(last.bottom),overflowX:document.documentElement.scrollWidth>390,trustSep:[...document.querySelectorAll('.trust li')].slice(1).map(li=>getComputedStyle(li).borderLeftWidth)}})()"
+    }
+  ]
+}

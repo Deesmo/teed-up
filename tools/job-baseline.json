@@ -1,0 +1,23 @@
+{
+  "base": "http://127.0.0.1:8088/index.html",
+  "viewport": { "w": 390, "h": 844, "dsr": 2 },
+  "steps": [
+    {
+      "route": "#/discover",
+      "out": "/tmp/baseline-discover.png",
+      "pre": "document.querySelector('#app').scrollTop = 99999",
+      "probe": "(() => { const out={}; const nav=document.querySelector('#nav'), app=document.querySelector('#app'); const nr=nav.getBoundingClientRect(); out.viewport=[innerWidth,innerHeight]; out.navRect=[nr.x,nr.y,nr.width,nr.height]; out.navStyle={pos:getComputedStyle(nav).position,bg:getComputedStyle(nav).backgroundColor}; out.appPadBottom=getComputedStyle(app).paddingBottom; out.appScroll={scrollH:app.scrollHeight,clientH:app.clientHeight,top:app.scrollTop}; const cards=[...document.querySelectorAll('.card')]; out.lastCardBottom=cards.length?cards[cards.length-1].getBoundingClientRect().bottom:null; out.overlapPx=out.lastCardBottom-nr.top; out.bandPhotos=[...document.querySelectorAll('.band')].map(b=>{const m=(b.getAttribute('style')||'').match(/--photo:url\\(([^)]+)\\)/);return m?m[1]:null}); const bb=getComputedStyle(document.querySelector('.band'),'::before'); out.bandBefore={blend:bb.mixBlendMode,opacity:bb.opacity,bg:bb.backgroundImage.slice(0,90)}; out.deviceRect=(()=>{const d=document.querySelector('.device').getBoundingClientRect();return [d.x,d.y,d.width,d.height]})(); out.deviceBorder=getComputedStyle(document.querySelector('.device')).borderWidth; out.deviceRadius=getComputedStyle(document.querySelector('.device')).borderRadius; return out })()"
+    },
+    {
+      "route": "#/welcome",
+      "out": "/tmp/baseline-welcome.png",
+      "probe": "(() => { const out={}; out.wordmark=!!document.querySelector('.wordmark'); out.wordmarkText=document.querySelector('.wordmark')?.textContent||null; out.heroBg=getComputedStyle(document.querySelector('.hero')).backgroundImage.slice(0,200); const trust=document.querySelector('.trust'); out.trustText=trust?.textContent; out.trustChildCount=trust?trust.childNodes.length:null; out.trustChildTypes=trust?[...trust.childNodes].map(n=>n.nodeName):null; out.trustStyle=trust?{display:getComputedStyle(trust).display,gap:getComputedStyle(trust).gap}:null; out.navChildren=document.querySelector('#nav').childElementCount; const h1=document.querySelector('.hero h1'); out.h1Rect=h1?h1.getBoundingClientRect().height:null; out.bodyScrollH=document.querySelector('#app').scrollHeight; out.appClientH=document.querySelector('#app').clientHeight; return out })()"
+    },
+    {
+      "route": "#/club/0",
+      "out": "/tmp/baseline-club.png",
+      "pre": "document.querySelector('#app').scrollTop = 99999",
+      "probe": "(() => { const out={}; const nav=document.querySelector('#nav'); const nr=nav.getBoundingClientRect(); const dh=document.querySelector('.detail-hero'); out.detailHeroPhoto=(dh.getAttribute('style')||'').match(/--photo:url\\(([^)]+)\\)/)?.[1]||null; const secs=[...document.querySelectorAll('.section')]; out.lastSectionBottom=secs.length?secs[secs.length-1].getBoundingClientRect().bottom:null; out.navTop=nr.top; out.overlapPx=out.lastSectionBottom-nr.top; return out })()"
+    }
+  ]
+}

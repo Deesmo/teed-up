@@ -18,7 +18,10 @@ check($$('.card').length === 5, 'expected 5 club cards');
 check($$('input').length === 1, 'expected 1 real search input');
 check($$('[role=tab]').length === 4, 'expected 4 nav tabs');
 check($$('[onclick]').length === 0, 'no inline handlers');
-check($$('.band').every(b => /--photo:url\(assets\/hero-.*\.jpg\)/.test(b.getAttribute('style'))), 'every card band carries a --photo layer');
+// Requirement: every club card must use its OWN photo. Assert distinctness, not just presence.
+const bandPhotos = $$('.band').map(b => (b.getAttribute('style') || '').match(/--photo:url\(([^)]+)\)/)?.[1] || null);
+check(bandPhotos.every(p => p && /^assets\/club-\d+\.jpg$/.test(p)), 'every band has a club photo: ' + bandPhotos);
+check(new Set(bandPhotos).size === bandPhotos.length, 'every club card photo is unique: ' + bandPhotos);
 check(JSON.stringify(chipState()) === JSON.stringify(['All tiers:true', 'Trophy:false', 'National:false', 'Regional:false', 'Caddie:false']), 'initial aria-pressed must be literal true/false: ' + chipState());
 
 // Filters
@@ -39,7 +42,7 @@ $('.card').click();
 setTimeout(() => {
   check(dom.window.location.hash === '#/club/0', 'card click routes to #/club/0');
   check($('h1')?.textContent === 'Cypress Hollow G&CC', 'detail heading');
-  check(/--photo:url\(assets\/hero-golden-hour\.jpg\)/.test($('.detail-hero').getAttribute('style')), 'detail hero has photo layer');
+  check(/--photo:url\(assets\/club-1\.jpg\)/.test($('.detail-hero').getAttribute('style')), 'detail hero has its own club photo layer');
   const request = $$('button').find(b => b.textContent.includes('Request to book'));
   check(request?.textContent === 'Request to book · $324', 'cents-based total $285 + $39');
   request.click();
