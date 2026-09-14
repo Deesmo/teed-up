@@ -1,545 +1,816 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<!-- viewport-fit=cover is required for env(safe-area-inset-*) to resolve to real values -->
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0a0e0c">
-<meta name="description" content="Teed Up — book private golf clubs as the verified guest of a member.">
-<link rel="icon" type="image/svg+xml" href="assets/app-icon.svg">
-<link rel="preload" as="image" href="assets/hero.jpg">
-<title>Teed Up — get inside the ropes</title>
+<title>Teed Up</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=Archivo:wght@400;500;600;700&display=swap">
+
 <style>
+/* ============ tokens : light (bare :root defines everything) ============ */
 :root{
-  --bg:#0a0e0c; --card:#141a16; --card2:#1a2119;
-  --line:rgba(255,255,255,.09); --line-g:rgba(201,162,75,.22);
-  --cream:#f2eee4; --muted:#93a498; --dim:#68766b; --dim2:#7d8c81;
-  --gold:#c9a24b; --gold2:#e6cd8a; --green:#2a7a52;
-  --focus:#7cc4ff; --error:#e8615c; --error-bg:rgba(232,97,92,.12);
-  --success:#4fae7e; --disabled:rgba(255,255,255,.28);
-  --overlay:rgba(5,7,6,.72); --hover:rgba(255,255,255,.05);
-  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px;
-  --sp-5:20px; --sp-6:24px; --sp-7:32px; --sp-8:48px;
-  --r-sm:10px; --r-md:16px; --r-lg:24px;
-  --e1:0 2px 8px rgba(0,0,0,.24); --e2:0 12px 32px rgba(0,0,0,.4);
-  --dur-fast:120ms; --dur-med:220ms;
-  /* Nav geometry lives in one place. --nav-h is the visual bar; --nav-safe adds the
-     device's home-indicator inset. Everything that must clear the nav references
-     --nav-safe, so the bar height can never drift out of sync with content padding. */
-  --nav-h:64px;
-  --nav-safe:calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
-  color-scheme:dark;
+  --ground:#E9E7DF;
+  --ground-2:#DFDCD1;
+  --surface:#FBFAF6;
+  --surface-2:#F3F1E9;
+  --ink:#18231C;
+  --ink-2:#4A574E;
+  --ink-3:#75806F;
+  --line:#CFCCBF;
+  --line-2:#E2DFD4;
+  --brass:#8A6E2F;
+  --brass-ink:#6B551F;
+  --brass-wash:#EFE7D2;
+  --open:#3F6B4F;
+  --open-wash:#DFE9E0;
+  --full:#8C3B2E;
+  --full-wash:#F0DFDA;
+  --scrim-1:rgba(10,18,13,.00);
+  --scrim-2:rgba(10,18,13,.62);
+  --scrim-3:rgba(10,18,13,.88);
+  --shadow-s:0 1px 2px rgba(20,32,24,.08);
+  --shadow-m:0 6px 18px -8px rgba(20,32,24,.28);
+  --shadow-l:0 24px 48px -24px rgba(20,32,24,.42);
+  --on-photo:#F6F4EC;
+  --radius:3px;
+  --maxw:1180px;
+
+  --step--1:clamp(.75rem,.72rem + .12vw,.8125rem);
+  --step-0:clamp(.9375rem,.91rem + .14vw,1rem);
+  --step-1:clamp(1.0625rem,1.02rem + .22vw,1.1875rem);
+  --step-2:clamp(1.375rem,1.28rem + .46vw,1.75rem);
+  --step-3:clamp(1.875rem,1.66rem + 1.05vw,2.75rem);
+  --step-4:clamp(2.5rem,2.02rem + 2.4vw,4.25rem);
 }
-*{box-sizing:border-box}
-body{margin:0;background:#05100b;color:var(--cream);
-  font:400 15px/1.55 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.serif{font-family:Fraunces,Georgia,serif}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#101A15;
+    --ground-2:#0A120E;
+    --surface:#18251E;
+    --surface-2:#1F2E26;
+    --ink:#EDEBE2;
+    --ink-2:#B3BDB2;
+    --ink-3:#7E8A80;
+    --line:#2A3A31;
+    --line-2:#22302A;
+    --brass:#C9A557;
+    --brass-ink:#DDBE78;
+    --brass-wash:#2B2617;
+    --open:#7FB48D;
+    --open-wash:#1B2C21;
+    --full:#D08B7C;
+    --full-wash:#2E1D19;
+    --shadow-s:0 1px 2px rgba(0,0,0,.4);
+    --shadow-m:0 6px 18px -8px rgba(0,0,0,.7);
+    --shadow-l:0 24px 48px -24px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#101A15;
+  --ground-2:#0A120E;
+  --surface:#18251E;
+  --surface-2:#1F2E26;
+  --ink:#EDEBE2;
+  --ink-2:#B3BDB2;
+  --ink-3:#7E8A80;
+  --line:#2A3A31;
+  --line-2:#22302A;
+  --brass:#C9A557;
+  --brass-ink:#DDBE78;
+  --brass-wash:#2B2617;
+  --open:#7FB48D;
+  --open-wash:#1B2C21;
+  --full:#D08B7C;
+  --full-wash:#2E1D19;
+  --shadow-s:0 1px 2px rgba(0,0,0,.4);
+  --shadow-m:0 6px 18px -8px rgba(0,0,0,.7);
+  --shadow-l:0 24px 48px -24px rgba(0,0,0,.85);
+}
 
-.stage{min-height:100vh;background:var(--bg)}
-.device{width:100%;min-height:100vh;position:relative;overflow:hidden;background:var(--bg)}
+*,*::before,*::after{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Archivo","Helvetica Neue",Arial,sans-serif;
+  font-size:var(--step-0);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+button{font:inherit;color:inherit;}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:2px;}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
 
-/* Root scroll container. Deliberately a plain block box — no display:flex and no
-   align-items here. Flexing the root is what previously collapsed the screens and let
-   card content run under the nav; padding-bottom on the scroller is the correct fix. */
-.app{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;
-  -webkit-overflow-scrolling:touch;
-  padding-bottom:calc(var(--nav-safe) + var(--sp-5))}
-.app--nonav{padding-bottom:0}
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:20px;}
 
-.screen{min-height:100%;animation:in var(--dur-med) cubic-bezier(.2,.8,.2,1)}
-@keyframes in{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.screen{animation:none}*{transition:none!important}}
+/* ============ chrome ============ */
+.topbar{
+  position:sticky;top:0;z-index:40;
+  background:color-mix(in srgb,var(--ground) 88%,transparent);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-2);
+}
+.topbar__in{display:flex;align-items:center;gap:16px;height:58px;}
+.mark{display:flex;align-items:baseline;gap:9px;margin-right:auto;text-decoration:none;color:inherit;}
+.mark__t{
+  font-family:"Fraunces",Georgia,serif;
+  font-optical-sizing:auto;
+  font-weight:600;font-size:1.32rem;letter-spacing:-.022em;line-height:1;
+}
+.mark__r{
+  font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--brass);font-weight:700;padding-bottom:2px;
+}
+.navlinks{display:none;gap:4px;}
+@media(min-width:900px){.navlinks{display:flex;}}
+.navlink{
+  background:none;border:0;cursor:pointer;padding:7px 13px;border-radius:2px;
+  font-size:.8125rem;font-weight:500;letter-spacing:.01em;color:var(--ink-2);
+}
+.navlink:hover{color:var(--ink);background:var(--surface-2);}
+.navlink[aria-current="true"]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--brass);}
+.themebtn{
+  background:none;border:1px solid var(--line);border-radius:2px;cursor:pointer;
+  width:34px;height:34px;display:grid;place-items:center;color:var(--ink-2);
+}
+.themebtn:hover{color:var(--ink);border-color:var(--ink-3);}
 
-.top{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;
-  gap:var(--sp-3);padding:var(--sp-4) var(--sp-5);
-  background:rgba(10,14,12,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.wordmark{flex:0 0 auto;border:0;background:none;color:var(--cream);
-  font:500 20px/1 Fraunces,Georgia,serif;letter-spacing:-.01em;cursor:pointer;padding:var(--sp-2) 0}
-.wordmark b{color:var(--gold2);font-weight:500}
-.top .eyebrow{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-.eyebrow{font-size:11px;line-height:1.2;letter-spacing:.12em;text-transform:uppercase;
-  font-weight:600;color:var(--gold)}
-.pad{padding:var(--sp-5)}
-h1,h2,h3,p{margin-top:0}
-h1[tabindex="-1"]:focus{outline:none}
-h1{font:500 28px/1.15 Fraunces,Georgia,serif;letter-spacing:-.02em;overflow-wrap:anywhere}
-h2{font:500 22px/1.2 Fraunces,Georgia,serif;overflow-wrap:anywhere}
-h3{font-size:16px;line-height:1.3}
-.sub{margin-bottom:var(--sp-4);font-size:13px;color:var(--muted)}
-
-/* ---- Welcome hero: real photograph, wordmark pinned top, copy anchored bottom ---- */
-.hero{min-height:100%;display:flex;flex-direction:column;justify-content:space-between;
-  padding:var(--sp-6) var(--sp-5) var(--sp-7);
+/* ============ hero ============ */
+.hero{position:relative;isolation:isolate;overflow:hidden;background:var(--ground-2);}
+.hero picture{display:contents;}
+.hero__img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  z-index:-2;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;
   background:
-    linear-gradient(180deg,rgba(5,16,11,.50) 0%,rgba(5,16,11,.28) 22%,rgba(5,16,11,.62) 50%,
-      rgba(5,16,11,.90) 72%,#050f0b 100%),
-    url(assets/hero.jpg) center 42%/cover no-repeat,
-    linear-gradient(168deg,#17573e 0%,#0d3527 42%,#081d15 78%,#050f0b 100%)}
-.hero-mark{display:flex;align-items:center;gap:var(--sp-2)}
-.hero-mark .wordmark{font-size:23px;
-  text-shadow:0 2px 18px rgba(0,0,0,.75),0 0 40px rgba(0,0,0,.5)}
-.hero-body{display:flex;flex-direction:column}
-.hero h1,.hero p,.hero .eyebrow{text-shadow:0 2px 14px rgba(0,0,0,.6)}
-.hero h1{font-size:42px;line-height:1.02;margin:var(--sp-3) 0 var(--sp-4)}
-.hero h1 i{color:#f2e6c6}
-.hero p{color:#dbe8de;margin-bottom:var(--sp-5)}
-
-/* ---- Trust row: real list items with explicit rule separators.
-   Previously three bare text nodes in a flex box — text nodes are not flex items, so
-   `gap` did nothing and the three claims ran together as one string. ---- */
-.trust{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-1) var(--sp-3);
-  margin:var(--sp-2) 0 0;padding:0;list-style:none;
-  font-size:11px;line-height:1.4;color:#d7e4da}
-.trust li{display:flex;align-items:center;gap:6px;white-space:nowrap}
-.trust li::before{content:"\25C6";color:var(--gold2);font-size:8px;line-height:1;
-  text-shadow:0 1px 6px rgba(0,0,0,.6)}
-.trust li+li{padding-left:var(--sp-3);border-left:1px solid rgba(242,238,228,.32)}
-
-.btn{width:100%;min-height:48px;padding:var(--sp-3) var(--sp-4);border:1px solid transparent;
-  border-radius:var(--r-md);font:600 16px/1.3 Inter,sans-serif;cursor:pointer;
-  transition:transform var(--dur-fast),opacity var(--dur-fast),background var(--dur-fast);
-  margin-bottom:var(--sp-3)}
-.btn--primary{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#1a1305;
-  box-shadow:0 10px 24px rgba(201,162,75,.28)}
-.btn--secondary{background:rgba(255,255,255,.10);color:#fff;border-color:rgba(255,255,255,.32)}
-.btn--ghost{background:transparent;color:var(--gold2);border-color:var(--line-g)}
-.btn--danger{background:transparent;color:var(--error);border-color:var(--error)}
-button:focus-visible,input:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
-button:active{transform:scale(.98);opacity:.92}
-button:disabled{opacity:.4;pointer-events:none;color:var(--disabled)}
-@media(hover:hover){button:hover,.card:hover{background-color:var(--hover)}}
-
-.surface{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);
-  padding:var(--sp-4);box-shadow:var(--e1)}
-.surface--accent{border-color:var(--line-g);background:linear-gradient(135deg,#123f2c,#0c2c1f)}
-.search{display:flex;align-items:center;gap:var(--sp-2);padding:0 var(--sp-3);margin-bottom:var(--sp-3)}
-.search input{min-width:0;width:100%;height:48px;border:0;background:transparent;color:var(--cream);
-  font:400 15px Inter,sans-serif}
-.search input::placeholder{color:var(--dim2)}
-.chips{display:flex;gap:var(--sp-2);overflow-x:auto;padding-bottom:var(--sp-4);
-  scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:0 0 auto;min-height:44px;white-space:nowrap;padding:var(--sp-2) var(--sp-3);
-  border-radius:var(--r-sm);border:1px solid var(--line);background:var(--card);color:var(--cream);
-  font:600 13px Inter,sans-serif;cursor:pointer}
-.chip[aria-pressed="true"]{color:#1a1305;background:var(--gold);border-color:var(--gold)}
-
-.card{display:block;width:100%;padding:0;overflow:hidden;text-align:left;
-  border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);color:var(--cream);
-  box-shadow:var(--e1);cursor:pointer;margin-bottom:var(--sp-4)}
-.band{min-height:150px;position:relative;display:flex;flex-direction:column;
-  justify-content:space-between;padding:var(--sp-4);overflow:hidden}
-/* Each card's own photograph, full colour. The previous build blended every band with
-   mix-blend-mode:luminosity, which desaturated all of them into the same grey-green
-   wash and made distinct photos look like one reused tinted image. */
-.band::before,.detail-hero::before{content:"";position:absolute;inset:0;
-  background:var(--photo,none) center 50%/cover no-repeat}
-.band::after,.detail-hero::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(6,12,9,.10) 0%,rgba(6,12,9,.30) 42%,
-    rgba(6,12,9,.78) 78%,rgba(6,12,9,.92) 100%)}
-.band>*,.detail-hero>*{position:relative;z-index:1}
-.mono{position:absolute;right:var(--sp-3);bottom:-26px;z-index:1;
-  font:600 104px/1 Fraunces,serif;color:rgba(255,255,255,.14)}
-.badge{position:relative;z-index:1;align-self:flex-start;border:1px solid rgba(255,255,255,.22);
-  border-radius:var(--r-sm);padding:var(--sp-1) var(--sp-2);font-size:11px;font-weight:600;
-  background:rgba(6,12,9,.55)}
-.badge--trophy{color:#1a1305;background:linear-gradient(90deg,var(--gold2),var(--gold));border:0}
-.band h2,.band p{margin:0;text-shadow:0 2px 10px rgba(0,0,0,.7)}
-.band p{font-size:13px;color:rgba(255,255,255,.88)}
-.cardfoot{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);
-  padding:var(--sp-3) var(--sp-4);font-size:13px;color:var(--muted)}
-.cardfoot>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.price{flex:0 0 auto;text-align:right;color:#fff;font-weight:600}
-.price small{display:block;font-size:11px;color:var(--dim2);font-weight:400}
-.club-list{display:block}
-.empty{text-align:center;padding:var(--sp-8) var(--sp-4);color:var(--muted)}
-.empty .crest{font:500 52px/1 Fraunces,serif;color:rgba(230,205,138,.4)}
-
-/* ---- Bottom nav: fully opaque, safe-area aware, single source of height ---- */
-.nav{position:absolute;z-index:5;bottom:0;left:0;right:0;
-  height:var(--nav-safe);display:flex;align-items:flex-start;
-  padding:var(--sp-2) var(--sp-1) env(safe-area-inset-bottom, 0px);
-  background:var(--bg);border-top:1px solid var(--line);
-  box-shadow:0 -8px 24px rgba(0,0,0,.45)}
-.nav:empty{display:none}
-.nav button{flex:1;min-width:44px;min-height:44px;border:0;background:none;color:var(--dim2);
-  font:600 11px/1.2 Inter,sans-serif;cursor:pointer}
-.nav button[aria-current="page"]{color:var(--gold2)}
-
-.detail-hero{min-height:270px;display:flex;flex-direction:column;justify-content:flex-end;
-  padding:var(--sp-5);position:relative;overflow:hidden}
-.detail-hero h1,.detail-hero p{text-shadow:0 2px 12px rgba(0,0,0,.7)}
-.section{padding:var(--sp-5);border-bottom:1px solid var(--line)}
-.section:last-child{border-bottom:0}
-.section p{color:#c6d4c9}
-.money{display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3);
-  margin:0 0 var(--sp-2)}
-.money span:last-child{flex:0 0 auto;color:var(--cream);font-variant-numeric:tabular-nums}
-.money--total{margin-top:var(--sp-3);padding-top:var(--sp-3);border-top:1px solid var(--line);
-  font-weight:600}
-.row{width:100%;display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) 0;border:0;
-  border-bottom:1px solid var(--line);background:none;color:var(--cream);text-align:left;
-  font:400 15px Inter,sans-serif;cursor:pointer}
-.row:last-child{border-bottom:0}
-.row>span:last-child{min-width:0;overflow-wrap:anywhere}
-.icon{display:grid;place-items:center;width:44px;height:44px;flex:0 0 auto;
-  border-radius:var(--r-sm);background:var(--card2)}
-.stack>*{margin-bottom:var(--sp-4)}
-.stack>*:last-child{margin-bottom:0}
-.confirm{margin:var(--sp-4) var(--sp-5);padding:var(--sp-4);
-  border:1px solid rgba(79,174,126,.45);border-radius:var(--r-md);background:rgba(79,174,126,.1)}
-.sheet{position:fixed;z-index:10;inset:0;display:flex;align-items:flex-end;background:var(--overlay)}
-.sheet-card{width:100%;max-height:90%;overflow:auto;
-  padding:var(--sp-6) var(--sp-5) calc(var(--sp-6) + env(safe-area-inset-bottom, 0px));
-  border-radius:var(--r-lg) var(--r-lg) 0 0;background:var(--card);box-shadow:var(--e2)}
-label{display:block;margin-bottom:var(--sp-2);font-size:13px;color:var(--muted)}
-.field{width:100%;height:48px;margin-bottom:var(--sp-4);border:1px solid var(--line);
-  border-radius:var(--r-md);background:var(--card2);padding:var(--sp-3);color:var(--cream);
-  font:400 15px Inter,sans-serif}
-.field--error{border-color:var(--error)}
-.error{margin-top:-8px;margin-bottom:var(--sp-3);padding:var(--sp-2);border-radius:var(--r-sm);
-  background:var(--error-bg);color:var(--error);font-size:13px}
-
-/* Desktop preview only: centre the app in a viewport-sized column. No device chrome. */
-@media(min-width:760px){
-  .stage{display:grid;place-items:center;padding:var(--sp-7)}
-  .device{width:390px;height:844px;min-height:0;border-radius:var(--r-lg);
-    box-shadow:0 44px 100px rgba(0,0,0,.6),0 0 0 1px var(--line-g)}
+    linear-gradient(102deg,rgba(10,18,13,.74) 0%,rgba(10,18,13,.44) 40%,rgba(10,18,13,0) 74%),
+    linear-gradient(180deg,rgba(10,18,13,.34) 0%,var(--scrim-1) 26%,var(--scrim-2) 62%,var(--scrim-3) 100%);
 }
+.hero__in{
+  padding-block:96px 30px;
+  display:flex;flex-direction:column;gap:18px;align-items:flex-start;
+  min-height:392px;justify-content:flex-end;
+}
+@media(min-width:900px){.hero__in{padding-block:150px 44px;min-height:498px;}}
+.eyebrow{
+  font-size:.625rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;
+  color:var(--on-photo);opacity:.78;
+}
+.hero h1{
+  font-family:"Fraunces",Georgia,serif;
+  font-optical-sizing:auto;
+  font-weight:300;font-size:var(--step-4);line-height:.98;letter-spacing:-.035em;
+  margin:0;color:var(--on-photo);max-width:15ch;text-wrap:balance;
+}
+.hero h1 em{font-style:italic;font-weight:400;}
+.hero p{
+  margin:0;max-width:46ch;color:var(--on-photo);opacity:.86;font-size:var(--step-1);
+  line-height:1.45;
+}
+.herobar{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:6px;
+}
+.btn{
+  border:0;cursor:pointer;border-radius:2px;padding:12px 22px;
+  font-weight:600;font-size:.875rem;letter-spacing:.01em;
+  background:var(--brass);color:#14100A;
+  transition:transform .12s ease, filter .12s ease;
+}
+.btn:hover{filter:brightness(1.07);transform:translateY(-1px);}
+.btn--ghost{
+  background:transparent;color:var(--on-photo);
+  box-shadow:inset 0 0 0 1px rgba(246,244,236,.42);
+}
+.btn--ghost:hover{background:rgba(246,244,236,.1);}
+.livechip{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.75rem;font-weight:600;letter-spacing:.02em;color:var(--on-photo);
+  padding:8px 14px;border-radius:100px;
+  background:rgba(10,18,13,.42);box-shadow:inset 0 0 0 1px rgba(246,244,236,.2);
+}
+.dot{width:6px;height:6px;border-radius:50%;background:#7FB48D;box-shadow:0 0 0 3px rgba(127,180,141,.24);}
+
+/* ============ sections ============ */
+.section{padding-block:44px;}
+.sechead{display:flex;align-items:flex-end;gap:16px;margin-bottom:22px;flex-wrap:wrap;}
+.sechead h2{
+  font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto;
+  font-weight:400;font-size:var(--step-2);letter-spacing:-.025em;line-height:1.1;
+  margin:0;text-wrap:balance;
+}
+.sechead p{margin:0;color:var(--ink-3);font-size:var(--step--1);max-width:52ch;}
+.rule{flex:1;height:1px;background:var(--line);min-width:24px;margin-bottom:8px;}
+
+/* filters */
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:22px;
+  scrollbar-width:thin;-webkit-overflow-scrolling:touch;}
+.chip{
+  flex:0 0 auto;cursor:pointer;border-radius:100px;padding:7px 15px;
+  font-size:.78125rem;font-weight:500;white-space:nowrap;
+  background:var(--surface);color:var(--ink-2);
+  border:1px solid var(--line);
+  transition:background .12s,color .12s,border-color .12s;
+}
+.chip:hover{border-color:var(--ink-3);color:var(--ink);}
+.chip[aria-pressed="true"]{
+  background:var(--ink);color:var(--ground);border-color:var(--ink);
+}
+
+/* ============ two-pane ============ */
+.pane{display:grid;gap:26px;}
+@media(min-width:900px){
+  .pane{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start;}
+  .pane__detail{position:sticky;top:74px;}
+}
+
+/* club list */
+.clublist{display:grid;gap:14px;}
+.club{
+  display:grid;grid-template-columns:104px minmax(0,1fr);gap:0;
+  background:var(--surface);border:1px solid var(--line-2);
+  border-radius:var(--radius);overflow:hidden;cursor:pointer;text-align:left;
+  padding:0;transition:border-color .14s, box-shadow .14s, transform .14s;
+}
+@media(min-width:520px){.club{grid-template-columns:150px minmax(0,1fr);}}
+.club:hover{border-color:var(--line);box-shadow:var(--shadow-m);transform:translateY(-1px);}
+.club[aria-selected="true"]{border-color:var(--brass);box-shadow:var(--shadow-m);}
+.club__ph{position:relative;background:var(--ground-2);align-self:stretch;min-height:104px;}
+.club__ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.club__b{padding:13px 15px 14px;display:flex;flex-direction:column;gap:5px;min-width:0;}
+.club__loc{
+  font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--ink-3);
+}
+.club__n{
+  font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto;
+  font-weight:500;font-size:var(--step-1);letter-spacing:-.02em;line-height:1.15;margin:0;
+}
+.club__meta{
+  display:flex;flex-wrap:wrap;gap:5px 12px;font-size:.75rem;color:var(--ink-2);
+  font-variant-numeric:tabular-nums;margin-top:1px;
+}
+.club__meta b{font-weight:600;color:var(--ink);}
+.club__foot{display:flex;align-items:center;gap:9px;margin-top:5px;flex-wrap:wrap;}
+.pill{
+  font-size:.6875rem;font-weight:600;letter-spacing:.02em;padding:3px 9px;border-radius:100px;
+  font-variant-numeric:tabular-nums;
+}
+.pill--open{background:var(--open-wash);color:var(--open);}
+.pill--full{background:var(--full-wash);color:var(--full);}
+.pill--tag{background:var(--surface-2);color:var(--ink-3);}
+.next{font-size:.75rem;color:var(--ink-3);font-variant-numeric:tabular-nums;}
+.next b{color:var(--ink);font-weight:600;}
+
+/* ============ detail ============ */
+.detail{
+  background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow-m);
+}
+.detail__hero{position:relative;aspect-ratio:16/10;background:var(--ground-2);}
+.detail__hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.detail__hero::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,18,13,0) 42%,rgba(10,18,13,.86) 100%);
+}
+.detail__cap{position:absolute;left:0;right:0;bottom:0;padding:18px 20px;z-index:1;}
+.detail__cap .club__loc{color:rgba(246,244,236,.78);}
+.detail__cap h3{
+  font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto;
+  font-weight:400;font-size:var(--step-3);letter-spacing:-.03em;line-height:1.02;
+  margin:4px 0 0;color:var(--on-photo);text-wrap:balance;
+}
+.detail__body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:20px;}
+.blurb{margin:0;color:var(--ink-2);font-size:var(--step--1);line-height:1.6;max-width:62ch;}
+
+/* stat strip — not cards, a rule-separated data band */
+.stats{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);
+}
+@media(min-width:520px){.stats{grid-template-columns:repeat(4,minmax(0,1fr));}}
+.stat{padding:12px 14px 13px;border-right:1px solid var(--line-2);}
+.stat:nth-child(2n){border-right:0;}
+@media(min-width:520px){
+  .stat:nth-child(2n){border-right:1px solid var(--line-2);}
+  .stat:nth-child(4n),.stat:last-child{border-right:0;}
+}
+.stat dt{
+  font-size:.5625rem;letter-spacing:.17em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-3);margin:0 0 3px;
+}
+.stat dd{
+  margin:0;font-size:1.0625rem;font-weight:600;letter-spacing:-.01em;
+  font-variant-numeric:tabular-nums;
+}
+.stat dd small{font-size:.6875rem;font-weight:500;color:var(--ink-3);letter-spacing:0;}
+
+/* tee sheet */
+.sheet h4{
+  font-size:.625rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-3);margin:0 0 10px;
+}
+.tee{
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;
+  padding:11px 2px;border-top:1px solid var(--line-2);
+}
+.tee:last-of-type{border-bottom:1px solid var(--line-2);}
+.tee__t{
+  font-variant-numeric:tabular-nums;font-weight:600;font-size:.9375rem;letter-spacing:-.01em;
+  min-width:74px;
+}
+.tee__t span{display:block;font-size:.625rem;font-weight:500;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;}
+.tee__d{min-width:0;font-size:.8125rem;color:var(--ink-2);}
+.tee__d b{color:var(--ink);font-weight:600;}
+.tee__d em{font-style:normal;color:var(--ink-3);}
+.seats{display:flex;gap:3px;margin-top:5px;}
+.seat{width:15px;height:5px;border-radius:1px;background:var(--line);}
+.seat--taken{background:var(--brass);}
+.join{
+  border:1px solid var(--line);background:transparent;border-radius:2px;cursor:pointer;
+  padding:7px 13px;font-size:.75rem;font-weight:600;white-space:nowrap;color:var(--ink);
+  transition:background .12s,border-color .12s,color .12s;
+}
+.join:hover:not(:disabled){background:var(--ink);color:var(--ground);border-color:var(--ink);}
+.join:disabled{opacity:.4;cursor:not-allowed;}
+.join--in{background:var(--open-wash);border-color:transparent;color:var(--open);}
+
+/* host form */
+.host{
+  background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);
+  padding:20px;display:grid;gap:14px;
+}
+.field{display:grid;gap:5px;}
+.field label{
+  font-size:.5625rem;letter-spacing:.17em;text-transform:uppercase;font-weight:700;color:var(--ink-3);
+}
+.field input,.field select{
+  font:inherit;font-size:.875rem;padding:9px 11px;border-radius:2px;
+  border:1px solid var(--line);background:var(--ground);color:var(--ink);width:100%;
+}
+.field input:focus,.field select:focus{border-color:var(--brass);}
+.row2{display:grid;gap:14px;grid-template-columns:1fr;}
+@media(min-width:520px){.row2{grid-template-columns:1fr 1fr;}}
+.note{font-size:.6875rem;color:var(--ink-3);margin:0;}
+
+/* my rounds */
+.mine{display:grid;gap:10px;}
+.mineitem{
+  display:flex;gap:14px;align-items:center;padding:13px 15px;
+  background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);
+  border-left:3px solid var(--brass);
+}
+.mineitem__t{font-variant-numeric:tabular-nums;font-weight:600;font-size:.9375rem;min-width:70px;}
+.mineitem__d{min-width:0;font-size:.8125rem;color:var(--ink-2);}
+.mineitem__d b{display:block;color:var(--ink);font-weight:600;font-size:.875rem;}
+.empty{
+  padding:30px 20px;text-align:center;color:var(--ink-3);font-size:var(--step--1);
+  border:1px dashed var(--line);border-radius:var(--radius);
+}
+
+/* footer */
+.foot{
+  border-top:1px solid var(--line-2);padding-block:24px 40px;margin-top:20px;
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;
+  font-size:.6875rem;color:var(--ink-3);
+}
+.foot a{color:var(--ink-3);}
+
+.toast{
+  position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(120%);
+  background:var(--ink);color:var(--ground);padding:11px 20px;border-radius:2px;
+  font-size:.8125rem;font-weight:500;box-shadow:var(--shadow-l);z-index:80;
+  transition:transform .26s cubic-bezier(.2,.8,.3,1);
+}
+.toast.on{transform:translateX(-50%) translateY(0);}
+[hidden]{display:none !important;}
 </style>
-</head>
-<body>
-<div class="stage">
-  <div class="device">
-    <main class="app" id="app"></main>
-    <nav class="nav" id="nav" role="tablist" aria-label="Primary navigation"></nav>
+
+<header class="topbar">
+  <div class="wrap topbar__in">
+    <a class="mark" href="#top">
+      <span class="mark__t">Teed&nbsp;Up</span>
+      <span class="mark__r">Est. 2026</span>
+    </a>
+    <nav class="navlinks">
+      <button class="navlink" data-nav="discover" aria-current="true">Tee sheet</button>
+      <button class="navlink" data-nav="host">Host a round</button>
+      <button class="navlink" data-nav="mine">My rounds</button>
+    </nav>
+    <button class="themebtn" id="themebtn" aria-label="Switch theme" title="Switch theme">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
   </div>
-</div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <picture>
+      <source media="(min-width:760px)" srcset="assets/hero-wide.jpg">
+      <img class="hero__img" src="assets/hero-tall.jpg" alt="Low evening sun raking across a manicured fairway and bunker, pines in silhouette">
+    </picture>
+    <div class="wrap hero__in">
+      <p class="eyebrow">Private clubs · Open seats</p>
+      <h1>A fourth is always<br><em>worth finding.</em></h1>
+      <p>Members post the empty seats in their group. You claim one, pay the guest fee, and play courses that don't take public tee times.</p>
+      <div class="herobar">
+        <button class="btn" data-nav="discover">Browse today's sheet</button>
+        <button class="btn btn--ghost" data-nav="host">Post a seat</button>
+        <span class="livechip"><span class="dot"></span><span id="liveCount">11 seats open today</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DISCOVER ============ -->
+  <div class="wrap section" data-panel="discover">
+    <div class="sechead">
+      <div>
+        <h2>Today's tee sheet</h2>
+        <p>Seven clubs within a day's drive. Guest fees shown are what the member is charged — you settle in the pro shop.</p>
+      </div>
+      <span class="rule"></span>
+    </div>
+
+    <div class="filters" role="group" aria-label="Filter clubs">
+      <button class="chip" data-filter="all" aria-pressed="true">All clubs</button>
+      <button class="chip" data-filter="open" aria-pressed="false">Seats open</button>
+      <button class="chip" data-filter="walk" aria-pressed="false">Walking only</button>
+      <button class="chip" data-filter="caddie" aria-pressed="false">Caddie program</button>
+      <button class="chip" data-filter="links" aria-pressed="false">Links</button>
+      <button class="chip" data-filter="parkland" aria-pressed="false">Parkland</button>
+      <button class="chip" data-filter="under200" aria-pressed="false">Guest fee under $200</button>
+    </div>
+
+    <div class="pane">
+      <div class="clublist" id="clublist"></div>
+      <div class="pane__detail"><div class="detail" id="detail"></div></div>
+    </div>
+  </div>
+
+  <!-- ============ HOST ============ -->
+  <div class="wrap section" data-panel="host" hidden>
+    <div class="sechead">
+      <div>
+        <h2>Post a seat</h2>
+        <p>You're the member. Say when you're going out and how many you're short — we'll match you and hold the seat for two hours.</p>
+      </div>
+      <span class="rule"></span>
+    </div>
+    <div class="pane">
+      <form class="host" id="hostform">
+        <div class="field">
+          <label for="h-club">Your club</label>
+          <select id="h-club" name="club"></select>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="h-date">Date</label>
+            <input type="date" id="h-date" name="date" value="2026-09-15">
+          </div>
+          <div class="field">
+            <label for="h-time">Tee time</label>
+            <input type="time" id="h-time" name="time" value="08:40">
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="h-seats">Seats open</label>
+            <select id="h-seats" name="seats">
+              <option>1</option><option selected>2</option><option>3</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="h-tees">Tees</label>
+            <select id="h-tees" name="tees">
+              <option>Championship</option><option selected>Members</option><option>Forward</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="h-note">Note for the group</label>
+          <input type="text" id="h-note" name="note" placeholder="Walking, quick pace, no cart girl stops" value="Walking, brisk pace — out in under four hours">
+        </div>
+        <button class="btn" type="submit">Post to the sheet</button>
+        <p class="note">Guest fee is collected in the pro shop, not here. Cancel up to 24 hours out with no penalty.</p>
+      </form>
+      <div>
+        <div class="sechead" style="margin-bottom:14px">
+          <div><h2 style="font-size:var(--step-1)">House rules</h2></div>
+          <span class="rule"></span>
+        </div>
+        <p class="blurb"><b>Pace is the whole thing.</b> Groups that post here play ready golf. If the sheet says four hours, the member means four hours.</p>
+        <p class="blurb"><b>Dress to the club, not to the app.</b> Every club below requires a collar. Three of them still say no denim in the clubhouse — it's on each listing.</p>
+        <p class="blurb"><b>The member is responsible for you.</b> Their name is on the guest register. Show up, be on time, and tip the caddie properly.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MINE ============ -->
+  <div class="wrap section" data-panel="mine" hidden>
+    <div class="sechead">
+      <div>
+        <h2>My rounds</h2>
+        <p>Seats you've claimed and rounds you're hosting.</p>
+      </div>
+      <span class="rule"></span>
+    </div>
+    <div class="mine" id="mine"></div>
+  </div>
+
+  <div class="wrap foot">
+    <span>Teed Up — a demo build. Photography licensed via Adobe Stock. Clubs are fictional.</span>
+    <span>Columbia, SC</span>
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
-'use strict';
+(function(){
+  "use strict";
 
-/* Every club carries its OWN photograph. No shared/tinted image, no index maths. */
-const CLUBS=[
- {id:0,name:'Cypress Hollow G&CC',location:'Scottsdale, AZ',tier:'Trophy',priceCents:28500,
-  rating:'4.9',host:'Michael R.',initials:'MR',rounds:38,photo:'club-1.jpg',
-  gradient:'linear-gradient(135deg,#1f5c40,#0e3527)',mono:'C',
-  includes:['Caddie','Cart','Range','Clubhouse lunch'],
-  about:'A top-100 desert course you almost never see without a member. Fast greens, ruthless bunkering, an unforgettable closing stretch through the arroyo.'},
- {id:1,name:'Marsh Point Club',location:'Charleston, SC',tier:'National',priceCents:24000,
-  rating:'4.8',host:'Dana K.',initials:'DK',rounds:21,photo:'club-2.jpg',
-  gradient:'linear-gradient(135deg,#1d5566,#112f3c)',mono:'M',
-  includes:['Caddie','Cart','Lunch'],
-  about:'Lowcountry links winding through tidal marsh and live oaks. A National-tier gem the membership guards closely.'},
- {id:2,name:'Ironwood National',location:'Dallas, TX',tier:'National',priceCents:21000,
-  rating:'4.7',host:'Chris P.',initials:'CP',rounds:54,photo:'club-3.jpg',
-  gradient:'linear-gradient(135deg,#3a5a2c,#20331b)',mono:'I',
-  includes:['Cart','Range','Grill'],
-  about:'Championship parkland with immaculate conditioning and generous corridors.'},
- {id:3,name:'The Dunes at Elk Ridge',location:'Monterey Peninsula, CA',tier:'Trophy',priceCents:65000,
-  rating:'5.0',host:'William H.',initials:'WH',rounds:12,photo:'club-4.jpg',
-  gradient:'linear-gradient(135deg,#20607a,#123a4a)',mono:'D',
-  includes:['Forecaddie','Ocean holes','Locker','Lunch'],
-  about:'Cliffside ocean holes and a waitlist measured in years.'},
- {id:4,name:'Oakmoor Country Club',location:'Atlanta, GA',tier:'Regional',priceCents:15000,
-  rating:'4.6',host:'Steve L.',initials:'SL',rounds:71,photo:'club-5.jpg',
-  gradient:'linear-gradient(135deg,#4a5a30,#28331c)',mono:'O',
-  includes:['Cart','Range'],
-  about:'A classic tree-lined club with a genuinely warm membership.'}
-];
-const SERVICE_FEE_CENTS=3900;
+  var CLUBS = [
+    { id:"kestrel", name:"Kestrel Ridge", loc:"Aiken, South Carolina", img:"assets/club-1.jpg",
+      par:72, yards:7104, rating:74.2, slope:141, fee:165, style:"parkland", walk:true, caddie:true,
+      blurb:"A 1928 Ross routing restored in 2019 — the greens were pushed back out to their original edges, which is why the bunkering suddenly makes sense again. Firm and fast from May through October.",
+      dress:"Collar required. No denim in the clubhouse.",
+      tees:[ {t:"7:20",tag:"AM",who:"Hollis P.",note:"Members tees, walking",cap:4,taken:2},
+             {t:"9:50",tag:"AM",who:"Dane W.",note:"Championship tees, caddies booked",cap:4,taken:3},
+             {t:"2:10",tag:"PM",who:"Ruth A.",note:"Twilight rate, riding",cap:4,taken:4} ] },
 
-const state={filters:new Set(),query:'',requested:null,sheet:null};
-const app=document.getElementById('app'),nav=document.getElementById('nav');
+    { id:"blackwater", name:"Blackwater Cay", loc:"Beaufort, South Carolina", img:"assets/club-2.jpg",
+      par:71, yards:6842, rating:73.8, slope:138, fee:210, style:"parkland", walk:false, caddie:false,
+      blurb:"Built through tidal marsh, so the wind is the defense and the water is genuinely in play on nine holes. The island green at 14 has taken more balls this season than the rest of the back nine combined.",
+      dress:"Collar required. Soft spikes only.",
+      tees:[ {t:"8:00",tag:"AM",who:"Marcus L.",note:"Members tees, carts included",cap:4,taken:1},
+             {t:"11:30",tag:"AM",who:"Priya N.",note:"Forward tees, casual pace",cap:4,taken:2},
+             {t:"3:40",tag:"PM",who:"Tom B.",note:"Nine holes, twilight",cap:3,taken:3} ] },
 
-function el(tag,props={},...kids){
-  const node=document.createElement(tag);
-  for(const [key,value] of Object.entries(props)){
-    if(key==='className')node.className=value;
-    else if(key==='text')node.textContent=value;
-    else if(key.startsWith('on'))node.addEventListener(key.slice(2).toLowerCase(),value);
-    else if(value!==false&&value!=null)node.setAttribute(key,value===true?'':value);
+    { id:"pinewild", name:"Pinewild Hollow", loc:"Southern Pines, North Carolina", img:"assets/club-3.jpg",
+      par:72, yards:6988, rating:73.1, slope:135, fee:145, style:"parkland", walk:true, caddie:true,
+      blurb:"Sandhills turf over a clay base — it drains an hour after a thunderstorm and plays the same in February as it does in July. The most walkable routing on this list; no green is more than eighty yards from the next tee.",
+      dress:"Collar required. Denim permitted outside the grill room.",
+      tees:[ {t:"7:40",tag:"AM",who:"Ellis R.",note:"Members tees, walking, caddie",cap:4,taken:2},
+             {t:"10:20",tag:"AM",who:"Sam K.",note:"Championship tees",cap:4,taken:1},
+             {t:"1:00",tag:"PM",who:"Nora V.",note:"Members tees, walking",cap:4,taken:3} ] },
+
+    { id:"sable", name:"Sable Dunes", loc:"Bandon, Oregon", img:"assets/club-4.jpg",
+      par:70, yards:6642, rating:72.9, slope:133, fee:295, style:"links", walk:true, caddie:true,
+      blurb:"True links — gorse, heather, and no carts at any price. Bring the low ball flight and a jacket; the afternoon wind off the Pacific routinely adds two clubs coming home.",
+      dress:"Collar required. Walking only, no exceptions.",
+      tees:[ {t:"8:20",tag:"AM",who:"Iain M.",note:"Caddie included, walking",cap:4,taken:2},
+             {t:"12:40",tag:"PM",who:"Gwen T.",note:"Second loop, walking",cap:4,taken:2},
+             {t:"4:00",tag:"PM",who:"Aaron D.",note:"Twilight, walking",cap:4,taken:4} ] },
+
+    { id:"caledon", name:"Caledon Palms", loc:"Palm Beach Gardens, Florida", img:"assets/club-5.jpg",
+      par:72, yards:7211, rating:75.0, slope:144, fee:185, style:"parkland", walk:false, caddie:true,
+      blurb:"The longest and hardest card on this list — 144 slope from the tips, and the water hazards are the kind you don't reload from. Play it one set forward the first time; everyone says that and everyone ignores it.",
+      dress:"Collar required. No denim.",
+      tees:[ {t:"7:00",tag:"AM",who:"Dee S.",note:"Members tees, caddies",cap:4,taken:3},
+             {t:"9:10",tag:"AM",who:"Victor H.",note:"Championship tees, riding",cap:4,taken:1},
+             {t:"2:50",tag:"PM",who:"Lena F.",note:"Twilight rate, riding",cap:4,taken:2} ] },
+
+    { id:"mirren", name:"Cape Mirren", loc:"Carmel, California", img:"assets/club-6.jpg",
+      par:71, yards:6730, rating:73.4, slope:136, fee:340, style:"links", walk:true, caddie:true,
+      blurb:"Six holes run along the headland and the other twelve spend the round trying to get you back there. Morning fog usually clears by ten; the club will hold your time if it hasn't.",
+      dress:"Collar required. No denim anywhere on property.",
+      tees:[ {t:"9:30",tag:"AM",who:"Cal R.",note:"Members tees, caddie, walking",cap:4,taken:2},
+             {t:"1:20",tag:"PM",who:"Miriam O.",note:"Members tees, walking",cap:4,taken:3},
+             {t:"3:10",tag:"PM",who:"Josh P.",note:"Twilight, walking",cap:4,taken:4} ] },
+
+    { id:"vermillion", name:"Vermillion Wash", loc:"Palm Desert, California", img:"assets/club-7.jpg",
+      par:72, yards:7020, rating:73.6, slope:132, fee:130, style:"parkland", walk:false, caddie:false,
+      blurb:"Desert target golf with generous landing areas — forgiving off the tee, punishing around the greens. Best value on the sheet from June to September when nobody wants the heat.",
+      dress:"Collar required. Shorts permitted.",
+      tees:[ {t:"6:40",tag:"AM",who:"Rafa G.",note:"Members tees, riding",cap:4,taken:1},
+             {t:"10:50",tag:"AM",who:"Bev C.",note:"Forward tees, riding",cap:4,taken:2},
+             {t:"5:00",tag:"PM",who:"Nate W.",note:"Nine holes, twilight",cap:4,taken:2} ] }
+  ];
+
+  var joined = [];
+  var selected = CLUBS[0].id;
+  var filter = "all";
+
+  var $ = function(s,r){ return (r||document).querySelector(s); };
+  var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+
+  function openSeats(c){
+    return c.tees.reduce(function(n,t){ return n + Math.max(0, t.cap - t.taken); }, 0);
   }
-  for(const kid of kids.flat()){
-    node.append(kid?.nodeType?kid:document.createTextNode(kid??''));
+  function nextOpen(c){
+    for (var i=0;i<c.tees.length;i++){ if (c.tees[i].taken < c.tees[i].cap) return c.tees[i]; }
+    return null;
   }
-  return node;
-}
-function photoFor(c){return 'assets/'+c.photo}
-function bandStyle(c){return 'background:'+c.gradient+';--photo:url('+photoFor(c)+')'}
-function formatMoney(cents){
-  return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0})
-    .format(cents/100);
-}
-function route(path){location.hash='#/'+path}
-function current(){return location.hash.replace(/^#\//,'')||'welcome'}
+  function matches(c){
+    if (filter==="all") return true;
+    if (filter==="open") return openSeats(c) > 0;
+    if (filter==="walk") return c.walk;
+    if (filter==="caddie") return c.caddie;
+    if (filter==="links") return c.style==="links";
+    if (filter==="parkland") return c.style==="parkland";
+    if (filter==="under200") return c.fee < 200;
+    return true;
+  }
 
-function wordmark(onActivate){
-  return el('button',{className:'wordmark',onClick:onActivate,'aria-label':'Teed Up home'},
-    'Teed',el('b',{text:'Up'}));
-}
-function header(label='Scottsdale, AZ'){
-  return el('header',{className:'top'},
-    wordmark(()=>route('welcome')),
-    el('span',{className:'eyebrow',text:label}));
-}
-function button(label,variant,click,disabled=false){
-  return el('button',{className:'btn '+variant,onClick:click,disabled,text:label});
-}
-function moneyRow(label,value,total=false){
-  return el('p',{className:'money'+(total?' money--total':'')},
-    el('span',{text:label}),el('span',{text:value}));
-}
+  function renderList(){
+    var list = CLUBS.filter(matches);
+    var host = $("#clublist");
+    if (!list.length){
+      host.innerHTML = '<p class="empty">No clubs match that filter. Try widening it.</p>';
+      return;
+    }
+    host.innerHTML = list.map(function(c){
+      var open = openSeats(c);
+      var nx = nextOpen(c);
+      return ''+
+      '<button class="club" data-club="'+c.id+'" aria-selected="'+(c.id===selected)+'">'+
+        '<span class="club__ph"><img src="'+c.img+'" alt="'+esc(c.name)+'" loading="lazy"></span>'+
+        '<span class="club__b">'+
+          '<span class="club__loc">'+esc(c.loc)+'</span>'+
+          '<h3 class="club__n">'+esc(c.name)+'</h3>'+
+          '<span class="club__meta">'+
+            '<span>Par <b>'+c.par+'</b></span>'+
+            '<span><b>'+c.yards.toLocaleString()+'</b> yds</span>'+
+            '<span>Slope <b>'+c.slope+'</b></span>'+
+            '<span>Guest <b>$'+c.fee+'</b></span>'+
+          '</span>'+
+          '<span class="club__foot">'+
+            (open
+              ? '<span class="pill pill--open">'+open+' seat'+(open>1?'s':'')+' open</span>'
+              : '<span class="pill pill--full">Sheet full</span>')+
+            (c.walk ? '<span class="pill pill--tag">Walking</span>' : '')+
+            (nx ? '<span class="next">Next <b>'+nx.t+'</b></span>' : '')+
+          '</span>'+
+        '</span>'+
+      '</button>';
+    }).join("");
+  }
 
-function card(c){
-  const band=el('div',{className:'band',style:bandStyle(c)},
-    el('span',{className:'mono','aria-hidden':'true',text:c.mono}),
-    el('span',{className:'badge '+(c.tier==='Trophy'?'badge--trophy':''),text:c.tier}),
-    el('div',{},el('h2',{text:c.name}),el('p',{text:c.location})));
-  return el('button',{className:'card',onClick:()=>route('club/'+c.id),
-    'aria-label':c.name+', '+c.tier+', '+formatMoney(c.priceCents)+' guest fee'},
-    band,
-    el('div',{className:'cardfoot'},
-      el('span',{text:'\u2605 '+c.rating+' \u00b7 '+c.host}),
-      el('span',{className:'price'},formatMoney(c.priceCents),
-        el('small',{text:'guest fee \u00b7 reimbursed'}))));
-}
+  function renderDetail(){
+    var c = CLUBS.filter(function(x){ return x.id===selected; })[0];
+    if (!c){ $("#detail").innerHTML = ""; return; }
+    $("#detail").innerHTML = ''+
+      '<div class="detail__hero">'+
+        '<img src="'+c.img+'" alt="'+esc(c.name)+'">'+
+        '<div class="detail__cap">'+
+          '<div class="club__loc">'+esc(c.loc)+'</div>'+
+          '<h3>'+esc(c.name)+'</h3>'+
+        '</div>'+
+      '</div>'+
+      '<div class="detail__body">'+
+        '<dl class="stats">'+
+          '<div class="stat"><dt>Par</dt><dd>'+c.par+'</dd></div>'+
+          '<div class="stat"><dt>Yardage</dt><dd>'+c.yards.toLocaleString()+'</dd></div>'+
+          '<div class="stat"><dt>Rating / Slope</dt><dd>'+c.rating.toFixed(1)+' <small>/ '+c.slope+'</small></dd></div>'+
+          '<div class="stat"><dt>Guest fee</dt><dd>$'+c.fee+'</dd></div>'+
+        '</dl>'+
+        '<p class="blurb">'+esc(c.blurb)+'</p>'+
+        '<div class="sheet">'+
+          '<h4>Tee sheet · Tuesday 15 September</h4>'+
+          c.tees.map(function(t,i){
+            var left = t.cap - t.taken;
+            var key = c.id+":"+i;
+            var mine = joined.indexOf(key) > -1;
+            var seats = "";
+            for (var s=0;s<t.cap;s++){
+              seats += '<span class="seat'+(s<t.taken?' seat--taken':'')+'"></span>';
+            }
+            return '<div class="tee">'+
+              '<div class="tee__t">'+t.t+'<span>'+t.tag+'</span></div>'+
+              '<div class="tee__d"><b>'+esc(t.who)+'</b> · <em>'+esc(t.note)+'</em>'+
+                '<span class="seats" title="'+t.taken+' of '+t.cap+' filled">'+seats+'</span></div>'+
+              (mine
+                ? '<button class="join join--in" disabled>You’re in</button>'
+                : left>0
+                  ? '<button class="join" data-join="'+key+'">Claim seat</button>'
+                  : '<button class="join" disabled>Full</button>')+
+            '</div>';
+          }).join("")+
+        '</div>'+
+        '<p class="note">'+esc(c.dress)+(c.caddie?' Caddie program available — book 48 hours out.':'')+'</p>'+
+      '</div>';
+  }
 
-/* Welcome: wordmark restored at the top of the hero, trust claims as a real list. */
-function welcome(){
-  return el('section',{className:'screen hero'},
-    el('div',{className:'hero-mark'},wordmark(()=>route('discover'))),
-    el('div',{className:'hero-body'},
-      el('div',{className:'eyebrow',text:'Members-hosted golf'}),
-      el('h1',{className:'serif'},'Get inside the ',el('i',{text:'ropes.'})),
-      el('p',{text:'Book the private clubs you can\u2019t normally play \u2014 as the verified guest of a member.'}),
-      button('Explore clubs','btn--primary',()=>route('discover')),
-      button('I\u2019m a member \u2014 host','btn--secondary',()=>route('host')),
-      el('ul',{className:'trust'},
-        el('li',{text:'ID verified'}),
-        el('li',{text:'Handicap checked'}),
-        el('li',{text:'Rated both ways'}))));
-}
+  function renderMine(){
+    var host = $("#mine");
+    if (!joined.length){
+      host.innerHTML = '<p class="empty">Nothing booked yet. Claim a seat from the tee sheet and it shows up here.</p>';
+      return;
+    }
+    host.innerHTML = joined.map(function(key){
+      var parts = key.split(":");
+      var c = CLUBS.filter(function(x){ return x.id===parts[0]; })[0];
+      var t = c.tees[+parts[1]];
+      return '<div class="mineitem">'+
+        '<div class="mineitem__t">'+t.t+'</div>'+
+        '<div class="mineitem__d"><b>'+esc(c.name)+'</b>'+esc(c.loc)+' · hosted by '+esc(t.who)+' · guest fee $'+c.fee+'</div>'+
+      '</div>';
+    }).join("");
+  }
 
-function discover(){
-  const body=el('div',{className:'pad'},
-    el('div',{className:'eyebrow',text:'Discover'}),
-    el('h1',{text:'Inside the ropes'}),
-    el('p',{className:'sub',text:'Verified members hosting rounds near you.'}));
-  const screen=el('section',{className:'screen'},header(),body);
+  function renderLive(){
+    var n = CLUBS.reduce(function(a,c){ return a + openSeats(c); }, 0);
+    $("#liveCount").textContent = n + " seat" + (n===1?"":"s") + " open today";
+  }
 
-  const search=el('div',{className:'surface search'},el('span',{text:'\u2315','aria-hidden':'true'}));
-  const input=el('input',{type:'search',placeholder:'Search clubs, cities, dates','aria-label':'Search clubs'});
-  input.value=state.query;
-  const list=el('div',{className:'club-list'});
-  input.addEventListener('input',()=>{state.query=input.value;renderCards(list)});
-  search.append(input);
+  var toastTimer;
+  function toast(msg){
+    var el = $("#toast");
+    el.textContent = msg;
+    el.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ el.classList.remove("on"); }, 2600);
+  }
 
-  const chips=el('div',{className:'chips','aria-label':'Filters'});
-  ['All tiers','Trophy','National','Regional','Caddie'].forEach(name=>{
-    const pressed=name==='All tiers'?state.filters.size===0:state.filters.has(name);
-    const chip=el('button',{className:'chip','aria-pressed':String(pressed),text:name});
-    chip.addEventListener('click',()=>{
-      if(name==='All tiers')state.filters.clear();
-      else if(state.filters.has(name))state.filters.delete(name);
-      else state.filters.add(name);
-      render();
+  function show(panel){
+    $$("[data-panel]").forEach(function(p){ p.hidden = (p.dataset.panel !== panel); });
+    $$(".navlink").forEach(function(b){
+      b.setAttribute("aria-current", String(b.dataset.nav === panel));
     });
-    chips.append(chip);
+    if (panel === "mine") renderMine();
+  }
+
+  document.addEventListener("click", function(e){
+    var nav = e.target.closest("[data-nav]");
+    if (nav){ show(nav.dataset.nav); if(nav.classList.contains("btn")) window.scrollTo({top:0,behavior:"smooth"}); return; }
+
+    var chip = e.target.closest("[data-filter]");
+    if (chip){
+      filter = chip.dataset.filter;
+      $$(".chip").forEach(function(c){ c.setAttribute("aria-pressed", String(c===chip)); });
+      var still = CLUBS.filter(matches);
+      if (still.length && !still.some(function(c){ return c.id===selected; })) selected = still[0].id;
+      renderList(); renderDetail();
+      return;
+    }
+
+    var club = e.target.closest("[data-club]");
+    if (club){
+      selected = club.dataset.club;
+      renderList(); renderDetail();
+      if (window.matchMedia("(max-width:899px)").matches){
+        $("#detail").scrollIntoView({behavior:"smooth", block:"start"});
+      }
+      return;
+    }
+
+    var join = e.target.closest("[data-join]");
+    if (join){
+      var key = join.dataset.join;
+      var p = key.split(":");
+      var c = CLUBS.filter(function(x){ return x.id===p[0]; })[0];
+      var t = c.tees[+p[1]];
+      if (t.taken < t.cap && joined.indexOf(key) === -1){
+        t.taken++;
+        joined.push(key);
+        renderList(); renderDetail(); renderLive();
+        toast("Seat claimed — " + t.t + " at " + c.name);
+      }
+      return;
+    }
   });
 
-  body.append(search,chips,
-    el('div',{className:'surface surface--accent',
-      text:'No club? No connections? Every host is a verified member; every guest is vetted and rated.'}),
-    el('div',{style:'height:var(--sp-4)'}),
-    list);
-  renderCards(list);
-  return screen;
-}
+  $("#hostform").addEventListener("submit", function(e){
+    e.preventDefault();
+    var f = e.target;
+    var c = CLUBS.filter(function(x){ return x.id === f.club.value; })[0];
+    var raw = f.time.value || "08:40";
+    var hh = parseInt(raw.split(":")[0],10);
+    var mm = raw.split(":")[1];
+    var tag = hh >= 12 ? "PM" : "AM";
+    var h12 = hh % 12; if (h12 === 0) h12 = 12;
+    c.tees.push({ t:h12+":"+mm, tag:tag, who:"You", note:f.tees.value+" tees — "+(f.note.value||"open group"),
+                  cap:+f.seats.value + 1, taken:1 });
+    c.tees.sort(function(a,b){
+      var ka = (a.tag==="AM"?0:12) + (parseInt(a.t,10)%12);
+      var kb = (b.tag==="AM"?0:12) + (parseInt(b.t,10)%12);
+      return ka - kb;
+    });
+    selected = c.id;
+    show("discover");
+    renderList(); renderDetail(); renderLive();
+    toast("Posted — " + f.seats.value + " seat" + (f.seats.value==="1"?"":"s") + " at " + c.name);
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
 
-function renderCards(list){
-  list.replaceChildren();
-  const q=state.query.toLowerCase();
-  const items=CLUBS.filter(c=>
-    (!state.filters.size||state.filters.has(c.tier))&&
-    [c.name,c.location,c.tier].join(' ').toLowerCase().includes(q));
-  if(!items.length){
-    list.append(el('div',{className:'empty'},
-      el('div',{className:'crest','aria-hidden':'true',text:'T'}),
-      el('h3',{text:'No clubs match those filters yet'}),
-      el('p',{text:'Try a different search or clear your filters.'}),
-      button('Clear filters','btn--ghost',()=>{state.filters.clear();state.query='';render()})));
-    return;
-  }
-  items.forEach(c=>list.append(card(c)));
-}
+  // theme toggle
+  $("#themebtn").addEventListener("click", function(){
+    var r = document.documentElement;
+    var cur = r.getAttribute("data-theme");
+    if (!cur){
+      cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    r.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+  });
 
-function detail(id){
-  const c=CLUBS[id]||CLUBS[0];
-  const total=c.priceCents+SERVICE_FEE_CENTS;
-  const screen=el('section',{className:'screen'},
-    header(c.location),
-    el('div',{className:'detail-hero',style:bandStyle(c)},
-      el('span',{className:'mono','aria-hidden':'true',text:c.mono}),
-      el('span',{className:'badge '+(c.tier==='Trophy'?'badge--trophy':''),text:c.tier}),
-      el('h1',{text:c.name}),
-      el('p',{text:'\u2605 '+c.rating+' \u00b7 Hosted by '+c.host})),
-    el('div',{className:'section'},
-      el('div',{className:'eyebrow',text:'The course'}),
-      el('p',{text:c.about})),
-    el('div',{className:'section'},
-      el('div',{className:'eyebrow',text:'What\u2019s included'}),
-      el('p',{text:c.includes.join(' \u00b7 ')})),
-    el('div',{className:'section'},
-      el('div',{className:'eyebrow',text:'Price'}),
-      moneyRow('Guest fee (reimbursed to host)',formatMoney(c.priceCents)),
-      moneyRow('Teed Up service fee',formatMoney(SERVICE_FEE_CENTS)),
-      moneyRow('Total',formatMoney(total),true)));
+  // populate host club select
+  $("#h-club").innerHTML = CLUBS.map(function(c){
+    return '<option value="'+c.id+'">'+esc(c.name)+' — '+esc(c.loc)+'</option>';
+  }).join("");
 
-  const action=state.requested===c.id
-    ? el('div',{className:'confirm'},
-        el('h3',{text:'Request sent'}),
-        el('p',{className:'sub',text:c.host+' usually responds in under 2 hours.'}),
-        button('Message '+c.host,'btn--ghost',()=>route('messages')))
-    : el('div',{className:'section'},
-        button('Request to book \u00b7 '+formatMoney(total),'btn--primary',
-          ()=>{state.requested=c.id;render()}));
-  screen.append(action);
-  return screen;
-}
-
-function host(){
-  const rows=['Cypress Hollow G&CC \u00b7 Your verified home club','Sat, Sep 20 \u00b7 8:40 AM',
-    'Guest fee \u00b7 Cart & caddie','Guest requirements'];
-  const icons=['\u26f3','\u25c8','\u25ce','\u2713'];
-  return el('section',{className:'screen'},
-    header('Member \u2713'),
-    el('div',{className:'pad stack'},
-      el('div',{},
-        el('div',{className:'eyebrow',text:'Host'}),
-        el('h1',{text:'List an open spot'}),
-        el('p',{className:'sub',
-          text:'Share a round with a vetted guest. You approve who plays and set the terms.'})),
-      el('div',{className:'surface'},...rows.map((x,i)=>
-        el('button',{className:'row',onClick:()=>openSheet('Edit listing',x)},
-          el('span',{className:'icon','aria-hidden':'true',text:icons[i]}),
-          el('span',{text:x})))),
-      el('div',{className:'surface surface--accent'},
-        el('h3',{text:'Reimbursements this month'}),
-        el('p',{text:'4 rounds hosted \u00b7 Reimbursed $1,140'})),
-      button('Publish this spot','btn--primary',
-        ()=>openSheet('Listing published','We\u2019ll notify you when a vetted golfer requests it.'))));
-}
-
-function rounds(){
-  return el('section',{className:'screen'},
-    header('Elite \u2726'),
-    el('div',{className:'pad stack'},
-      el('div',{},
-        el('div',{className:'eyebrow',text:'Your rounds'}),
-        el('h1',{text:'Upcoming'}),
-        el('p',{className:'sub',text:'Everything handled \u2014 not just a tee time.'})),
-      card(CLUBS[0]),
-      el('div',{className:'surface'},
-        el('h3',{text:'Concierge'}),
-        el('p',{className:'sub',
-          text:'Buddies trips, corporate outings, transport and lodging are available from your concierge.'}),
-        button('Message concierge','btn--secondary',()=>route('messages')))));
-}
-
-function profile(){
-  return el('section',{className:'screen'},
-    header('\u2605 4.9'),
-    el('div',{className:'pad stack'},
-      el('div',{},
-        el('div',{className:'eyebrow',text:'Profile'}),
-        el('h1',{text:'Brad V.'}),
-        el('p',{className:'sub',text:'Guest \u00b7 GHIN 8.2 \u00b7 Trust score 92'})),
-      el('div',{className:'surface'},
-        el('h3',{text:'Verified'}),
-        el('ul',{className:'trust'},
-          el('li',{text:'Photo ID'}),
-          el('li',{text:'Handicap'}),
-          el('li',{text:'Etiquette'}))),
-      button('Add a reference','btn--secondary',
-        ()=>openSheet('Add a reference','Name, relationship, and contact form belongs here.')),
-      el('div',{className:'surface'},
-        el('h3',{text:'Membership'}),
-        el('p',{className:'sub',text:'Standard \u00b7 Current plan'}),
-        button('Current plan','btn--ghost',()=>{},true),
-        button('Upgrade to Plus','btn--primary',
-          ()=>openSheet('Choose Plus','Checkout is a prototype sheet only; payment processing is not connected.')),
-        button('Upgrade to Elite','btn--secondary',
-          ()=>openSheet('Choose Elite','Checkout is a prototype sheet only; payment processing is not connected.')))));
-}
-
-function messages(){
-  return el('section',{className:'screen'},
-    header('Messages'),
-    el('div',{className:'pad stack'},
-      el('h1',{text:'Messages'}),
-      el('div',{className:'surface'},
-        el('h3',{text:'Michael R.'}),
-        el('p',{className:'sub',text:'Happy to answer questions about Cypress Hollow.'}),
-        button('Open conversation','btn--secondary',
-          ()=>openSheet('Message Michael','Messaging is a client-demo state. No messages are sent.')))));
-}
-
-function auth(){
-  return el('section',{className:'screen'},
-    header('Welcome'),
-    el('div',{className:'pad'},
-      el('div',{className:'eyebrow',text:'1 of 3'}),
-      el('h1',{text:'Tell us about you'}),
-      el('p',{className:'sub',text:'Demo-only onboarding. Production must require verification.'}),
-      el('label',{for:'auth-id',text:'Email or phone'}),
-      el('input',{className:'field',id:'auth-id',type:'email',placeholder:'you@example.com'}),
-      button('Continue','btn--primary',()=>route('discover'))));
-}
-
-function openSheet(title,body){state.sheet={title,body};render()}
-function sheet(){
-  if(!state.sheet)return null;
-  const extras=/Choose|reference/.test(state.sheet.title)
-    ? [el('label',{for:'sheet-email',text:'Email for demo confirmation'}),
-       el('input',{className:'field',id:'sheet-email',type:'email',placeholder:'you@example.com'})]
-    : [];
-  return el('div',{className:'sheet',role:'dialog','aria-modal':'true','aria-label':state.sheet.title},
-    el('div',{className:'sheet-card'},
-      el('h2',{text:state.sheet.title}),
-      el('p',{className:'sub',text:state.sheet.body}),
-      ...extras,
-      button('Done','btn--primary',()=>{state.sheet=null;render()}),
-      button('Close','btn--ghost',()=>{state.sheet=null;render()})));
-}
-
-const VIEWS={welcome,discover,host,rounds,profile,messages,auth};
-const TABS=[['discover','Discover'],['rounds','Rounds'],['host','Host'],['profile','Profile']];
-
-function render(){
-  const path=current(),parts=path.split('/');
-  const view=parts[0]==='club'?detail(Number(parts[1])):(VIEWS[parts[0]]||welcome)();
-  app.replaceChildren(view);
-
-  /* Welcome has no tab bar, so it must not reserve the nav's height either. */
-  const showNav=parts[0]!=='welcome';
-  app.classList.toggle('app--nonav',!showNav);
-  nav.replaceChildren();
-  if(showNav){
-    TABS.forEach(([key,label])=>nav.append(el('button',{
-      role:'tab','aria-current':parts[0]===key?'page':null,text:label,onClick:()=>route(key)})));
-  }
-
-  if(state.sheet)app.append(sheet());
-  const heading=app.querySelector('h1');
-  if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true})}
-}
-
-window.addEventListener('hashchange',render);
-render();
+  renderList(); renderDetail(); renderMine(); renderLive();
+})();
 </script>
-</body>
-</html>

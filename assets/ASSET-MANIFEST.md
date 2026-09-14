@@ -1,55 +1,37 @@
-# Teed Up v2 Asset Manifest
+# Teed Up — v3 Asset Manifest
 
-## Files
+All photography is **licensed Adobe Stock**, acquired through Brad's Adobe account.
+The v2 build's Wikimedia Commons / geograph.org.uk images have been retired to
+`assets/_v2-archive/` and are no longer referenced by the app.
 
-| File | Slot (club shown in app) | What the image actually depicts | Source / License | Dimensions | Size |
-|---|---|---|---|---|---|
-| `app-icon.png` | Mobile home screen icon / PWA manifest | Teed Up mark | Canva MCP (Brand Kit `kAHDxQWANFw`) | 1024x1024 | 41 KB |
-| `splash.png` | App loading splash screen | Teed Up splash | Canva MCP (Brand Kit `kAHDxQWANFw`) | 1080x1920 | 48 KB |
-| `hero.jpg` | Welcome hero background | Aerial golf course, colour | Wikimedia Commons (CC BY-SA) | 1024x685 | 123 KB |
-| `club-1.jpg` | Cypress Hollow G&CC | Clubhouse + flowerbed, colour | Wikimedia Commons (CC BY-SA) | 800x533 | 115 KB |
-| `club-2.jpg` | Marsh Point Club | Lowcountry clubhouse over water at dusk | Wikimedia Commons (CC BY-SA 4.0) | 1000x665 | 96 KB |
-| `club-3.jpg` | Ironwood National | Parkland fairway + bunkers, first tee | Wikimedia Commons (CC BY-SA 4.0) | 1000x750 | 123 KB |
-| `club-4.jpg` | The Dunes at Elk Ridge | Coastal links, flagstick + golfers | Wikimedia Commons (CC BY-SA 2.0) | 1000x750 | 166 KB |
-| `club-5.jpg` | Oakmoor Country Club | Golfer mid-swing, mountain course | Wikimedia Commons (CC BY-SA) | 800x597 | 127 KB |
-| `club-6.jpg` | (held in reserve — 5 clubs in app) | Torrey Pines entrance monument | Wikimedia Commons (CC BY-SA) | 800x515 | 156 KB |
-| `avatar.png` | User profile / avatar placeholder | Generated portrait | AI Generated (`image_generate`) | 400x400 | 207 KB |
-| `empty-state.png` | Empty-state illustration | Generated vector scene | AI Generated (`image_generate`) | 800x450 | 137 KB |
+| File | Adobe Stock ID | Source resolution | Delivered | Slot |
+|---|---|---|---|---|
+| hero-wide.jpg | 529690747 | 7952x5304 | 2400x1200 | Welcome hero (desktop) |
+| hero-tall.jpg | 529690747 | 7952x5304 | 1200x1600 | Welcome hero (phone) |
+| club-1.jpg | 347433847 | 5464x3640 | 1400x1050 | Kestrel Ridge |
+| club-2.jpg | 252615642 | 5464x3640 | 1400x1050 | Blackwater Cay |
+| club-3.jpg | 320371424 | 6998x4788 | 1400x1050 | Pinewild Hollow |
+| club-4.jpg | 505586815 | 4032x3024 | 1400x1050 | Sable Dunes |
+| club-5.jpg | 286877599 | 5464x3640 | 1400x1050 | Caledon Palms |
+| club-6.jpg | 635384739 | 3840x2160 | 1400x1050 | Cape Mirren |
+| club-7.jpg | 327094972 | 6132x3160 | 1400x1050 | Vermillion Wash |
 
-## Substitutions made in STEP 2 (verified against the pixels, not the filenames)
+Every delivered file is a LANCZOS resize + centre crop of the licensed original, lightly
+graded (saturation 1.06, contrast 1.05), progressive JPEG, each under 420 KB.
 
-The STEP 1 manifest labelled three files with famous club names whose images did not
-match the stated subject. Each was verified with vision on the actual file and replaced.
-Filenames were kept stable so no markup had to change.
+## Selection method
+Candidate thumbnails were downloaded and assembled into a contact sheet, then reviewed
+visually before any image was chosen. This is a direct fix for the v2 failure, where three
+images were selected by filename and depicted something other than their label.
 
-| File | STEP 1 claimed | Pixels actually showed | Action |
-|---|---|---|---|
-| `club-2.jpg` | Lahinch Golf Club | 1900s black-and-white archival group photo | REPLACED with a colour lowcountry clubhouse photo |
-| `club-3.jpg` | St Andrews Links | Aerial coastal marsh/farmland, no course in frame | REPLACED with a parkland first-tee photo |
-| `club-4.jpg` | Shadow Creek | Aerial suburban/industrial sprawl, warehouses | REPLACED with a coastal links photo |
+## Typography
+- Display: **Fraunces** — variable optical-size serif, club names and headings
+- UI / body: **Archivo** — tabular numerals for tee times, yardages, ratings and fees
 
-Real-club naming was also dropped from the app copy: the five clubs in `index.html`
-are fictional (Cypress Hollow, Marsh Point, Ironwood National, The Dunes at Elk Ridge,
-Oakmoor), so no photograph is captioned as a club it does not depict.
-
-Full per-file provenance for the three replacements — credit, licence and source URL —
-is in `assets/ATTRIBUTION.json`.
-
-## Asset wiring (how the app consumes these)
-
-- `hero.jpg` — CSS `url(assets/hero.jpg)` in the `.hero` background stack.
-- `club-N.jpg` — each club record in `CLUBS[]` carries its own `photo` field, injected
-  per card as the `--photo` custom property. No shared image, no index arithmetic.
-- The previous build applied `mix-blend-mode:luminosity` to every card band, which
-  desaturated five distinct photographs into one grey-green wash and read as a single
-  reused tinted image. That blend mode is gone; bands render full colour.
-
-## Tools used
-
-1. `mcp__canva__*` (`list_brand_kits`, `generate_design`, `create_design_from_candidate`,
-   `get_export_formats`, `export_design`) — app icon and splash from Brad's real brand kit.
-2. `web_search` — locating Creative Commons / Wikimedia golf photography.
-3. `image_generate` — avatar and empty-state illustrations.
-4. `vision_analyze` — per-file verification that each image depicts what the manifest says.
-5. `terminal` + Python/PIL — download, resize (max 1600px hero / 1000px cards), compress
-   every file under 300 KB.
+## Why v2 looked bare-bones
+Hermes has no stock-photography credential of any kind — no Adobe, Getty, Shutterstock,
+Unsplash or Pexels key across its 140 environment variables. Its studio agent could only
+reach `web_search`, which led it to free Creative Commons photography. Separately, the only
+image-generation backend enabled was `image_gen/xai`, the weakest one installed.
+`image_gen/openrouter` (gpt-image-2, Krea 2, Qwen Image 3 Pro, MAI-Image-2.5) is now
+enabled across the main config and all eight profiles.

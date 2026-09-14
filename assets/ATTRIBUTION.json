@@ -1,32 +1,19 @@
-[
- {
-  "file": "club-2.jpg",
-  "dims": "1000x665",
-  "bytes": 98723,
-  "quality": 86,
-  "credit": "Sswebrc / Wikimedia Commons",
-  "license": "CC BY-SA 4.0",
-  "slot": "Marsh Point Club - Charleston lowcountry coastal links",
-  "source": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Coastal_Links_Shell_Point.jpg"
- },
- {
-  "file": "club-3.jpg",
-  "dims": "1000x750",
-  "bytes": 126297,
-  "quality": 86,
-  "credit": "Ben Scripps / Wikimedia Commons",
-  "license": "CC BY-SA 4.0",
-  "slot": "Ironwood National - championship parkland first tee",
-  "source": "https://upload.wikimedia.org/wikipedia/commons/4/41/Kingsley_Club_-_First_Tee.jpg"
- },
- {
-  "file": "club-4.jpg",
-  "dims": "1000x750",
-  "bytes": 169959,
-  "quality": 86,
-  "credit": "Sandy Gemmill / Wikimedia Commons",
-  "license": "CC BY-SA 2.0",
-  "slot": "The Dunes at Elk Ridge - clifftop ocean links",
-  "source": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Balcomie_Links_from_the_Fife_Coastal_Path_-_geograph.org.uk_-_4107488.jpg"
- }
-]
+{
+  "build": "v3",
+  "date": "2026-09-14",
+  "source": "Adobe Stock (licensed via Brad's Adobe account, asset_license_and_download_stock)",
+  "selection_method": "All candidates downloaded as thumbnails and reviewed on a contact sheet before selection. No image chosen by filename or search-result title.",
+  "assets": [
+    { "file": "hero-wide.jpg / hero-tall.jpg", "adobe_stock_id": "529690747", "source_px": "7952x5304", "shows": "Low evening sun raking across fairway and bunker, pines in silhouette", "slot": "Welcome hero" },
+    { "file": "club-1.jpg", "adobe_stock_id": "347433847", "source_px": "5464x3640", "shows": "Aerial: fairway, green and sand traps", "slot": "Kestrel Ridge" },
+    { "file": "club-2.jpg", "adobe_stock_id": "252615642", "source_px": "5464x3640", "shows": "Aerial: course with dark lakes and island green", "slot": "Blackwater Cay" },
+    { "file": "club-3.jpg", "adobe_stock_id": "320371424", "source_px": "6998x4788", "shows": "Green with red flagstick, pines, blue sky", "slot": "Pinewild Hollow" },
+    { "file": "club-4.jpg", "adobe_stock_id": "505586815", "source_px": "4032x3024", "shows": "Coastal links, heather and gorse, moody sky", "slot": "Sable Dunes" },
+    { "file": "club-5.jpg", "adobe_stock_id": "286877599", "source_px": "5464x3640", "shows": "Aerial: tropical course, palms and lake", "slot": "Caledon Palms" },
+    { "file": "club-6.jpg", "adobe_stock_id": "635384739", "source_px": "3840x2160", "shows": "Coastal headland course above the sea", "slot": "Cape Mirren" },
+    { "file": "club-7.jpg", "adobe_stock_id": "327094972", "source_px": "6132x3160", "shows": "Desert resort clubhouse, palms, mountains, reflecting water", "slot": "Vermillion Wash" }
+  ],
+  "banned_sources_confirmed_absent": ["Wikimedia Commons", "geograph.org.uk", "Flickr CC", "web-search image results"],
+  "typography": { "display": "Fraunces (variable optical size)", "ui": "Archivo (tabular numerals for times and yardages)" },
+  "note": "Club names are fictional. No photograph is captioned as a real club it does not depict."
+}
