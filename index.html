@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%;display:block}[hidden]{display:none!important}</style>
+<style>:root{color-scheme:dark light}body{margin:0}img{max-width:100%;display:block}[hidden]{display:none!important}</style>
 </head>
 <body>
 <title>Teed Up</title>
@@ -14,8 +14,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Teed Up">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#EEEBE3">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0D1410">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=Archivo:wght@400;500;600&display=swap">
@@ -26,19 +26,19 @@
 /* ═══ tokens ═══ light is the default: premium hospitality is parchment, not black.
    Photography carries the colour; there is almost no chromatic accent. ═══ */
 :root{
-  --ground:#EEEBE3;
-  --ground-2:#E5E1D7;
-  --surface:#F7F5F0;
-  --ink:#141A16;
-  --ink-2:#4C554F;
-  --ink-3:#848C85;
-  --rule:rgba(20,26,22,.16);
-  --rule-strong:rgba(20,26,22,.42);
-  --accent:#6F5518;
-  --accent-soft:rgba(111,85,24,.10);
+  --ground:#0D1410;
+  --ground-2:#080C09;
+  --surface:#151E17;
+  --ink:#EAE7DD;
+  --ink-2:#B0B7AD;
+  --ink-3:#7A827B;
+  --rule:rgba(234,231,221,.15);
+  --rule-strong:rgba(234,231,221,.42);
+  --accent:#CBA85C;
+  --accent-soft:rgba(203,168,92,.13);
   --on-photo:#FBF9F4;
-  --pip-empty:rgba(20,26,22,.20);
-  --pip-full:#141A16;
+  --pip-empty:rgba(234,231,221,.20);
+  --pip-full:#CBA85C;
 
   --ff-display:"Fraunces",Georgia,"Times New Roman",serif;
   --ff-ui:"Archivo","Helvetica Neue",Arial,sans-serif;
@@ -59,35 +59,35 @@
   --reveal:350ms cubic-bezier(.37,.01,0,.98);
   --slow:620ms cubic-bezier(.19,1,.22,1);
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --ground:#10160F;
-    --ground-2:#0A0F0A;
-    --surface:#171F18;
-    --ink:#E9E6DC;
-    --ink-2:#AFB6AC;
-    --ink-3:#79817A;
-    --rule:rgba(233,230,220,.16);
-    --rule-strong:rgba(233,230,220,.44);
-    --accent:#CBA85C;
-    --accent-soft:rgba(203,168,92,.13);
-    --pip-empty:rgba(233,230,220,.22);
-    --pip-full:#CBA85C;
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ground:#EEEBE3;
+    --ground-2:#E5E1D7;
+    --surface:#F7F5F0;
+    --ink:#141A16;
+    --ink-2:#4C554F;
+    --ink-3:#848C85;
+    --rule:rgba(20,26,22,.16);
+    --rule-strong:rgba(20,26,22,.42);
+    --accent:#6F5518;
+    --accent-soft:rgba(111,85,24,.10);
+    --pip-empty:rgba(20,26,22,.20);
+    --pip-full:#141A16;
   }
 }
-:root[data-theme="dark"]{
-  --ground:#10160F;
-  --ground-2:#0A0F0A;
-  --surface:#171F18;
-  --ink:#E9E6DC;
-  --ink-2:#AFB6AC;
-  --ink-3:#79817A;
-  --rule:rgba(233,230,220,.16);
-  --rule-strong:rgba(233,230,220,.44);
-  --accent:#CBA85C;
-  --accent-soft:rgba(203,168,92,.13);
-  --pip-empty:rgba(233,230,220,.22);
-  --pip-full:#CBA85C;
+:root[data-theme="light"]{
+  --ground:#EEEBE3;
+  --ground-2:#E5E1D7;
+  --surface:#F7F5F0;
+  --ink:#141A16;
+  --ink-2:#4C554F;
+  --ink-3:#848C85;
+  --rule:rgba(20,26,22,.16);
+  --rule-strong:rgba(20,26,22,.42);
+  --accent:#6F5518;
+  --accent-soft:rgba(111,85,24,.10);
+  --pip-empty:rgba(20,26,22,.20);
+  --pip-full:#141A16;
 }
 
 *,*::before,*::after{box-sizing:border-box;}
@@ -150,46 +150,68 @@ button{font:inherit;color:inherit;background:none;border:0;}
 }
 .icobtn:hover{color:var(--ink);border-color:var(--rule-strong);}
 
-/* ═══ hero — cinematic band, headline on parchment beneath ═══ */
-/* cinematic, but capped so the headline is always in the first frame.
-   height is set explicitly — aspect-ratio + max-height would shrink the width instead. */
-.hero__media{
-  position:relative;overflow:hidden;background:var(--ground-2);
-  width:100%;height:min(54svh,125vw);
+/* ═══ landing — full-frame cinematic opener with an orchestrated entrance ═══ */
+.landing{
+  position:relative;isolation:isolate;overflow:hidden;
+  min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+  background:var(--ground-2);
+  padding-bottom:clamp(88px,13svh,148px);
 }
-@media(min-width:760px){.hero__media{height:min(58svh,42.4vw);}}
-.hero__media img{width:100%;height:100%;object-fit:cover;}
-/* scrim confined to the bottom sixth, the way the good hospitality sites do it */
-.hero__media::after{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,transparent 83.33%,rgba(12,18,14,.45));
+.landing__media{position:absolute;inset:0;z-index:-2;overflow:hidden;}
+.landing__media img{width:100%;height:100%;object-fit:cover;}
+/* readable over photography in either theme, weighted to the bottom */
+.landing::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(8,12,9,.55) 0%,rgba(8,12,9,.10) 22%,rgba(8,12,9,0) 38%),
+    linear-gradient(180deg,rgba(8,12,9,0) 30%,rgba(8,12,9,.40) 50%,rgba(8,12,9,.74) 68%,rgba(8,12,9,.94) 100%);
 }
-.hero__body{padding-block:26px 34px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
-@media(min-width:760px){.hero__body{padding-block:38px 46px;}}
-h1.display{font-weight:300;font-size:var(--t-h1);line-height:.96;max-width:16ch;}
-h1.display b{font-weight:600;font-style:normal;}
-.hero__lead{margin:0;max-width:52ch;color:var(--ink-2);font-size:var(--t-lead);line-height:1.5;}
-.hero__acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-top:4px;}
+.landing__in{display:flex;flex-direction:column;align-items:flex-start;gap:18px;}
+.landing .eyebrow{color:rgba(251,249,244,.72);}
 
-/* the ONE pill on the page */
+/* line-mask reveal — the editorial move: each line rises out of its own clip */
+h1.display{
+  font-weight:300;font-size:var(--t-h1);line-height:.97;max-width:15ch;color:var(--on-photo);
+}
+h1.display .ln{display:block;overflow:hidden;padding-bottom:.04em;}
+h1.display .ln > span{display:block;}
+h1.display b{font-weight:600;color:#F0DCA8;}
+
+.hairline{display:block;width:min(320px,62%);height:1px;background:rgba(251,249,244,.5);transform-origin:left center;}
+.landing__lead{margin:0;max-width:50ch;color:rgba(251,249,244,.84);font-size:var(--t-lead);line-height:1.5;}
+.landing__acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-top:2px;}
+
 .pill-cta{
   cursor:pointer;border-radius:999px;padding:13px 28px;
-  background:var(--ink);color:var(--ground);
+  background:var(--on-photo);color:#0D1410;
   font-size:.8125rem;font-weight:600;letter-spacing:.02em;
   transition:opacity var(--fast),transform var(--fast);
 }
-.pill-cta:hover{opacity:.86;}
+.pill-cta:hover{opacity:.88;}
 .pill-cta:active{transform:scale(.98);}
 .btn-line{
-  cursor:pointer;padding:12px 22px;border:1px solid var(--rule-strong);color:var(--ink);
+  cursor:pointer;padding:12px 22px;border:1px solid rgba(251,249,244,.46);color:var(--on-photo);
   font-size:.8125rem;font-weight:600;letter-spacing:.02em;
   transition:background var(--fast),border-color var(--fast);
 }
-.btn-line:hover{background:var(--accent-soft);border-color:var(--ink);}
-.count{
-  font-size:var(--t-micro);color:var(--ink-3);display:inline-flex;align-items:center;gap:8px;
+.btn-line:hover{background:rgba(251,249,244,.12);border-color:var(--on-photo);}
+.count{font-size:var(--t-micro);color:rgba(251,249,244,.72);display:inline-flex;align-items:center;gap:8px;}
+.count .dot{width:5px;height:5px;border-radius:50%;background:#CBA85C;}
+
+/* scroll cue */
+.cue{
+  position:absolute;left:50%;bottom:22px;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;
+  color:rgba(251,249,244,.62);font-size:.5625rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  padding:6px 10px;
 }
-.count .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);}
+.cue i{display:block;width:1px;height:34px;background:linear-gradient(180deg,rgba(251,249,244,.7),transparent);}
+.cue:hover{color:var(--on-photo);}
+
+/* buttons inside the app (below the landing) sit on the ground colour */
+.section .pill-cta{background:var(--ink);color:var(--ground);}
+.section .btn-line{border-color:var(--rule-strong);color:var(--ink);}
+.section .btn-line:hover{background:var(--accent-soft);border-color:var(--ink);}
 
 /* ═══ sections ═══ */
 .section{padding-block:38px;}
@@ -364,20 +386,42 @@ h1.display b{font-weight:600;font-style:normal;}
 }
 .toast.on{transform:translateX(-50%) translateY(0);}
 
-/* ═══ motion — visible at rest; JS only replays the entrance ═══ */
+/* ═══ motion — nothing is parked invisible without JS ═══ */
 @keyframes riseIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes lineUp{from{transform:translateY(105%);}to{transform:translateY(0);}}
+@keyframes softUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+@keyframes drawX{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+@keyframes photoIn{from{opacity:0;transform:scale(1.09);}to{opacity:1;transform:scale(1);}}
+@keyframes drift{from{transform:scale(1);}to{transform:scale(1.05);}}
+@keyframes cueBob{0%,100%{opacity:.55;transform:translateX(-50%) translateY(0);}50%{opacity:1;transform:translateX(-50%) translateY(5px);}}
+
 .js .r{opacity:0;}
 .js .r.in{animation:riseIn var(--reveal) both;}
-.js .hero__media{opacity:0;}
-.js .hero__media.in{animation:fadeIn var(--slow) both;}
 .js .r.in:nth-child(1){animation-delay:0ms;}
 .js .r.in:nth-child(2){animation-delay:60ms;}
 .js .r.in:nth-child(3){animation-delay:120ms;}
 .js .r.in:nth-child(4){animation-delay:180ms;}
+
+/* landing entrance — one orchestrated sequence, then it stops */
+.js .landing__media img{
+  animation:photoIn 1500ms cubic-bezier(.19,1,.22,1) both,
+            drift 26s linear 1500ms both;
+}
+.js .landing .z{opacity:0;}
+.js .landing .zl1,.js .landing .zl2{opacity:1;transform:translateY(105%);}
+.js .landing.go .z1{animation:softUp 620ms cubic-bezier(.19,1,.22,1) 260ms both;}
+.js .landing.go .zl1{animation:lineUp 900ms cubic-bezier(.19,1,.22,1) 420ms both;}
+.js .landing.go .zl2{animation:lineUp 900ms cubic-bezier(.19,1,.22,1) 540ms both;}
+.js .landing.go .z2{animation:drawX 760ms cubic-bezier(.19,1,.22,1) 1000ms both;opacity:1;}
+.js .landing.go .z3{animation:softUp 620ms cubic-bezier(.19,1,.22,1) 1120ms both;}
+.js .landing.go .z4{animation:softUp 620ms cubic-bezier(.19,1,.22,1) 1240ms both;}
+.js .landing.go .z5{animation:softUp 500ms ease-out 1700ms both,cueBob 2.8s ease-in-out 2200ms infinite;}
+
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
-  .js .r,.js .hero__media{opacity:1 !important;}
+  *,*::before,*::after{animation:none !important;transition-duration:.001ms !important;}
+  .js .r,.js .landing .z{opacity:1 !important;}
+  .js .landing .zl1,.js .landing .zl2{transform:none !important;}
+  .js .landing__media img{opacity:1 !important;transform:none !important;}
 }
 </style>
 
@@ -396,22 +440,29 @@ h1.display b{font-weight:600;font-style:normal;}
 </header>
 
 <main id="top">
-  <div class="hero__media">
-    <picture>
-      <source media="(min-width:760px)" srcset="assets/hero-band.jpg">
-      <img src="assets/hero-tall.jpg" alt="Low evening sun raking across a manicured fairway, pines in silhouette" fetchpriority="high">
-    </picture>
-  </div>
-  <div class="wrap hero__body">
-    <p class="eyebrow r">Private clubs · Open seats</p>
-    <h1 class="display r">A fourth is always <b>worth finding.</b></h1>
-    <p class="hero__lead r">Members post the empty seats in their group. You claim one, pay the guest fee, and play courses that don't take public tee times.</p>
-    <div class="hero__acts r">
-      <button class="pill-cta" data-nav="discover">Browse today's sheet</button>
-      <button class="btn-line" data-nav="host">Post a seat</button>
-      <span class="count num"><span class="dot"></span><span id="liveCount">—</span></span>
+  <section class="landing">
+    <div class="landing__media">
+      <picture>
+        <source media="(min-width:760px)" srcset="assets/hero-band.jpg">
+        <img src="assets/hero-tall.jpg" alt="Low evening sun raking across a manicured fairway, pines in silhouette" fetchpriority="high">
+      </picture>
     </div>
-  </div>
+    <div class="wrap landing__in">
+      <p class="eyebrow z z1">Private clubs · Open seats</p>
+      <h1 class="display">
+        <span class="ln"><span class="z zl1">A fourth is always</span></span>
+        <span class="ln"><span class="z zl2"><b>worth finding.</b></span></span>
+      </h1>
+      <span class="hairline z z2"></span>
+      <p class="landing__lead z z3">Members post the empty seats in their group. You claim one, pay the guest fee, and play courses that don't take public tee times.</p>
+      <div class="landing__acts z z4">
+        <button class="pill-cta" data-scroll>Browse today's sheet</button>
+        <button class="btn-line" data-nav="host">Post a seat</button>
+        <span class="count num"><span class="dot"></span><span id="liveCount">—</span></span>
+      </div>
+    </div>
+    <button class="cue z z5" data-scroll aria-label="Scroll to the tee sheet"><span>Tee sheet</span><i></i></button>
+  </section>
 
   <!-- ══ DISCOVER ══ -->
   <div class="wrap section" data-panel="discover">
@@ -659,6 +710,13 @@ h1.display b{font-weight:600;font-style:normal;}
   }
 
   document.addEventListener("click",function(e){
+    if(e.target.closest("[data-scroll]")){
+      var d=document.querySelector('[data-panel="discover"]');
+      if(d && !d.hidden) d.scrollIntoView({behavior:"smooth",block:"start"});
+      else{show("discover");setTimeout(function(){
+        document.querySelector('[data-panel="discover"]').scrollIntoView({behavior:"smooth",block:"start"});},60);}
+      return;
+    }
     var n=e.target.closest("[data-nav]");
     if(n){show(n.dataset.nav);window.scrollTo({top:0,behavior:"smooth"});return;}
     var f=e.target.closest("[data-filter]");
@@ -708,7 +766,7 @@ h1.display b{font-weight:600;font-style:normal;}
     var nextT=cur==="dark"?"light":"dark";
     r.setAttribute("data-theme",nextT);
     var m=document.querySelector('meta[name="theme-color"]');
-    if(m) m.setAttribute("content", nextT==="dark"?"#10160F":"#EEEBE3");
+    if(m) m.setAttribute("content", nextT==="light"?"#EEEBE3":"#0D1410");
   });
 
   $("#h-club").innerHTML=CLUBS.map(function(c){
@@ -716,7 +774,7 @@ h1.display b{font-weight:600;font-style:normal;}
 
   renderGrid();renderMine();live();
   requestAnimationFrame(function(){
-    document.querySelector(".hero__media").classList.add("in");
+    document.querySelector(".landing").classList.add("go");
     reveal();
   });
 })();
