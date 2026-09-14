@@ -10,555 +10,475 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Teed Up">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#101A15">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#EEEBE3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=Archivo:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=Archivo:wght@400;500;600&display=swap">
+
+<script>document.documentElement.classList.add('js');</script>
 
 <style>
-/* ============ tokens : light (bare :root defines everything) ============ */
+/* ═══ tokens ═══ light is the default: premium hospitality is parchment, not black.
+   Photography carries the colour; there is almost no chromatic accent. ═══ */
 :root{
-  --ground:#E9E7DF;
-  --ground-2:#DFDCD1;
-  --surface:#FBFAF6;
-  --surface-2:#F3F1E9;
-  --ink:#18231C;
-  --ink-2:#4A574E;
-  --ink-3:#75806F;
-  --line:#CFCCBF;
-  --line-2:#E2DFD4;
-  --brass:#8A6E2F;
-  --brass-ink:#6B551F;
-  --brass-wash:#EFE7D2;
-  --open:#3F6B4F;
-  --open-wash:#DFE9E0;
-  --full:#8C3B2E;
-  --full-wash:#F0DFDA;
-  --scrim-1:rgba(10,18,13,.00);
-  --scrim-2:rgba(10,18,13,.62);
-  --scrim-3:rgba(10,18,13,.88);
-  --shadow-s:0 1px 2px rgba(20,32,24,.08);
-  --shadow-m:0 6px 18px -8px rgba(20,32,24,.28);
-  --shadow-l:0 24px 48px -24px rgba(20,32,24,.42);
-  --on-photo:#F6F4EC;
-  --radius:3px;
-  --maxw:1180px;
+  --ground:#EEEBE3;
+  --ground-2:#E5E1D7;
+  --surface:#F7F5F0;
+  --ink:#141A16;
+  --ink-2:#4C554F;
+  --ink-3:#848C85;
+  --rule:rgba(20,26,22,.16);
+  --rule-strong:rgba(20,26,22,.42);
+  --accent:#6F5518;
+  --accent-soft:rgba(111,85,24,.10);
+  --on-photo:#FBF9F4;
+  --pip-empty:rgba(20,26,22,.20);
+  --pip-full:#141A16;
 
-  --step--1:clamp(.75rem,.72rem + .12vw,.8125rem);
-  --step-0:clamp(.9375rem,.91rem + .14vw,1rem);
-  --step-1:clamp(1.0625rem,1.02rem + .22vw,1.1875rem);
-  --step-2:clamp(1.375rem,1.28rem + .46vw,1.75rem);
-  --step-3:clamp(1.875rem,1.66rem + 1.05vw,2.75rem);
-  --step-4:clamp(2.5rem,2.02rem + 2.4vw,4.25rem);
+  --ff-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --ff-ui:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --wonk:"SOFT" 0,"WONK" 0;
+
+  /* display runs big, body stays small — the ratio is the whole game */
+  --t-eyebrow:.6875rem;
+  --t-micro:.75rem;
+  --t-body:.9375rem;
+  --t-lead:clamp(1rem,.95rem + .2vw,1.125rem);
+  --t-h3:clamp(1.25rem,1.1rem + .6vw,1.625rem);
+  --t-h2:clamp(1.75rem,1.4rem + 1.4vw,2.75rem);
+  --t-h1:clamp(2.75rem,1.9rem + 4vw,5.25rem);
+
+  --gut:20px;
+  --maxw:1240px;
+  --fast:150ms cubic-bezier(.4,0,.2,1);
+  --reveal:350ms cubic-bezier(.37,.01,0,.98);
+  --slow:620ms cubic-bezier(.19,1,.22,1);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --ground:#101A15;
-    --ground-2:#0A120E;
-    --surface:#18251E;
-    --surface-2:#1F2E26;
-    --ink:#EDEBE2;
-    --ink-2:#B3BDB2;
-    --ink-3:#7E8A80;
-    --line:#2A3A31;
-    --line-2:#22302A;
-    --brass:#C9A557;
-    --brass-ink:#DDBE78;
-    --brass-wash:#2B2617;
-    --open:#7FB48D;
-    --open-wash:#1B2C21;
-    --full:#D08B7C;
-    --full-wash:#2E1D19;
-    --shadow-s:0 1px 2px rgba(0,0,0,.4);
-    --shadow-m:0 6px 18px -8px rgba(0,0,0,.7);
-    --shadow-l:0 24px 48px -24px rgba(0,0,0,.85);
+    --ground:#10160F;
+    --ground-2:#0A0F0A;
+    --surface:#171F18;
+    --ink:#E9E6DC;
+    --ink-2:#AFB6AC;
+    --ink-3:#79817A;
+    --rule:rgba(233,230,220,.16);
+    --rule-strong:rgba(233,230,220,.44);
+    --accent:#CBA85C;
+    --accent-soft:rgba(203,168,92,.13);
+    --pip-empty:rgba(233,230,220,.22);
+    --pip-full:#CBA85C;
   }
 }
 :root[data-theme="dark"]{
-  --ground:#101A15;
-  --ground-2:#0A120E;
-  --surface:#18251E;
-  --surface-2:#1F2E26;
-  --ink:#EDEBE2;
-  --ink-2:#B3BDB2;
-  --ink-3:#7E8A80;
-  --line:#2A3A31;
-  --line-2:#22302A;
-  --brass:#C9A557;
-  --brass-ink:#DDBE78;
-  --brass-wash:#2B2617;
-  --open:#7FB48D;
-  --open-wash:#1B2C21;
-  --full:#D08B7C;
-  --full-wash:#2E1D19;
-  --shadow-s:0 1px 2px rgba(0,0,0,.4);
-  --shadow-m:0 6px 18px -8px rgba(0,0,0,.7);
-  --shadow-l:0 24px 48px -24px rgba(0,0,0,.85);
+  --ground:#10160F;
+  --ground-2:#0A0F0A;
+  --surface:#171F18;
+  --ink:#E9E6DC;
+  --ink-2:#AFB6AC;
+  --ink-3:#79817A;
+  --rule:rgba(233,230,220,.16);
+  --rule-strong:rgba(233,230,220,.44);
+  --accent:#CBA85C;
+  --accent-soft:rgba(203,168,92,.13);
+  --pip-empty:rgba(233,230,220,.22);
+  --pip-full:#CBA85C;
 }
 
 *,*::before,*::after{box-sizing:border-box;}
 body{
-  margin:0;
-  background:var(--ground);
-  color:var(--ink);
-  font-family:"Archivo","Helvetica Neue",Arial,sans-serif;
-  font-size:var(--step-0);
-  line-height:1.55;
-  -webkit-font-smoothing:antialiased;
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--ff-ui);font-size:var(--t-body);line-height:1.6;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
 }
 img{max-width:100%;display:block;}
-button{font:inherit;color:inherit;}
-:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:2px;}
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
-}
+button{font:inherit;color:inherit;background:none;border:0;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+[hidden]{display:none !important;}
 
 .wrap{
   width:100%;max-width:var(--maxw);margin-inline:auto;
-  padding-inline:max(20px, env(safe-area-inset-left)) max(20px, env(safe-area-inset-right));
-}
-/* installed to the home screen: clear the notch and the home indicator */
-@media (display-mode: standalone){
-  .topbar{padding-top:env(safe-area-inset-top);}
-  .foot{padding-bottom:calc(40px + env(safe-area-inset-bottom));}
+  padding-inline:max(var(--gut),env(safe-area-inset-left)) max(var(--gut),env(safe-area-inset-right));
 }
 
-/* ============ chrome ============ */
-.topbar{
-  position:sticky;top:0;z-index:40;
-  background:color-mix(in srgb,var(--ground) 88%,transparent);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line-2);
+/* ═══ type primitives ═══ */
+.eyebrow{
+  font-size:var(--t-eyebrow);letter-spacing:.18em;text-transform:uppercase;
+  font-weight:500;color:var(--ink-3);margin:0;
 }
-.topbar__in{display:flex;align-items:center;gap:16px;height:58px;}
+.display{
+  font-family:var(--ff-display);font-optical-sizing:auto;
+  font-variation-settings:var(--wonk);
+  font-feature-settings:"liga" 1,"dlig" 0,"swsh" 0;
+  letter-spacing:-.014em;text-wrap:balance;margin:0;
+}
+.num{font-variant-numeric:tabular-nums lining-nums;}
+
+/* ═══ chrome ═══ */
+.topbar{
+  position:sticky;top:0;z-index:50;background:var(--ground);
+  border-bottom:1px solid var(--rule);
+  padding-top:env(safe-area-inset-top);
+}
+.topbar__in{display:flex;align-items:center;gap:14px;height:56px;}
 .mark{display:flex;align-items:baseline;gap:9px;margin-right:auto;text-decoration:none;color:inherit;}
 .mark__t{
-  font-family:"Fraunces",Georgia,serif;
-  font-optical-sizing:auto;
-  font-weight:600;font-size:1.32rem;letter-spacing:-.022em;line-height:1;
+  font-family:var(--ff-display);font-optical-sizing:auto;
+  font-variation-settings:var(--wonk);
+  font-weight:600;font-size:1.25rem;letter-spacing:-.02em;line-height:1;
 }
-.mark__r{
-  font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--brass);font-weight:700;padding-bottom:2px;
+.mark__r{font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--ink-3);}
+.nav{display:none;gap:2px;}
+@media(min-width:880px){.nav{display:flex;}}
+.nav button{
+  cursor:pointer;padding:6px 14px;font-size:.8125rem;font-weight:500;color:var(--ink-2);
+  transition:color var(--fast);position:relative;
 }
-.navlinks{display:none;gap:4px;}
-@media(min-width:900px){.navlinks{display:flex;}}
-.navlink{
-  background:none;border:0;cursor:pointer;padding:7px 13px;border-radius:2px;
-  font-size:.8125rem;font-weight:500;letter-spacing:.01em;color:var(--ink-2);
+.nav button:hover{color:var(--ink);}
+.nav button[aria-current="true"]{color:var(--ink);}
+.nav button[aria-current="true"]::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:1px;background:var(--ink);
 }
-.navlink:hover{color:var(--ink);background:var(--surface-2);}
-.navlink[aria-current="true"]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--brass);}
-.themebtn{
-  background:none;border:1px solid var(--line);border-radius:2px;cursor:pointer;
-  width:34px;height:34px;display:grid;place-items:center;color:var(--ink-2);
+.icobtn{
+  cursor:pointer;width:32px;height:32px;display:grid;place-items:center;
+  border:1px solid var(--rule);color:var(--ink-2);transition:color var(--fast),border-color var(--fast);
 }
-.themebtn:hover{color:var(--ink);border-color:var(--ink-3);}
+.icobtn:hover{color:var(--ink);border-color:var(--rule-strong);}
 
-/* ============ hero ============ */
-.hero{position:relative;isolation:isolate;overflow:hidden;background:var(--ground-2);}
-.hero picture{display:contents;}
-.hero__img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  z-index:-2;
+/* ═══ hero — cinematic band, headline on parchment beneath ═══ */
+/* cinematic, but capped so the headline is always in the first frame.
+   height is set explicitly — aspect-ratio + max-height would shrink the width instead. */
+.hero__media{
+  position:relative;overflow:hidden;background:var(--ground-2);
+  width:100%;height:min(54svh,125vw);
 }
-.hero::after{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:
-    linear-gradient(102deg,rgba(10,18,13,.74) 0%,rgba(10,18,13,.44) 40%,rgba(10,18,13,0) 74%),
-    linear-gradient(180deg,rgba(10,18,13,.34) 0%,var(--scrim-1) 26%,var(--scrim-2) 62%,var(--scrim-3) 100%);
+@media(min-width:760px){.hero__media{height:min(58svh,42.4vw);}}
+.hero__media img{width:100%;height:100%;object-fit:cover;}
+/* scrim confined to the bottom sixth, the way the good hospitality sites do it */
+.hero__media::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 83.33%,rgba(12,18,14,.45));
 }
-.hero__in{
-  padding-block:96px 30px;
-  display:flex;flex-direction:column;gap:18px;align-items:flex-start;
-  min-height:392px;justify-content:flex-end;
-}
-@media(min-width:900px){.hero__in{padding-block:150px 44px;min-height:498px;}}
-.eyebrow{
-  font-size:clamp(.5rem,.42rem + .34vw,.625rem);
-  letter-spacing:.16em;text-transform:uppercase;font-weight:700;
-  color:var(--on-photo);opacity:.78;
-  max-width:100%;overflow-wrap:anywhere;
-}
-.hero h1{
-  font-family:"Fraunces",Georgia,serif;
-  font-optical-sizing:auto;
-  /* WONK 0 turns off Fraunces' quirky alternate letterforms — the swashed italic f in
-     "finding" was reading as a glyph error. SOFT 0 keeps the terminals crisp. */
-  font-variation-settings:"SOFT" 0,"WONK" 0;
-  font-feature-settings:"liga" 1,"dlig" 0,"swsh" 0;
-  font-weight:300;font-size:var(--step-4);line-height:.98;letter-spacing:-.035em;
-  margin:0;color:var(--on-photo);max-width:15ch;text-wrap:balance;
-}
-/* contrast by weight and colour rather than italic — no synthesised oblique */
-.hero h1 em{
-  font-style:normal;font-weight:600;color:#F1DCA6;
-  font-variation-settings:"SOFT" 0,"WONK" 0;
-}
-/* every Fraunces setting on the page uses the calm letterforms, not the wonky ones */
-.mark__t,.sechead h2,.club__n,.detail__cap h3{
-  font-variation-settings:"SOFT" 0,"WONK" 0;
-}
-.hero p{
-  margin:0;max-width:46ch;color:var(--on-photo);opacity:.86;font-size:var(--step-1);
-  line-height:1.45;
-}
-.herobar{
-  display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:6px;
-}
-.btn{
-  border:0;cursor:pointer;border-radius:2px;padding:12px 22px;
-  font-weight:600;font-size:.875rem;letter-spacing:.01em;
-  background:var(--brass);color:#14100A;
-  transition:transform .12s ease, filter .12s ease;
-}
-.btn:hover{filter:brightness(1.07);transform:translateY(-1px);}
-.btn--ghost{
-  background:transparent;color:var(--on-photo);
-  box-shadow:inset 0 0 0 1px rgba(246,244,236,.42);
-}
-.btn--ghost:hover{background:rgba(246,244,236,.1);}
-.livechip{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:.75rem;font-weight:600;letter-spacing:.02em;color:var(--on-photo);
-  padding:8px 14px;border-radius:100px;
-  background:rgba(10,18,13,.42);box-shadow:inset 0 0 0 1px rgba(246,244,236,.2);
-}
-.dot{width:6px;height:6px;border-radius:50%;background:#7FB48D;box-shadow:0 0 0 3px rgba(127,180,141,.24);}
+.hero__body{padding-block:26px 34px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
+@media(min-width:760px){.hero__body{padding-block:38px 46px;}}
+h1.display{font-weight:300;font-size:var(--t-h1);line-height:.96;max-width:16ch;}
+h1.display b{font-weight:600;font-style:normal;}
+.hero__lead{margin:0;max-width:52ch;color:var(--ink-2);font-size:var(--t-lead);line-height:1.5;}
+.hero__acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-top:4px;}
 
-/* ============ sections ============ */
-.section{padding-block:44px;}
-.sechead{display:flex;align-items:flex-end;gap:16px;margin-bottom:22px;flex-wrap:wrap;}
-.sechead h2{
-  font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto;
-  font-weight:400;font-size:var(--step-2);letter-spacing:-.025em;line-height:1.1;
-  margin:0;text-wrap:balance;
+/* the ONE pill on the page */
+.pill-cta{
+  cursor:pointer;border-radius:999px;padding:13px 28px;
+  background:var(--ink);color:var(--ground);
+  font-size:.8125rem;font-weight:600;letter-spacing:.02em;
+  transition:opacity var(--fast),transform var(--fast);
 }
-.sechead p{margin:0;color:var(--ink-3);font-size:var(--step--1);max-width:52ch;}
-.rule{flex:1;height:1px;background:var(--line);min-width:24px;margin-bottom:8px;}
+.pill-cta:hover{opacity:.86;}
+.pill-cta:active{transform:scale(.98);}
+.btn-line{
+  cursor:pointer;padding:12px 22px;border:1px solid var(--rule-strong);color:var(--ink);
+  font-size:.8125rem;font-weight:600;letter-spacing:.02em;
+  transition:background var(--fast),border-color var(--fast);
+}
+.btn-line:hover{background:var(--accent-soft);border-color:var(--ink);}
+.count{
+  font-size:var(--t-micro);color:var(--ink-3);display:inline-flex;align-items:center;gap:8px;
+}
+.count .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);}
 
-/* filters */
-.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:22px;
-  scrollbar-width:thin;-webkit-overflow-scrolling:touch;}
-.chip{
-  flex:0 0 auto;cursor:pointer;border-radius:100px;padding:7px 15px;
-  font-size:.78125rem;font-weight:500;white-space:nowrap;
-  background:var(--surface);color:var(--ink-2);
-  border:1px solid var(--line);
-  transition:background .12s,color .12s,border-color .12s;
+/* ═══ sections ═══ */
+.section{padding-block:38px;}
+.sechead{display:flex;align-items:baseline;gap:18px;margin-bottom:20px;}
+.sechead h2{font-weight:400;font-size:var(--t-h2);line-height:1.05;}
+.sechead .rule{flex:1;height:1px;background:var(--rule);}
+.sub{margin:6px 0 0;color:var(--ink-3);font-size:var(--t-micro);max-width:56ch;}
+
+.filters{
+  display:flex;gap:0;overflow-x:auto;border-block:1px solid var(--rule);
+  margin-bottom:22px;-webkit-overflow-scrolling:touch;scrollbar-width:none;
 }
-.chip:hover{border-color:var(--ink-3);color:var(--ink);}
-.chip[aria-pressed="true"]{
-  background:var(--ink);color:var(--ground);border-color:var(--ink);
+.filters::-webkit-scrollbar{display:none;}
+.filters button{
+  flex:0 0 auto;cursor:pointer;padding:12px 16px;white-space:nowrap;
+  font-size:var(--t-micro);font-weight:500;color:var(--ink-3);
+  transition:color var(--fast);position:relative;
+}
+.filters button:hover{color:var(--ink);}
+.filters button[aria-pressed="true"]{color:var(--ink);font-weight:600;}
+.filters button[aria-pressed="true"]::after{
+  content:"";position:absolute;left:16px;right:16px;bottom:0;height:2px;background:var(--ink);
 }
 
-/* ============ two-pane ============ */
-.pane{display:grid;gap:26px;}
-@media(min-width:900px){
-  .pane{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start;}
-  .pane__detail{position:sticky;top:74px;}
-}
+/* ═══ club grid — 3:4 portrait, hairline, no radius, no shadow ═══ */
+.grid{display:grid;gap:26px 16px;grid-template-columns:repeat(2,minmax(0,1fr));}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 24px;}}
 
-/* club list */
-.clublist{display:grid;gap:14px;}
-.club{
-  display:grid;grid-template-columns:104px minmax(0,1fr);gap:0;
-  background:var(--surface);border:1px solid var(--line-2);
-  border-radius:var(--radius);overflow:hidden;cursor:pointer;text-align:left;
-  padding:0;transition:border-color .14s, box-shadow .14s, transform .14s;
+.card{
+  display:flex;flex-direction:column;gap:0;cursor:pointer;text-align:left;width:100%;
+  padding:0;background:none;
 }
-@media(min-width:520px){.club{grid-template-columns:150px minmax(0,1fr);}}
-.club:hover{border-color:var(--line);box-shadow:var(--shadow-m);transform:translateY(-1px);}
-.club[aria-selected="true"]{border-color:var(--brass);box-shadow:var(--shadow-m);}
-.club__ph{position:relative;background:var(--ground-2);align-self:stretch;min-height:104px;}
-.club__ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.club__b{padding:13px 15px 14px;display:flex;flex-direction:column;gap:5px;min-width:0;}
-.club__loc{
-  font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--ink-3);
+.card__ph{position:relative;overflow:hidden;aspect-ratio:3/4;background:var(--ground-2);}
+.card__ph img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 700ms cubic-bezier(.19,1,.22,1);
 }
-.club__n{
-  font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto;
-  font-weight:500;font-size:var(--step-1);letter-spacing:-.02em;line-height:1.15;margin:0;
+.card:hover .card__ph img{transform:scale(1.035);}
+.card__ph::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 83.33%,rgba(12,18,14,.42));
 }
-.club__meta{
-  display:flex;flex-wrap:wrap;gap:5px 12px;font-size:.75rem;color:var(--ink-2);
-  font-variant-numeric:tabular-nums;margin-top:1px;
+.card__flag{
+  position:absolute;left:0;bottom:0;padding:10px 12px;z-index:1;
+  font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  color:var(--on-photo);
 }
-.club__meta b{font-weight:600;color:var(--ink);}
-.club__foot{display:flex;align-items:center;gap:9px;margin-top:5px;flex-wrap:wrap;}
-.pill{
-  font-size:.6875rem;font-weight:600;letter-spacing:.02em;padding:3px 9px;border-radius:100px;
-  font-variant-numeric:tabular-nums;
+.card__b{padding-top:11px;display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--ink);margin-top:11px;}
+.card__loc{
+  font-size:.5625rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--ink-3);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
-.pill--open{background:var(--open-wash);color:var(--open);}
-.pill--full{background:var(--full-wash);color:var(--full);}
-.pill--tag{background:var(--surface-2);color:var(--ink-3);}
-.next{font-size:.75rem;color:var(--ink-3);font-variant-numeric:tabular-nums;}
-.next b{color:var(--ink);font-weight:600;}
+.card__n{font-family:var(--ff-display);font-optical-sizing:auto;font-variation-settings:var(--wonk);
+  font-weight:500;font-size:1.0625rem;letter-spacing:-.018em;line-height:1.15;margin:0;}
+@media(min-width:620px){.card__n{font-size:var(--t-h3);}}
+.card__specs{
+  display:flex;flex-wrap:wrap;gap:0 10px;font-size:.6875rem;color:var(--ink-2);margin-top:2px;
+}
+.card__specs b{font-weight:600;color:var(--ink);}
+.card__state{
+  display:flex;align-items:baseline;gap:8px;margin-top:6px;font-size:.6875rem;flex-wrap:wrap;
+}
+.state{font-weight:600;letter-spacing:.01em;}
+.state--open{color:var(--accent);}
+.state--full{color:var(--ink-3);}
+.card__next{color:var(--ink-3);margin-left:auto;white-space:nowrap;}
+.card__next b{color:var(--ink);font-weight:600;}
+.card__flag{font-size:.5625rem;}
+@media(min-width:620px){.card__flag{font-size:.625rem;}}
+.wide-only{display:none;}
+@media(min-width:620px){.wide-only{display:inline;}}
+/* sticky header clearance when a section is scrolled to */
+[data-panel],#detailWrap{scroll-margin-top:72px;}
 
-/* ============ detail ============ */
-.detail{
-  background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);
-  overflow:hidden;box-shadow:var(--shadow-m);
+/* ═══ detail ═══ */
+.detail{border-top:1px solid var(--ink);padding-top:0;}
+.detail__ph{position:relative;overflow:hidden;aspect-ratio:16/9;background:var(--ground-2);}
+.detail__ph img{width:100%;height:100%;object-fit:cover;}
+.detail__ph::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 83.33%,rgba(12,18,14,.5));
 }
-.detail__hero{position:relative;aspect-ratio:16/10;background:var(--ground-2);}
-.detail__hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.detail__hero::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(10,18,13,0) 42%,rgba(10,18,13,.86) 100%);
+.detail__head{padding-block:18px 4px;}
+.detail__head h3{
+  font-family:var(--ff-display);font-optical-sizing:auto;font-variation-settings:var(--wonk);
+  font-weight:400;font-size:var(--t-h2);letter-spacing:-.022em;line-height:1.04;margin:5px 0 0;
 }
-.detail__cap{position:absolute;left:0;right:0;bottom:0;padding:18px 20px;z-index:1;}
-.detail__cap .club__loc{color:rgba(246,244,236,.78);}
-.detail__cap h3{
-  font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto;
-  font-weight:400;font-size:var(--step-3);letter-spacing:-.03em;line-height:1.02;
-  margin:4px 0 0;color:var(--on-photo);text-wrap:balance;
+.stats{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--rule);margin-top:18px;}
+@media(min-width:560px){.stats{grid-template-columns:repeat(4,1fr);}}
+.stats div{
+  padding:12px 0 14px 16px;border-bottom:1px solid var(--rule);border-left:1px solid var(--rule);
 }
-.detail__body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:20px;}
-.blurb{margin:0;color:var(--ink-2);font-size:var(--step--1);line-height:1.6;max-width:62ch;}
+/* no left rule or indent on whichever cell starts a row */
+.stats div:nth-child(2n+1){border-left:0;padding-left:0;}
+@media(min-width:560px){
+  .stats div:nth-child(2n+1){border-left:1px solid var(--rule);padding-left:16px;}
+  .stats div:nth-child(4n+1){border-left:0;padding-left:0;}
+}
+.stats dt{font-size:.5625rem;letter-spacing:.17em;text-transform:uppercase;font-weight:600;color:var(--ink-3);margin:0 0 4px;}
+.stats dd{margin:0;font-size:1.0625rem;font-weight:600;letter-spacing:-.01em;}
+.stats dd s{text-decoration:none;font-size:.75rem;font-weight:500;color:var(--ink-3);}
+.blurb{margin:18px 0 0;color:var(--ink-2);font-size:var(--t-body);line-height:1.68;max-width:64ch;}
 
-/* stat strip — not cards, a rule-separated data band */
-.stats{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);
-}
-@media(min-width:520px){.stats{grid-template-columns:repeat(4,minmax(0,1fr));}}
-.stat{padding:12px 14px 13px;border-right:1px solid var(--line-2);}
-.stat:nth-child(2n){border-right:0;}
-@media(min-width:520px){
-  .stat:nth-child(2n){border-right:1px solid var(--line-2);}
-  .stat:nth-child(4n),.stat:last-child{border-right:0;}
-}
-.stat dt{
-  font-size:.5625rem;letter-spacing:.17em;text-transform:uppercase;font-weight:700;
-  color:var(--ink-3);margin:0 0 3px;
-}
-.stat dd{
-  margin:0;font-size:1.0625rem;font-weight:600;letter-spacing:-.01em;
-  font-variant-numeric:tabular-nums;
-}
-.stat dd small{font-size:.6875rem;font-weight:500;color:var(--ink-3);letter-spacing:0;}
-
-/* tee sheet */
-.sheet h4{
-  font-size:.625rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
-  color:var(--ink-3);margin:0 0 10px;
-}
+/* tee sheet: single vertical column, time + pips + host */
+.sheet{margin-top:26px;}
+.sheet h4{font-size:.625rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--ink-3);margin:0 0 4px;}
 .tee{
-  display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;
-  padding:11px 2px;border-top:1px solid var(--line-2);
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;
+  padding:14px 0;border-top:1px solid var(--rule);
 }
-.tee:last-of-type{border-bottom:1px solid var(--line-2);}
-.tee__t{
-  font-variant-numeric:tabular-nums;font-weight:600;font-size:.9375rem;letter-spacing:-.01em;
-  min-width:74px;
+.tee:last-child{border-bottom:1px solid var(--rule);}
+.tee__t{font-size:1.125rem;font-weight:600;letter-spacing:-.015em;min-width:58px;}
+.tee__who{font-size:var(--t-body);font-weight:600;line-height:1.3;}
+.tee__note{font-size:var(--t-micro);color:var(--ink-3);line-height:1.4;}
+.pips{display:flex;gap:4px;margin-top:7px;align-items:center;}
+.pip{width:9px;height:9px;border-radius:50%;background:var(--pip-empty);}
+.pip--full{background:var(--pip-full);}
+.pips span.lbl{font-size:.625rem;color:var(--ink-3);margin-left:5px;letter-spacing:.04em;}
+.claim{
+  cursor:pointer;border-radius:999px;padding:9px 18px;white-space:nowrap;
+  border:1px solid var(--ink);color:var(--ink);font-size:var(--t-micro);font-weight:600;
+  transition:background var(--fast),color var(--fast),opacity var(--fast);
 }
-.tee__t span{display:block;font-size:.625rem;font-weight:500;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;}
-.tee__d{min-width:0;font-size:.8125rem;color:var(--ink-2);}
-.tee__d b{color:var(--ink);font-weight:600;}
-.tee__d em{font-style:normal;color:var(--ink-3);}
-.seats{display:flex;gap:3px;margin-top:5px;}
-.seat{width:15px;height:5px;border-radius:1px;background:var(--line);}
-.seat--taken{background:var(--brass);}
-.join{
-  border:1px solid var(--line);background:transparent;border-radius:2px;cursor:pointer;
-  padding:7px 13px;font-size:.75rem;font-weight:600;white-space:nowrap;color:var(--ink);
-  transition:background .12s,border-color .12s,color .12s;
-}
-.join:hover:not(:disabled){background:var(--ink);color:var(--ground);border-color:var(--ink);}
-.join:disabled{opacity:.4;cursor:not-allowed;}
-.join--in{background:var(--open-wash);border-color:transparent;color:var(--open);}
+.claim:hover:not(:disabled){background:var(--ink);color:var(--ground);}
+.claim--in{background:var(--ink);color:var(--ground);border-color:var(--ink);}
+.claim:disabled{opacity:.32;cursor:not-allowed;border-style:dashed;}
+.dress{margin:18px 0 0;font-size:var(--t-micro);color:var(--ink-3);}
 
-/* host form */
-.host{
-  background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);
-  padding:20px;display:grid;gap:14px;
-}
-.field{display:grid;gap:5px;}
-.field label{
-  font-size:.5625rem;letter-spacing:.17em;text-transform:uppercase;font-weight:700;color:var(--ink-3);
-}
+/* ═══ host form ═══ */
+.two{display:grid;gap:30px;grid-template-columns:1fr;}
+@media(min-width:880px){.two{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}}
+.form{display:grid;gap:16px;}
+.field{display:grid;gap:6px;}
+.field label{font-size:.5625rem;letter-spacing:.17em;text-transform:uppercase;font-weight:600;color:var(--ink-3);}
 .field input,.field select{
-  font:inherit;font-size:.875rem;padding:9px 11px;border-radius:2px;
-  border:1px solid var(--line);background:var(--ground);color:var(--ink);width:100%;
+  font:inherit;font-size:var(--t-body);padding:11px 12px;
+  border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink);width:100%;
+  border-radius:0;transition:border-color var(--fast);
 }
-.field input:focus,.field select:focus{border-color:var(--brass);}
-.row2{display:grid;gap:14px;grid-template-columns:1fr;}
-@media(min-width:520px){.row2{grid-template-columns:1fr 1fr;}}
-.note{font-size:.6875rem;color:var(--ink-3);margin:0;}
+.field input:focus,.field select:focus{border-color:var(--ink);outline:none;}
+.pair{display:grid;gap:16px;grid-template-columns:1fr 1fr;}
+.rules p{margin:0 0 16px;font-size:var(--t-body);color:var(--ink-2);line-height:1.65;max-width:52ch;}
+.rules b{color:var(--ink);font-weight:600;}
+.note{font-size:var(--t-micro);color:var(--ink-3);margin:0;}
 
-/* my rounds */
-.mine{display:grid;gap:10px;}
-.mineitem{
-  display:flex;gap:14px;align-items:center;padding:13px 15px;
-  background:var(--surface);border:1px solid var(--line-2);border-radius:var(--radius);
-  border-left:3px solid var(--brass);
+/* ═══ my rounds ═══ */
+.mine{display:grid;gap:0;}
+.mine__row{
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;
+  padding:16px 0;border-top:1px solid var(--rule);
 }
-.mineitem__t{font-variant-numeric:tabular-nums;font-weight:600;font-size:.9375rem;min-width:70px;}
-.mineitem__d{min-width:0;font-size:.8125rem;color:var(--ink-2);}
-.mineitem__d b{display:block;color:var(--ink);font-weight:600;font-size:.875rem;}
-.empty{
-  padding:30px 20px;text-align:center;color:var(--ink-3);font-size:var(--step--1);
-  border:1px dashed var(--line);border-radius:var(--radius);
-}
+.mine__row:last-child{border-bottom:1px solid var(--rule);}
+.mine__t{font-size:1.125rem;font-weight:600;min-width:58px;letter-spacing:-.015em;}
+.mine__n{font-family:var(--ff-display);font-optical-sizing:auto;font-variation-settings:var(--wonk);
+  font-weight:500;font-size:1.0625rem;letter-spacing:-.015em;}
+.mine__d{font-size:var(--t-micro);color:var(--ink-3);}
+.empty{padding:44px 0;color:var(--ink-3);font-size:var(--t-micro);border-block:1px solid var(--rule);}
 
-/* footer */
 .foot{
-  border-top:1px solid var(--line-2);padding-block:24px 40px;margin-top:20px;
-  display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--rule);margin-top:36px;
+  padding-block:22px calc(38px + env(safe-area-inset-bottom));
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;
   font-size:.6875rem;color:var(--ink-3);
 }
-.foot a{color:var(--ink-3);}
 
 .toast{
-  position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(120%);
-  background:var(--ink);color:var(--ground);padding:11px 20px;border-radius:2px;
-  font-size:.8125rem;font-weight:500;box-shadow:var(--shadow-l);z-index:80;
-  transition:transform .26s cubic-bezier(.2,.8,.3,1);
+  position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(150%);
+  background:var(--ink);color:var(--ground);padding:12px 22px;
+  font-size:var(--t-micro);font-weight:600;z-index:90;border-radius:999px;
+  transition:transform 320ms cubic-bezier(.19,1,.22,1);
 }
 .toast.on{transform:translateX(-50%) translateY(0);}
-[hidden]{display:none !important;}
+
+/* ═══ motion — visible at rest; JS only replays the entrance ═══ */
+@keyframes riseIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.js .r{opacity:0;}
+.js .r.in{animation:riseIn var(--reveal) both;}
+.js .hero__media{opacity:0;}
+.js .hero__media.in{animation:fadeIn var(--slow) both;}
+.js .r.in:nth-child(1){animation-delay:0ms;}
+.js .r.in:nth-child(2){animation-delay:60ms;}
+.js .r.in:nth-child(3){animation-delay:120ms;}
+.js .r.in:nth-child(4){animation-delay:180ms;}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+  .js .r,.js .hero__media{opacity:1 !important;}
+}
 </style>
 
 <header class="topbar">
   <div class="wrap topbar__in">
-    <a class="mark" href="#top">
-      <span class="mark__t">Teed&nbsp;Up</span>
-      <span class="mark__r">Est. 2026</span>
-    </a>
-    <nav class="navlinks">
-      <button class="navlink" data-nav="discover" aria-current="true">Tee sheet</button>
-      <button class="navlink" data-nav="host">Host a round</button>
-      <button class="navlink" data-nav="mine">My rounds</button>
+    <a class="mark" href="#top"><span class="mark__t">Teed&nbsp;Up</span><span class="mark__r">Est. 2026</span></a>
+    <nav class="nav">
+      <button data-nav="discover" aria-current="true">Tee sheet</button>
+      <button data-nav="host">Host a round</button>
+      <button data-nav="mine">My rounds</button>
     </nav>
-    <button class="themebtn" id="themebtn" aria-label="Switch theme" title="Switch theme">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    <button class="icobtn" id="themebtn" aria-label="Switch theme" title="Switch theme">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     </button>
   </div>
 </header>
 
 <main id="top">
-
-  <section class="hero">
+  <div class="hero__media">
     <picture>
-      <source media="(min-width:760px)" srcset="assets/hero-wide.jpg">
-      <img class="hero__img" src="assets/hero-tall.jpg" alt="Low evening sun raking across a manicured fairway and bunker, pines in silhouette">
+      <source media="(min-width:760px)" srcset="assets/hero-band.jpg">
+      <img src="assets/hero-tall.jpg" alt="Low evening sun raking across a manicured fairway, pines in silhouette" fetchpriority="high">
     </picture>
-    <div class="wrap hero__in">
-      <p class="eyebrow">Private clubs · Open seats</p>
-      <h1>A fourth is always<br><em>worth finding.</em></h1>
-      <p>Members post the empty seats in their group. You claim one, pay the guest fee, and play courses that don't take public tee times.</p>
-      <div class="herobar">
-        <button class="btn" data-nav="discover">Browse today's sheet</button>
-        <button class="btn btn--ghost" data-nav="host">Post a seat</button>
-        <span class="livechip"><span class="dot"></span><span id="liveCount">11 seats open today</span></span>
-      </div>
+  </div>
+  <div class="wrap hero__body">
+    <p class="eyebrow r">Private clubs · Open seats</p>
+    <h1 class="display r">A fourth is always <b>worth finding.</b></h1>
+    <p class="hero__lead r">Members post the empty seats in their group. You claim one, pay the guest fee, and play courses that don't take public tee times.</p>
+    <div class="hero__acts r">
+      <button class="pill-cta" data-nav="discover">Browse today's sheet</button>
+      <button class="btn-line" data-nav="host">Post a seat</button>
+      <span class="count num"><span class="dot"></span><span id="liveCount">—</span></span>
     </div>
-  </section>
+  </div>
 
-  <!-- ============ DISCOVER ============ -->
+  <!-- ══ DISCOVER ══ -->
   <div class="wrap section" data-panel="discover">
     <div class="sechead">
-      <div>
-        <h2>Today's tee sheet</h2>
-        <p>Seven clubs within a day's drive. Guest fees shown are what the member is charged — you settle in the pro shop.</p>
-      </div>
+      <h2 class="display">Today's tee sheet</h2>
       <span class="rule"></span>
     </div>
+    <p class="sub">Seven clubs within a day's drive. Guest fees are what the member is charged — you settle in the pro shop.</p>
 
     <div class="filters" role="group" aria-label="Filter clubs">
-      <button class="chip" data-filter="all" aria-pressed="true">All clubs</button>
-      <button class="chip" data-filter="open" aria-pressed="false">Seats open</button>
-      <button class="chip" data-filter="walk" aria-pressed="false">Walking only</button>
-      <button class="chip" data-filter="caddie" aria-pressed="false">Caddie program</button>
-      <button class="chip" data-filter="links" aria-pressed="false">Links</button>
-      <button class="chip" data-filter="parkland" aria-pressed="false">Parkland</button>
-      <button class="chip" data-filter="under200" aria-pressed="false">Guest fee under $200</button>
+      <button data-filter="all" aria-pressed="true">All clubs</button>
+      <button data-filter="open" aria-pressed="false">Seats open</button>
+      <button data-filter="walk" aria-pressed="false">Walking</button>
+      <button data-filter="caddie" aria-pressed="false">Caddie</button>
+      <button data-filter="links" aria-pressed="false">Links</button>
+      <button data-filter="parkland" aria-pressed="false">Parkland</button>
+      <button data-filter="under200" aria-pressed="false">Under $200</button>
     </div>
 
-    <div class="pane">
-      <div class="clublist" id="clublist"></div>
-      <div class="pane__detail"><div class="detail" id="detail"></div></div>
+    <div class="grid" id="grid"></div>
+
+    <div id="detailWrap" class="section" hidden>
+      <div class="detail" id="detail"></div>
     </div>
   </div>
 
-  <!-- ============ HOST ============ -->
+  <!-- ══ HOST ══ -->
   <div class="wrap section" data-panel="host" hidden>
-    <div class="sechead">
-      <div>
-        <h2>Post a seat</h2>
-        <p>You're the member. Say when you're going out and how many you're short — we'll match you and hold the seat for two hours.</p>
-      </div>
-      <span class="rule"></span>
-    </div>
-    <div class="pane">
-      <form class="host" id="hostform">
-        <div class="field">
-          <label for="h-club">Your club</label>
-          <select id="h-club" name="club"></select>
+    <div class="sechead"><h2 class="display">Post a seat</h2><span class="rule"></span></div>
+    <p class="sub">You're the member. Say when you're going out and how many you're short — the seat holds for two hours.</p>
+    <div class="two" style="margin-top:26px">
+      <form class="form" id="hostform">
+        <div class="field"><label for="h-club">Your club</label><select id="h-club" name="club"></select></div>
+        <div class="pair">
+          <div class="field"><label for="h-date">Date</label><input type="date" id="h-date" name="date" value="2026-09-15"></div>
+          <div class="field"><label for="h-time">Tee time</label><input type="time" id="h-time" name="time" value="08:40"></div>
         </div>
-        <div class="row2">
-          <div class="field">
-            <label for="h-date">Date</label>
-            <input type="date" id="h-date" name="date" value="2026-09-15">
-          </div>
-          <div class="field">
-            <label for="h-time">Tee time</label>
-            <input type="time" id="h-time" name="time" value="08:40">
-          </div>
+        <div class="pair">
+          <div class="field"><label for="h-seats">Seats open</label>
+            <select id="h-seats" name="seats"><option>1</option><option selected>2</option><option>3</option></select></div>
+          <div class="field"><label for="h-tees">Tees</label>
+            <select id="h-tees" name="tees"><option>Championship</option><option selected>Members</option><option>Forward</option></select></div>
         </div>
-        <div class="row2">
-          <div class="field">
-            <label for="h-seats">Seats open</label>
-            <select id="h-seats" name="seats">
-              <option>1</option><option selected>2</option><option>3</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="h-tees">Tees</label>
-            <select id="h-tees" name="tees">
-              <option>Championship</option><option selected>Members</option><option>Forward</option>
-            </select>
-          </div>
-        </div>
-        <div class="field">
-          <label for="h-note">Note for the group</label>
-          <input type="text" id="h-note" name="note" placeholder="Walking, quick pace, no cart girl stops" value="Walking, brisk pace — out in under four hours">
-        </div>
-        <button class="btn" type="submit">Post to the sheet</button>
+        <div class="field"><label for="h-note">Note for the group</label>
+          <input type="text" id="h-note" name="note" value="Walking, brisk pace — out in under four hours"></div>
+        <div><button class="pill-cta" type="submit">Post to the sheet</button></div>
         <p class="note">Guest fee is collected in the pro shop, not here. Cancel up to 24 hours out with no penalty.</p>
       </form>
-      <div>
-        <div class="sechead" style="margin-bottom:14px">
-          <div><h2 style="font-size:var(--step-1)">House rules</h2></div>
-          <span class="rule"></span>
-        </div>
-        <p class="blurb"><b>Pace is the whole thing.</b> Groups that post here play ready golf. If the sheet says four hours, the member means four hours.</p>
-        <p class="blurb"><b>Dress to the club, not to the app.</b> Every club below requires a collar. Three of them still say no denim in the clubhouse — it's on each listing.</p>
-        <p class="blurb"><b>The member is responsible for you.</b> Their name is on the guest register. Show up, be on time, and tip the caddie properly.</p>
+      <div class="rules">
+        <div class="sechead" style="margin-bottom:16px"><h2 class="display" style="font-size:var(--t-h3)">House rules</h2><span class="rule"></span></div>
+        <p><b>Pace is the whole thing.</b> Groups that post here play ready golf. If the sheet says four hours, the member means four hours.</p>
+        <p><b>Dress to the club, not to the app.</b> Every club here requires a collar. Three still say no denim in the clubhouse — it's on each listing.</p>
+        <p><b>The member is responsible for you.</b> Their name is on the guest register. Show up on time and tip the caddie properly.</p>
       </div>
     </div>
   </div>
 
-  <!-- ============ MINE ============ -->
+  <!-- ══ MINE ══ -->
   <div class="wrap section" data-panel="mine" hidden>
-    <div class="sechead">
-      <div>
-        <h2>My rounds</h2>
-        <p>Seats you've claimed and rounds you're hosting.</p>
-      </div>
-      <span class="rule"></span>
-    </div>
-    <div class="mine" id="mine"></div>
+    <div class="sechead"><h2 class="display">My rounds</h2><span class="rule"></span></div>
+    <p class="sub">Seats you've claimed and rounds you're hosting.</p>
+    <div class="mine" id="mine" style="margin-top:22px"></div>
   </div>
 
   <div class="wrap foot">
-    <span>Teed Up — a demo build. Photography licensed via Adobe Stock. Clubs are fictional.</span>
-    <span>Columbia, SC</span>
+    <span>Teed Up — demo build. Photography licensed via Adobe Stock. Clubs are fictional.</span>
+    <span class="num">Columbia, SC</span>
   </div>
 </main>
 
@@ -567,289 +487,238 @@ button{font:inherit;color:inherit;}
 <script>
 (function(){
   "use strict";
-
-  var CLUBS = [
-    { id:"kestrel", name:"Kestrel Ridge", loc:"Aiken, South Carolina", img:"assets/club-1.jpg",
-      par:72, yards:7104, rating:74.2, slope:141, fee:165, style:"parkland", walk:true, caddie:true,
-      blurb:"A 1928 Ross routing restored in 2019 — the greens were pushed back out to their original edges, which is why the bunkering suddenly makes sense again. Firm and fast from May through October.",
-      dress:"Collar required. No denim in the clubhouse.",
-      tees:[ {t:"7:20",tag:"AM",who:"Hollis P.",note:"Members tees, walking",cap:4,taken:2},
-             {t:"9:50",tag:"AM",who:"Dane W.",note:"Championship tees, caddies booked",cap:4,taken:3},
-             {t:"2:10",tag:"PM",who:"Ruth A.",note:"Twilight rate, riding",cap:4,taken:4} ] },
-
-    { id:"blackwater", name:"Blackwater Cay", loc:"Beaufort, South Carolina", img:"assets/club-2.jpg",
-      par:71, yards:6842, rating:73.8, slope:138, fee:210, style:"parkland", walk:false, caddie:false,
-      blurb:"Built through tidal marsh, so the wind is the defense and the water is genuinely in play on nine holes. The island green at 14 has taken more balls this season than the rest of the back nine combined.",
-      dress:"Collar required. Soft spikes only.",
-      tees:[ {t:"8:00",tag:"AM",who:"Marcus L.",note:"Members tees, carts included",cap:4,taken:1},
-             {t:"11:30",tag:"AM",who:"Priya N.",note:"Forward tees, casual pace",cap:4,taken:2},
-             {t:"3:40",tag:"PM",who:"Tom B.",note:"Nine holes, twilight",cap:3,taken:3} ] },
-
-    { id:"pinewild", name:"Pinewild Hollow", loc:"Southern Pines, North Carolina", img:"assets/club-3.jpg",
-      par:72, yards:6988, rating:73.1, slope:135, fee:145, style:"parkland", walk:true, caddie:true,
-      blurb:"Sandhills turf over a clay base — it drains an hour after a thunderstorm and plays the same in February as it does in July. The most walkable routing on this list; no green is more than eighty yards from the next tee.",
-      dress:"Collar required. Denim permitted outside the grill room.",
-      tees:[ {t:"7:40",tag:"AM",who:"Ellis R.",note:"Members tees, walking, caddie",cap:4,taken:2},
-             {t:"10:20",tag:"AM",who:"Sam K.",note:"Championship tees",cap:4,taken:1},
-             {t:"1:00",tag:"PM",who:"Nora V.",note:"Members tees, walking",cap:4,taken:3} ] },
-
-    { id:"sable", name:"Sable Dunes", loc:"Bandon, Oregon", img:"assets/club-4.jpg",
-      par:70, yards:6642, rating:72.9, slope:133, fee:295, style:"links", walk:true, caddie:true,
-      blurb:"True links — gorse, heather, and no carts at any price. Bring the low ball flight and a jacket; the afternoon wind off the Pacific routinely adds two clubs coming home.",
-      dress:"Collar required. Walking only, no exceptions.",
-      tees:[ {t:"8:20",tag:"AM",who:"Iain M.",note:"Caddie included, walking",cap:4,taken:2},
-             {t:"12:40",tag:"PM",who:"Gwen T.",note:"Second loop, walking",cap:4,taken:2},
-             {t:"4:00",tag:"PM",who:"Aaron D.",note:"Twilight, walking",cap:4,taken:4} ] },
-
-    { id:"caledon", name:"Caledon Palms", loc:"Palm Beach Gardens, Florida", img:"assets/club-5.jpg",
-      par:72, yards:7211, rating:75.0, slope:144, fee:185, style:"parkland", walk:false, caddie:true,
-      blurb:"The longest and hardest card on this list — 144 slope from the tips, and the water hazards are the kind you don't reload from. Play it one set forward the first time; everyone says that and everyone ignores it.",
-      dress:"Collar required. No denim.",
-      tees:[ {t:"7:00",tag:"AM",who:"Dee S.",note:"Members tees, caddies",cap:4,taken:3},
-             {t:"9:10",tag:"AM",who:"Victor H.",note:"Championship tees, riding",cap:4,taken:1},
-             {t:"2:50",tag:"PM",who:"Lena F.",note:"Twilight rate, riding",cap:4,taken:2} ] },
-
-    { id:"mirren", name:"Cape Mirren", loc:"Carmel, California", img:"assets/club-6.jpg",
-      par:71, yards:6730, rating:73.4, slope:136, fee:340, style:"links", walk:true, caddie:true,
-      blurb:"Six holes run along the headland and the other twelve spend the round trying to get you back there. Morning fog usually clears by ten; the club will hold your time if it hasn't.",
-      dress:"Collar required. No denim anywhere on property.",
-      tees:[ {t:"9:30",tag:"AM",who:"Cal R.",note:"Members tees, caddie, walking",cap:4,taken:2},
-             {t:"1:20",tag:"PM",who:"Miriam O.",note:"Members tees, walking",cap:4,taken:3},
-             {t:"3:10",tag:"PM",who:"Josh P.",note:"Twilight, walking",cap:4,taken:4} ] },
-
-    { id:"vermillion", name:"Vermillion Wash", loc:"Palm Desert, California", img:"assets/club-7.jpg",
-      par:72, yards:7020, rating:73.6, slope:132, fee:130, style:"parkland", walk:false, caddie:false,
-      blurb:"Desert target golf with generous landing areas — forgiving off the tee, punishing around the greens. Best value on the sheet from June to September when nobody wants the heat.",
-      dress:"Collar required. Shorts permitted.",
-      tees:[ {t:"6:40",tag:"AM",who:"Rafa G.",note:"Members tees, riding",cap:4,taken:1},
-             {t:"10:50",tag:"AM",who:"Bev C.",note:"Forward tees, riding",cap:4,taken:2},
-             {t:"5:00",tag:"PM",who:"Nate W.",note:"Nine holes, twilight",cap:4,taken:2} ] }
+  var CLUBS=[
+   {id:"kestrel",name:"Kestrel Ridge",loc:"Aiken, South Carolina",img:"assets/club-1.jpg",det:"assets/d-club-1.jpg",
+    par:72,yards:7104,rating:74.2,slope:141,fee:165,style:"parkland",walk:true,caddie:true,tag:"Ross restoration",
+    blurb:"A 1928 Ross routing restored in 2019 — the greens were pushed back to their original edges, which is why the bunkering suddenly makes sense again. Firm and fast May through October.",
+    dress:"Collar required. No denim in the clubhouse.",
+    tees:[{t:"7:20",m:"AM",who:"Hollis P.",note:"Members tees · walking",cap:4,taken:2},
+          {t:"9:50",m:"AM",who:"Dane W.",note:"Championship tees · caddies booked",cap:4,taken:3},
+          {t:"2:10",m:"PM",who:"Ruth A.",note:"Twilight rate · riding",cap:4,taken:4}]},
+   {id:"blackwater",name:"Blackwater Cay",loc:"Beaufort, South Carolina",img:"assets/club-2.jpg",det:"assets/d-club-2.jpg",
+    par:71,yards:6842,rating:73.8,slope:138,fee:210,style:"parkland",walk:false,caddie:false,tag:"Tidal marsh",
+    blurb:"Built through tidal marsh, so the wind is the defence and water is genuinely in play on nine holes. The island green at 14 has taken more balls this season than the rest of the back nine combined.",
+    dress:"Collar required. Soft spikes only.",
+    tees:[{t:"8:00",m:"AM",who:"Marcus L.",note:"Members tees · carts included",cap:4,taken:1},
+          {t:"11:30",m:"AM",who:"Priya N.",note:"Forward tees · casual pace",cap:4,taken:2},
+          {t:"3:40",m:"PM",who:"Tom B.",note:"Nine holes · twilight",cap:3,taken:3}]},
+   {id:"pinewild",name:"Pinewild Hollow",loc:"Southern Pines, North Carolina",img:"assets/club-3.jpg",det:"assets/d-club-3.jpg",
+    par:72,yards:6988,rating:73.1,slope:135,fee:145,style:"parkland",walk:true,caddie:true,tag:"Sandhills turf",
+    blurb:"Sandhills turf over a clay base — it drains an hour after a thunderstorm and plays the same in February as in July. The most walkable routing on this list; no green sits more than eighty yards from the next tee.",
+    dress:"Collar required. Denim permitted outside the grill room.",
+    tees:[{t:"7:40",m:"AM",who:"Ellis R.",note:"Members tees · walking · caddie",cap:4,taken:2},
+          {t:"10:20",m:"AM",who:"Sam K.",note:"Championship tees",cap:4,taken:1},
+          {t:"1:00",m:"PM",who:"Nora V.",note:"Members tees · walking",cap:4,taken:3}]},
+   {id:"sable",name:"Sable Dunes",loc:"Bandon, Oregon",img:"assets/club-4.jpg",det:"assets/d-club-4.jpg",
+    par:70,yards:6642,rating:72.9,slope:133,fee:295,style:"links",walk:true,caddie:true,tag:"True links",
+    blurb:"True links — gorse, heather, and no carts at any price. Bring the low ball flight and a jacket; the afternoon wind off the Pacific routinely adds two clubs coming home.",
+    dress:"Collar required. Walking only, no exceptions.",
+    tees:[{t:"8:20",m:"AM",who:"Iain M.",note:"Caddie included · walking",cap:4,taken:2},
+          {t:"12:40",m:"PM",who:"Gwen T.",note:"Second loop · walking",cap:4,taken:2},
+          {t:"4:00",m:"PM",who:"Aaron D.",note:"Twilight · walking",cap:4,taken:4}]},
+   {id:"caledon",name:"Caledon Palms",loc:"Palm Beach Gardens, Florida",img:"assets/club-5.jpg",det:"assets/d-club-5.jpg",
+    par:72,yards:7211,rating:75.0,slope:144,fee:185,style:"parkland",walk:false,caddie:true,tag:"Hardest card here",
+    blurb:"The longest and hardest card on this list — 144 slope from the tips, and the water hazards are the kind you don't reload from. Play it one set forward the first time; everyone says that and everyone ignores it.",
+    dress:"Collar required. No denim.",
+    tees:[{t:"7:00",m:"AM",who:"Dee S.",note:"Members tees · caddies",cap:4,taken:3},
+          {t:"9:10",m:"AM",who:"Victor H.",note:"Championship tees · riding",cap:4,taken:1},
+          {t:"2:50",m:"PM",who:"Lena F.",note:"Twilight rate · riding",cap:4,taken:2}]},
+   {id:"mirren",name:"Cape Mirren",loc:"Carmel, California",img:"assets/club-6.jpg",det:"assets/d-club-6.jpg",
+    par:71,yards:6730,rating:73.4,slope:136,fee:340,style:"links",walk:true,caddie:true,tag:"Six holes on the headland",
+    blurb:"Six holes run along the headland and the other twelve spend the round trying to get you back there. Morning fog usually clears by ten; the club will hold your time if it hasn't.",
+    dress:"Collar required. No denim anywhere on property.",
+    tees:[{t:"9:30",m:"AM",who:"Cal R.",note:"Members tees · caddie · walking",cap:4,taken:2},
+          {t:"1:20",m:"PM",who:"Miriam O.",note:"Members tees · walking",cap:4,taken:3},
+          {t:"3:10",m:"PM",who:"Josh P.",note:"Twilight · walking",cap:4,taken:4}]},
+   {id:"vermillion",name:"Vermillion Wash",loc:"Palm Desert, California",img:"assets/club-7.jpg",det:"assets/d-club-7.jpg",
+    par:72,yards:7020,rating:73.6,slope:132,fee:130,style:"parkland",walk:false,caddie:false,tag:"Best value here",
+    blurb:"Desert target golf with generous landing areas — forgiving off the tee, punishing around the greens. Best value on the sheet from June to September, when nobody wants the heat.",
+    dress:"Collar required. Shorts permitted.",
+    tees:[{t:"6:40",m:"AM",who:"Rafa G.",note:"Members tees · riding",cap:4,taken:1},
+          {t:"10:50",m:"AM",who:"Bev C.",note:"Forward tees · riding",cap:4,taken:2},
+          {t:"5:00",m:"PM",who:"Nate W.",note:"Nine holes · twilight",cap:4,taken:2}]}
   ];
 
-  var joined = [];
-  var selected = CLUBS[0].id;
-  var filter = "all";
-
-  var $ = function(s,r){ return (r||document).querySelector(s); };
-  var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
-  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){
-    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
-
-  function openSeats(c){
-    return c.tees.reduce(function(n,t){ return n + Math.max(0, t.cap - t.taken); }, 0);
-  }
-  function nextOpen(c){
-    for (var i=0;i<c.tees.length;i++){ if (c.tees[i].taken < c.tees[i].cap) return c.tees[i]; }
-    return null;
-  }
-  function matches(c){
-    if (filter==="all") return true;
-    if (filter==="open") return openSeats(c) > 0;
-    if (filter==="walk") return c.walk;
-    if (filter==="caddie") return c.caddie;
-    if (filter==="links") return c.style==="links";
-    if (filter==="parkland") return c.style==="parkland";
-    if (filter==="under200") return c.fee < 200;
-    return true;
-  }
-
-  function renderList(){
-    var list = CLUBS.filter(matches);
-    var host = $("#clublist");
-    if (!list.length){
-      host.innerHTML = '<p class="empty">No clubs match that filter. Try widening it.</p>';
-      return;
+  var joined=[], selected=null, filter="all";
+  var $=function(s,r){return (r||document).querySelector(s);};
+  var $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s));};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});};
+  var open=function(c){return c.tees.reduce(function(n,t){return n+Math.max(0,t.cap-t.taken);},0);};
+  var next=function(c){for(var i=0;i<c.tees.length;i++){if(c.tees[i].taken<c.tees[i].cap)return c.tees[i];}return null;};
+  function match(c){
+    switch(filter){
+      case "open": return open(c)>0;
+      case "walk": return c.walk;
+      case "caddie": return c.caddie;
+      case "links": return c.style==="links";
+      case "parkland": return c.style==="parkland";
+      case "under200": return c.fee<200;
+      default: return true;
     }
-    host.innerHTML = list.map(function(c){
-      var open = openSeats(c);
-      var nx = nextOpen(c);
-      return ''+
-      '<button class="club" data-club="'+c.id+'" aria-selected="'+(c.id===selected)+'">'+
-        '<span class="club__ph"><img src="'+c.img+'" alt="'+esc(c.name)+'" loading="lazy"></span>'+
-        '<span class="club__b">'+
-          '<span class="club__loc">'+esc(c.loc)+'</span>'+
-          '<h3 class="club__n">'+esc(c.name)+'</h3>'+
-          '<span class="club__meta">'+
-            '<span>Par <b>'+c.par+'</b></span>'+
-            '<span><b>'+c.yards.toLocaleString()+'</b> yds</span>'+
+  }
+  function pips(t){
+    var h="";
+    for(var i=0;i<t.cap;i++) h+='<span class="pip'+(i<t.taken?' pip--full':'')+'"></span>';
+    var left=t.cap-t.taken;
+    h+='<span class="lbl num">'+(left?left+" open":"full")+'</span>';
+    return h;
+  }
+
+  function renderGrid(){
+    var list=CLUBS.filter(match), host=$("#grid");
+    if(!list.length){host.innerHTML='<p class="empty">No clubs match that filter.</p>';return;}
+    host.innerHTML=list.map(function(c){
+      var o=open(c), nx=next(c);
+      return '<button class="card r" data-club="'+c.id+'">'+
+        '<span class="card__ph"><img src="'+c.img+'" alt="'+esc(c.name)+'" loading="lazy" decoding="async">'+
+          '<span class="card__flag">'+esc(c.tag)+'</span></span>'+
+        '<span class="card__b">'+
+          '<span class="card__loc">'+esc(c.loc)+'</span>'+
+          '<span class="card__n">'+esc(c.name)+'</span>'+
+          '<span class="card__specs num"><span><b>$'+c.fee+'</b> guest</span>'+
             '<span>Slope <b>'+c.slope+'</b></span>'+
-            '<span>Guest <b>$'+c.fee+'</b></span>'+
+            '<span class="wide-only"><b>'+c.yards.toLocaleString()+'</b> yds</span></span>'+
+          '<span class="card__state num">'+
+            (o?'<span class="state state--open">'+o+' seat'+(o>1?'s':'')+' open</span>'
+              :'<span class="state state--full">Sheet full</span>')+
+            (nx?'<span class="card__next">Next <b>'+nx.t+'</b></span>':'')+
           '</span>'+
-          '<span class="club__foot">'+
-            (open
-              ? '<span class="pill pill--open">'+open+' seat'+(open>1?'s':'')+' open</span>'
-              : '<span class="pill pill--full">Sheet full</span>')+
-            (c.walk ? '<span class="pill pill--tag">Walking</span>' : '')+
-            (nx ? '<span class="next">Next <b>'+nx.t+'</b></span>' : '')+
-          '</span>'+
-        '</span>'+
-      '</button>';
+        '</span></button>';
     }).join("");
+    reveal();
   }
 
   function renderDetail(){
-    var c = CLUBS.filter(function(x){ return x.id===selected; })[0];
-    if (!c){ $("#detail").innerHTML = ""; return; }
-    $("#detail").innerHTML = ''+
-      '<div class="detail__hero">'+
-        '<img src="'+c.img+'" alt="'+esc(c.name)+'">'+
-        '<div class="detail__cap">'+
-          '<div class="club__loc">'+esc(c.loc)+'</div>'+
-          '<h3>'+esc(c.name)+'</h3>'+
-        '</div>'+
-      '</div>'+
-      '<div class="detail__body">'+
-        '<dl class="stats">'+
-          '<div class="stat"><dt>Par</dt><dd>'+c.par+'</dd></div>'+
-          '<div class="stat"><dt>Yardage</dt><dd>'+c.yards.toLocaleString()+'</dd></div>'+
-          '<div class="stat"><dt>Rating / Slope</dt><dd>'+c.rating.toFixed(1)+' <small>/ '+c.slope+'</small></dd></div>'+
-          '<div class="stat"><dt>Guest fee</dt><dd>$'+c.fee+'</dd></div>'+
-        '</dl>'+
-        '<p class="blurb">'+esc(c.blurb)+'</p>'+
-        '<div class="sheet">'+
-          '<h4>Tee sheet · Tuesday 15 September</h4>'+
-          c.tees.map(function(t,i){
-            var left = t.cap - t.taken;
-            var key = c.id+":"+i;
-            var mine = joined.indexOf(key) > -1;
-            var seats = "";
-            for (var s=0;s<t.cap;s++){
-              seats += '<span class="seat'+(s<t.taken?' seat--taken':'')+'"></span>';
-            }
-            return '<div class="tee">'+
-              '<div class="tee__t">'+t.t+'<span>'+t.tag+'</span></div>'+
-              '<div class="tee__d"><b>'+esc(t.who)+'</b> · <em>'+esc(t.note)+'</em>'+
-                '<span class="seats" title="'+t.taken+' of '+t.cap+' filled">'+seats+'</span></div>'+
-              (mine
-                ? '<button class="join join--in" disabled>You’re in</button>'
-                : left>0
-                  ? '<button class="join" data-join="'+key+'">Claim seat</button>'
-                  : '<button class="join" disabled>Full</button>')+
-            '</div>';
-          }).join("")+
-        '</div>'+
-        '<p class="note">'+esc(c.dress)+(c.caddie?' Caddie program available — book 48 hours out.':'')+'</p>'+
-      '</div>';
+    var wrap=$("#detailWrap");
+    if(!selected){wrap.hidden=true;return;}
+    var c=CLUBS.filter(function(x){return x.id===selected;})[0];
+    if(!c){wrap.hidden=true;return;}
+    wrap.hidden=false;
+    $("#detail").innerHTML=
+      '<div class="detail__ph"><img src="'+c.det+'" alt="'+esc(c.name)+'"></div>'+
+      '<div class="detail__head"><p class="eyebrow">'+esc(c.loc)+'</p><h3>'+esc(c.name)+'</h3></div>'+
+      '<dl class="stats num">'+
+        '<div><dt>Par</dt><dd>'+c.par+'</dd></div>'+
+        '<div><dt>Yardage</dt><dd>'+c.yards.toLocaleString()+'</dd></div>'+
+        '<div><dt>Rating / Slope</dt><dd>'+c.rating.toFixed(1)+' <s>/ '+c.slope+'</s></dd></div>'+
+        '<div><dt>Guest fee</dt><dd>$'+c.fee+'</dd></div>'+
+      '</dl>'+
+      '<p class="blurb">'+esc(c.blurb)+'</p>'+
+      '<div class="sheet"><h4>Tee sheet</h4><p class="sub" style="margin-bottom:10px">Tuesday 15 September</p>'+
+      c.tees.map(function(t,i){
+        var key=c.id+":"+i, mine=joined.indexOf(key)>-1, left=t.cap-t.taken;
+        return '<div class="tee">'+
+          '<div class="tee__t num">'+t.t+'</div>'+
+          '<div><div class="tee__who">'+esc(t.who)+'</div>'+
+            '<div class="tee__note">'+esc(t.note)+'</div>'+
+            '<div class="pips">'+pips(t)+'</div></div>'+
+          (mine?'<button class="claim claim--in" disabled>Claimed</button>'
+               :left>0?'<button class="claim" data-join="'+key+'">Claim seat</button>'
+                      :'<button class="claim" disabled>Full</button>')+
+        '</div>';
+      }).join("")+
+      '<p class="dress">'+esc(c.dress)+(c.caddie?' Caddie programme available — book 48 hours out.':'')+'</p></div>';
   }
 
   function renderMine(){
-    var host = $("#mine");
-    if (!joined.length){
-      host.innerHTML = '<p class="empty">Nothing booked yet. Claim a seat from the tee sheet and it shows up here.</p>';
-      return;
-    }
-    host.innerHTML = joined.map(function(key){
-      var parts = key.split(":");
-      var c = CLUBS.filter(function(x){ return x.id===parts[0]; })[0];
-      var t = c.tees[+parts[1]];
-      return '<div class="mineitem">'+
-        '<div class="mineitem__t">'+t.t+'</div>'+
-        '<div class="mineitem__d"><b>'+esc(c.name)+'</b>'+esc(c.loc)+' · hosted by '+esc(t.who)+' · guest fee $'+c.fee+'</div>'+
-      '</div>';
+    var h=$("#mine");
+    if(!joined.length){h.innerHTML='<p class="empty">Nothing booked yet. Claim a seat from the tee sheet and it shows up here.</p>';return;}
+    h.innerHTML=joined.map(function(k){
+      var p=k.split(":"), c=CLUBS.filter(function(x){return x.id===p[0];})[0], t=c.tees[+p[1]];
+      return '<div class="mine__row"><div class="mine__t num">'+t.t+'</div>'+
+        '<div><div class="mine__n">'+esc(c.name)+'</div>'+
+        '<div class="mine__d num">'+esc(c.loc)+' · hosted by '+esc(t.who)+' · guest fee $'+c.fee+'</div></div></div>';
     }).join("");
   }
 
-  function renderLive(){
-    var n = CLUBS.reduce(function(a,c){ return a + openSeats(c); }, 0);
-    $("#liveCount").textContent = n + " seat" + (n===1?"":"s") + " open today";
+  function live(){
+    var n=CLUBS.reduce(function(a,c){return a+open(c);},0);
+    $("#liveCount").textContent=n+" seat"+(n===1?"":"s")+" open today";
   }
 
-  var toastTimer;
-  function toast(msg){
-    var el = $("#toast");
-    el.textContent = msg;
-    el.classList.add("on");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function(){ el.classList.remove("on"); }, 2600);
+  var tt;
+  function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");
+    clearTimeout(tt);tt=setTimeout(function(){e.classList.remove("on");},2600);}
+
+  function show(p){
+    $$("[data-panel]").forEach(function(el){el.hidden=(el.dataset.panel!==p);});
+    $$(".nav button").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.nav===p));});
+    if(p==="mine")renderMine();
+    if(p==="discover"){renderGrid();renderDetail();}
   }
 
-  function show(panel){
-    $$("[data-panel]").forEach(function(p){ p.hidden = (p.dataset.panel !== panel); });
-    $$(".navlink").forEach(function(b){
-      b.setAttribute("aria-current", String(b.dataset.nav === panel));
-    });
-    if (panel === "mine") renderMine();
+  /* reveal-on-scroll; everything is visible without JS */
+  var io=null;
+  function reveal(){
+    if(!("IntersectionObserver" in window)){$$(".r").forEach(function(e){e.classList.add("in");});return;}
+    if(!io) io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});
+    },{rootMargin:"0px 0px -8% 0px",threshold:.06});
+    $$(".r:not(.in)").forEach(function(e){io.observe(e);});
   }
 
-  document.addEventListener("click", function(e){
-    var nav = e.target.closest("[data-nav]");
-    if (nav){ show(nav.dataset.nav); if(nav.classList.contains("btn")) window.scrollTo({top:0,behavior:"smooth"}); return; }
-
-    var chip = e.target.closest("[data-filter]");
-    if (chip){
-      filter = chip.dataset.filter;
-      $$(".chip").forEach(function(c){ c.setAttribute("aria-pressed", String(c===chip)); });
-      var still = CLUBS.filter(matches);
-      if (still.length && !still.some(function(c){ return c.id===selected; })) selected = still[0].id;
-      renderList(); renderDetail();
+  document.addEventListener("click",function(e){
+    var n=e.target.closest("[data-nav]");
+    if(n){show(n.dataset.nav);window.scrollTo({top:0,behavior:"smooth"});return;}
+    var f=e.target.closest("[data-filter]");
+    if(f){
+      filter=f.dataset.filter;
+      $$(".filters button").forEach(function(b){b.setAttribute("aria-pressed",String(b===f));});
+      if(selected && !CLUBS.filter(match).some(function(c){return c.id===selected;})) selected=null;
+      renderGrid();renderDetail();return;
+    }
+    var card=e.target.closest("[data-club]");
+    if(card){
+      selected=(selected===card.dataset.club)?null:card.dataset.club;
+      renderDetail();
+      if(selected) setTimeout(function(){$("#detailWrap").scrollIntoView({behavior:"smooth",block:"start"});},60);
       return;
     }
-
-    var club = e.target.closest("[data-club]");
-    if (club){
-      selected = club.dataset.club;
-      renderList(); renderDetail();
-      if (window.matchMedia("(max-width:899px)").matches){
-        $("#detail").scrollIntoView({behavior:"smooth", block:"start"});
-      }
-      return;
-    }
-
-    var join = e.target.closest("[data-join]");
-    if (join){
-      var key = join.dataset.join;
-      var p = key.split(":");
-      var c = CLUBS.filter(function(x){ return x.id===p[0]; })[0];
-      var t = c.tees[+p[1]];
-      if (t.taken < t.cap && joined.indexOf(key) === -1){
-        t.taken++;
-        joined.push(key);
-        renderList(); renderDetail(); renderLive();
-        toast("Seat claimed — " + t.t + " at " + c.name);
+    var j=e.target.closest("[data-join]");
+    if(j){
+      var p=j.dataset.join.split(":"), c=CLUBS.filter(function(x){return x.id===p[0];})[0], t=c.tees[+p[1]];
+      if(t.taken<t.cap && joined.indexOf(j.dataset.join)===-1){
+        t.taken++;joined.push(j.dataset.join);
+        renderGrid();renderDetail();live();
+        toast("Seat claimed — "+t.t+" at "+c.name);
       }
       return;
     }
   });
 
-  $("#hostform").addEventListener("submit", function(e){
+  $("#hostform").addEventListener("submit",function(e){
     e.preventDefault();
-    var f = e.target;
-    var c = CLUBS.filter(function(x){ return x.id === f.club.value; })[0];
-    var raw = f.time.value || "08:40";
-    var hh = parseInt(raw.split(":")[0],10);
-    var mm = raw.split(":")[1];
-    var tag = hh >= 12 ? "PM" : "AM";
-    var h12 = hh % 12; if (h12 === 0) h12 = 12;
-    c.tees.push({ t:h12+":"+mm, tag:tag, who:"You", note:f.tees.value+" tees — "+(f.note.value||"open group"),
-                  cap:+f.seats.value + 1, taken:1 });
+    var f=e.target, c=CLUBS.filter(function(x){return x.id===f.club.value;})[0];
+    var raw=f.time.value||"08:40", hh=parseInt(raw.split(":")[0],10), mm=raw.split(":")[1];
+    var h12=hh%12; if(h12===0)h12=12;
+    c.tees.push({t:h12+":"+mm,m:hh>=12?"PM":"AM",who:"You",
+      note:f.tees.value+" tees · "+(f.note.value||"open group"),cap:(+f.seats.value)+1,taken:1});
     c.tees.sort(function(a,b){
-      var ka = (a.tag==="AM"?0:12) + (parseInt(a.t,10)%12);
-      var kb = (b.tag==="AM"?0:12) + (parseInt(b.t,10)%12);
-      return ka - kb;
-    });
-    selected = c.id;
-    show("discover");
-    renderList(); renderDetail(); renderLive();
-    toast("Posted — " + f.seats.value + " seat" + (f.seats.value==="1"?"":"s") + " at " + c.name);
+      var ka=(a.m==="AM"?0:12)+(parseInt(a.t,10)%12), kb=(b.m==="AM"?0:12)+(parseInt(b.t,10)%12);
+      return ka-kb;});
+    selected=c.id;show("discover");live();
+    toast("Posted — "+f.seats.value+" seat"+(f.seats.value==="1"?"":"s")+" at "+c.name);
     window.scrollTo({top:0,behavior:"smooth"});
   });
 
-  // theme toggle
-  $("#themebtn").addEventListener("click", function(){
-    var r = document.documentElement;
-    var cur = r.getAttribute("data-theme");
-    if (!cur){
-      cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
-    r.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+  $("#themebtn").addEventListener("click",function(){
+    var r=document.documentElement, cur=r.getAttribute("data-theme");
+    if(!cur) cur=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+    var nextT=cur==="dark"?"light":"dark";
+    r.setAttribute("data-theme",nextT);
+    var m=document.querySelector('meta[name="theme-color"]');
+    if(m) m.setAttribute("content", nextT==="dark"?"#10160F":"#EEEBE3");
   });
 
-  // populate host club select
-  $("#h-club").innerHTML = CLUBS.map(function(c){
-    return '<option value="'+c.id+'">'+esc(c.name)+' — '+esc(c.loc)+'</option>';
-  }).join("");
+  $("#h-club").innerHTML=CLUBS.map(function(c){
+    return '<option value="'+c.id+'">'+esc(c.name)+' — '+esc(c.loc)+'</option>';}).join("");
 
-  renderList(); renderDetail(); renderMine(); renderLive();
+  renderGrid();renderMine();live();
+  requestAnimationFrame(function(){
+    document.querySelector(".hero__media").classList.add("in");
+    reveal();
+  });
 })();
 </script>
 
