@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6cd8a" />
+      <stop offset="100%" stop-color="#c9a24b" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" fill="#0a0e0c" rx="224" />
+  <!-- Gradient Band -->
+  <rect x="0" y="480" width="1024" height="64" fill="url(#gold-grad)" opacity="0.1" />
+  <rect x="0" y="500" width="1024" height="24" fill="url(#gold-grad)" opacity="0.3" />
+  
+  <!-- Monogram -->
+  <text x="512" y="580" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="440" fill="url(#gold-grad)" text-anchor="middle" letter-spacing="-10">TO</text>
+</svg>

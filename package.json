@@ -1,0 +1,13 @@
+{
+  "name": "teedup-site",
+  "private": true,
+  "version": "0.2.0",
+  "description": "Teed Up — members-hosted golf. Static prototype.",
+  "scripts": {
+    "start": "python3 -m http.server 8088 --bind 127.0.0.1",
+    "test": "node --test tests/ui-contract.test.mjs && node tests/e2e-smoke.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0"
+  }
+}
