@@ -17,7 +17,7 @@
 <meta name="theme-color" content="#101A15">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=Archivo:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=Archivo:wght@400;500;600;700&display=swap">
 
 <style>
 /* ============ tokens : light (bare :root defines everything) ============ */
@@ -187,10 +187,22 @@ button{font:inherit;color:inherit;}
 .hero h1{
   font-family:"Fraunces",Georgia,serif;
   font-optical-sizing:auto;
+  /* WONK 0 turns off Fraunces' quirky alternate letterforms — the swashed italic f in
+     "finding" was reading as a glyph error. SOFT 0 keeps the terminals crisp. */
+  font-variation-settings:"SOFT" 0,"WONK" 0;
+  font-feature-settings:"liga" 1,"dlig" 0,"swsh" 0;
   font-weight:300;font-size:var(--step-4);line-height:.98;letter-spacing:-.035em;
   margin:0;color:var(--on-photo);max-width:15ch;text-wrap:balance;
 }
-.hero h1 em{font-style:italic;font-weight:400;}
+/* contrast by weight and colour rather than italic — no synthesised oblique */
+.hero h1 em{
+  font-style:normal;font-weight:600;color:#F1DCA6;
+  font-variation-settings:"SOFT" 0,"WONK" 0;
+}
+/* every Fraunces setting on the page uses the calm letterforms, not the wonky ones */
+.mark__t,.sechead h2,.club__n,.detail__cap h3{
+  font-variation-settings:"SOFT" 0,"WONK" 0;
+}
 .hero p{
   margin:0;max-width:46ch;color:var(--on-photo);opacity:.86;font-size:var(--step-1);
   line-height:1.45;
