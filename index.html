@@ -1716,8 +1716,8 @@ body{padding-bottom:64px;}
   ];
   var ECON=[
     {k:"Traveller memberships",s:"1,500 members at $1,800. This is the line that does not depend on a single round being played.",v:"$2.70M"},
-    {k:"Take rate on seats",s:"18% of the member's asking price. 4,000 rounds at a $250 average take.",v:"$1.00M"},
-    {k:"Credit spread",s:"A traveller buys $1,000 of credits; a host redeems $850 of access. You keep the difference, plus breakage.",v:"$310K"},
+    {k:"Take rate on seats",s:"18% of the member's ask. 6,000 seats at a $600 average ask \u2014 which needs 2,000 hosts, not 2,000 travellers. Hosts are the binding constraint here, not demand.",v:"$648K"},
+    {k:"Credit spread",s:"A traveller buys $1,000 of credits; a host redeems $850 of access. On roughly $2M of credits moved, that 15% spread plus breakage.",v:"$310K"},
     {k:"Concierge",s:"200 arranged rounds at $750. Somebody paying $8,000 for a round does not argue about $750.",v:"$150K"},
     {k:"Club partnerships",s:"Clubs with dead Monday-to-Thursday sheets selling official access on a revenue share.",v:"upside"}
   ];
@@ -1750,7 +1750,7 @@ body{padding-bottom:64px;}
         '<div class="v num">'+money(total)+'</div></div></div>'+
         '<p class="note" style="margin-top:16px">Not a volume business. A few thousand travellers priced '+
         'properly beats a hundred thousand browsing for free. The membership line alone covers the company '+
-        'before a single seat changes hands.</p>';
+        'before a single seat changes hands \u2014 which matters, because seats are the half you do not control.</p>';
       return;
     }
     var set=SIDE==="host"?HOST:TRAVELER;
