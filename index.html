@@ -284,6 +284,10 @@ h1.display b{font-weight:600;color:#F0DCA8;}
 @media(min-width:620px){.wide-only{display:inline;}}
 /* sticky header clearance when a section is scrolled to */
 [data-panel],#detailWrap{scroll-margin-top:72px;}
+/* every panel must be tall enough to scroll clear of the landing hero,
+   otherwise a short tab (an empty Rounds list) leaves the hero on screen */
+[data-panel]{min-height:calc(100svh - 58px - 64px);}
+@media(min-width:880px){[data-panel]{min-height:calc(100svh - 58px);}}
 
 /* ═══ detail ═══ */
 .detail{border-top:1px solid var(--ink);padding-top:0;}
@@ -628,6 +632,24 @@ body{padding-bottom:64px;}
 .gps__unit{font-size:.75rem;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;}
 .gps__sub{font-size:var(--t-micro);color:var(--ink-3);margin:8px 0 0;line-height:1.55;}
 .gps__row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+
+
+/* panel transition on tab change */
+@keyframes panelIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.js [data-panel].panel-in{animation:panelIn 260ms cubic-bezier(.19,1,.22,1) both;}
+/* tab press feedback */
+.tabbar button{position:relative;}
+.tabbar button::before{
+  content:"";position:absolute;top:0;left:50%;width:0;height:2px;background:var(--accent);
+  transform:translateX(-50%);transition:width 220ms cubic-bezier(.19,1,.22,1);
+}
+.tabbar button[aria-current="true"]::before{width:34px;}
+.tabbar button:active svg{transform:scale(.88);}
+.tabbar button svg{transition:transform 120ms cubic-bezier(.4,0,.2,1);}
+@media (prefers-reduced-motion:reduce){
+  .js [data-panel].panel-in{animation:none;}
+  .tabbar button::before{transition:none;}
+}
 
 /* ═══ motion — nothing is parked invisible without JS ═══ */
 @keyframes riseIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
@@ -1567,7 +1589,11 @@ body{padding-bottom:64px;}
     clearTimeout(tt);tt=setTimeout(function(){e.classList.remove("on");},3000);}
 
   function show(p){
-    $$("[data-panel]").forEach(function(el){el.hidden=(el.dataset.panel!==p);});
+    $$("[data-panel]").forEach(function(el){
+      var on=(el.dataset.panel===p);
+      el.hidden=!on;
+      if(on){ el.classList.remove("panel-in"); void el.offsetWidth; el.classList.add("panel-in"); }
+    });
     $$(".nav button,.tabbar button").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.nav===p));});
     if(p==="profile")renderProfile();
     if(p==="score")renderScore();
@@ -1687,7 +1713,16 @@ body{padding-bottom:64px;}
       return;
     }
     var n=e.target.closest("[data-nav]");
-    if(n){show(n.dataset.nav);window.scrollTo({top:0,behavior:"smooth"});return;}
+    if(n){
+      show(n.dataset.nav);
+      // land on the section, never back at the top of the landing hero
+      var panel=document.querySelector('[data-panel="'+n.dataset.nav+'"]');
+      if(panel){
+        var top=panel.getBoundingClientRect().top+window.pageYOffset-58;
+        window.scrollTo({top:Math.max(0,top),behavior:"smooth"});
+      }
+      return;
+    }
     var f=e.target.closest("[data-filter]");
     if(f){
       filter=f.dataset.filter;
@@ -1766,7 +1801,8 @@ body{padding-bottom:64px;}
       return ka-kb;});
     selected=c.id;show("discover");live();
     toast("Posted — "+f.seats.value+" seat"+(f.seats.value==="1"?"":"s")+" at "+money(seat)+" each");
-    window.scrollTo({top:0,behavior:"smooth"});
+    var dp=document.querySelector('[data-panel="discover"]');
+    if(dp) window.scrollTo({top:Math.max(0,dp.getBoundingClientRect().top+window.pageYOffset-58),behavior:"smooth"});
   });
 
   document.addEventListener("input",function(e){
