@@ -563,7 +563,7 @@ h1.display b{font-weight:600;color:#F0DCA8;}
 
 /* ═══ mobile tab bar ═══ */
 .tabbar{
-  position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:repeat(5,1fr);
+  position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:repeat(6,1fr);
   background:var(--ground);border-top:1px solid var(--rule);
   padding-bottom:env(safe-area-inset-bottom);
 }
@@ -574,6 +574,11 @@ h1.display b{font-weight:600;color:#F0DCA8;}
   transition:color var(--fast);
 }
 .tabbar button svg{width:17px;height:17px;}
+.tabbar button span{white-space:nowrap;}
+@media(max-width:430px){
+  .tabbar button{font-size:.5rem;letter-spacing:.04em;padding:9px 1px 8px;}
+  .tabbar button svg{width:16px;height:16px;}
+}
 .tabbar button[aria-current="true"]{color:var(--ink);}
 .tabbar button[aria-current="true"] svg{color:var(--accent);}
 body{padding-bottom:64px;}
@@ -651,6 +656,69 @@ body{padding-bottom:64px;}
   .tabbar button::before{transition:none;}
 }
 
+
+/* ═══ membership ═══ */
+.side{display:flex;gap:0;border-bottom:1px solid var(--rule);margin-bottom:26px;}
+.side button{
+  cursor:pointer;padding:13px 0;margin-right:26px;font-size:var(--t-body);font-weight:500;
+  color:var(--ink-3);position:relative;transition:color var(--fast);
+}
+.side button:hover{color:var(--ink);}
+.side button[aria-pressed="true"]{color:var(--ink);font-weight:600;}
+.side button[aria-pressed="true"]::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);
+}
+.plans{display:grid;gap:20px;grid-template-columns:1fr;}
+@media(min-width:820px){.plans{grid-template-columns:repeat(3,minmax(0,1fr));gap:0;}}
+.plan{
+  display:flex;flex-direction:column;gap:14px;padding:22px 20px 24px;
+  border:1px solid var(--rule);
+}
+@media(min-width:820px){
+  .plan{border-right:0;}
+  .plan:last-child{border-right:1px solid var(--rule);}
+}
+.plan--feature{border-color:var(--accent);position:relative;}
+@media(min-width:820px){.plan--feature{border-right:1px solid var(--accent);}}
+.plan__tag{
+  position:absolute;top:-1px;right:-1px;background:var(--accent);color:#0D1410;
+  font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:4px 9px;
+}
+.plan__n{
+  font-family:var(--ff-display);font-optical-sizing:auto;font-variation-settings:var(--wonk);
+  font-weight:500;font-size:var(--t-h3);letter-spacing:-.02em;line-height:1.1;
+}
+.plan__p{display:flex;align-items:baseline;gap:6px;}
+.plan__p .amt{font-size:2rem;font-weight:600;letter-spacing:-.03em;line-height:1;}
+.plan__p .per{font-size:var(--t-micro);color:var(--ink-3);}
+.plan__for{font-size:var(--t-micro);color:var(--ink-3);line-height:1.5;min-height:2.6em;}
+.plan ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;}
+.plan li{
+  display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;
+  font-size:var(--t-micro);color:var(--ink-2);line-height:1.5;
+}
+.plan li svg{width:11px;height:11px;margin-top:4px;color:var(--accent);}
+.plan li b{color:var(--ink);font-weight:600;}
+.plan .pill-cta,.plan .btn-line{margin-top:auto;text-align:center;}
+
+.econ{border-top:1px solid var(--ink);margin-top:34px;padding-top:0;}
+.econ__row{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:baseline;
+  padding:13px 0;border-bottom:1px solid var(--rule);
+}
+.econ__row .k{font-size:var(--t-body);}
+.econ__row .k small{display:block;font-size:var(--t-micro);color:var(--ink-3);margin-top:2px;line-height:1.45;}
+.econ__row .v{font-size:1.0625rem;font-weight:600;letter-spacing:-.015em;white-space:nowrap;}
+.econ__row--tot .k{font-weight:600;}
+.econ__row--tot .v{font-size:1.375rem;color:var(--accent);}
+.econ__row--tot{border-bottom:0;border-top:1px solid var(--ink);}
+
+.credits{
+  display:flex;align-items:baseline;gap:10px;padding:16px 0;border-bottom:1px solid var(--rule);
+}
+.credits .big{font-size:1.75rem;font-weight:600;letter-spacing:-.03em;color:var(--accent);line-height:1;}
+.credits .lbl{font-size:.5625rem;letter-spacing:.17em;text-transform:uppercase;font-weight:600;color:var(--ink-3);}
+
 /* ═══ motion — nothing is parked invisible without JS ═══ */
 @keyframes riseIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
 @keyframes lineUp{from{transform:translateY(105%);}to{transform:translateY(0);}}
@@ -698,6 +766,7 @@ body{padding-bottom:64px;}
       <button data-nav="host">Host a round</button>
       <button data-nav="mine">My rounds</button>
       <button data-nav="score">Scorecard</button>
+      <button data-nav="join">Membership</button>
       <button data-nav="profile">Profile</button>
     </nav>
     <button class="icobtn" id="themebtn" aria-label="Switch theme" title="Switch theme">
@@ -846,6 +915,20 @@ body{padding-bottom:64px;}
     </div>
   </div>
 
+  <!-- ══ MEMBERSHIP ══ -->
+  <div class="wrap section" data-panel="join" hidden>
+    <div class="sechead"><h2 class="display">Membership</h2><span class="rule"></span></div>
+    <p class="sub">Travellers pay to be in the network. Hosts never do — hosting is how you earn your way in.
+      A member who hosts three rounds a year plays free and banks credits for their own trip.</p>
+
+    <div class="side" role="group" aria-label="Which side are you on">
+      <button data-side="traveler" aria-pressed="true">I want to play</button>
+      <button data-side="host" aria-pressed="false">I'm a member who can host</button>
+      <button data-side="econ" aria-pressed="false">How Teed Up makes money</button>
+    </div>
+    <div id="planWrap"></div>
+  </div>
+
   <!-- ══ PROFILE ══ -->
   <div class="wrap section" data-panel="profile" hidden>
     <div class="sechead"><h2 class="display">Profile</h2><span class="rule"></span></div>
@@ -861,15 +944,17 @@ body{padding-bottom:64px;}
 
 <nav class="tabbar" aria-label="Sections">
   <button data-nav="discover" aria-current="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>Tee sheet</button>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg><span>Tee sheet</span></button>
   <button data-nav="host">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Post</button>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span>Post</span></button>
   <button data-nav="mine">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>Rounds</button>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span>Rounds</span></button>
   <button data-nav="score">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="3.5" width="16" height="17"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>Card</button>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="3.5" width="16" height="17"/><path d="M8 8h8M8 12h8M8 16h4"/></svg><span>Card</span></button>
+  <button data-nav="join">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg><span>Join</span></button>
   <button data-nav="profile">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.2-3.4 4-5 7-5s5.8 1.6 7 5"/></svg>You</button>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.2-3.4 4-5 7-5s5.8 1.6 7 5"/></svg><span>You</span></button>
 </nav>
 
 <div class="gate" id="gate" hidden>
@@ -1454,6 +1539,8 @@ body{padding-bottom:64px;}
         (ME.rounds?stars(ME.rate)+' '+ME.rate.toFixed(1)+' · '+ME.rounds+' rounds':'Unrated · 0 rounds')+'</b></div>'+
       '<div class="prof__row"><span>Here to</span><b>'+
         ({guest:"Claim seats",host:"Post seats",both:"Both"}[ME.role]||"Claim seats")+'</b></div>'+
+      '<div class="credits"><span class="big num">'+(joined.length?money(joined.length*250):"0")+
+        '</span><span class="lbl">Host credits earned</span></div>'+
       '<div class="prof__row"><span>Seats claimed</span><b class="num">'+joined.length+'</b></div>'+
       '<div class="prof__row"><span>Committed</span><b class="num">'+money(spend)+'</b></div>'+
       '<div class="prof__row"><span>Email</span><b style="font-weight:500;color:var(--ink-2)">'+esc(ME.email||"—")+'</b></div>'+
@@ -1584,6 +1671,99 @@ body{padding-bottom:64px;}
         'Hole pars and yardages are distributed from each club’s published card total, not invented per hole.</p>';
   }
 
+  /* ══ membership & platform economics ══ */
+  var SIDE="traveler";
+  var TICK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+  function li(t){return '<li>'+TICK+'<span>'+t+'</span></li>';}
+
+  var TRAVELER=[
+    {n:"Clubhouse",price:0,per:"free",for:"Browse the sheet and see what access actually costs. You cannot claim a seat.",
+     cta:"You're on this",ghost:true,
+     f:["The full tee sheet, every club","Host ratings and round counts","Prices shown all-in, nothing hidden"]},
+    {n:"Passport",price:1800,per:"per year",feature:true,tag:"Most take this",
+     for:"For the golfer who travels six to twelve times a year and wants the good clubs.",
+     cta:"Join Passport",
+     f:["<b>Claim any seat</b> on the sheet","<b>14-day</b> booking window","Make offers below a host's ask",
+        "<b>One concierge request</b> a year","Two-sided rating profile"]},
+    {n:"Passport Reserve",price:4200,per:"per year",
+     for:"For the traveller who wants the clubs that never have availability.",
+     cta:"Request Reserve",ghost:true,
+     f:["Everything in Passport","<b>45-day</b> window — you see seats first",
+        "<b>Invitation-tier clubs</b> unlocked","<b>Unlimited concierge</b> — we go find it",
+        "<b>Four rounds guaranteed</b> or the fee is refunded"]}
+  ];
+  var HOST=[
+    {n:"Host",price:0,per:"free, always",feature:true,tag:"Never pay",
+     for:"You have a membership and empty seats. That is the whole qualification.",
+     cta:"Apply to host",
+     f:["<b>Free forever.</b> Hosts do not pay to be here",
+        "<b>Earn credits</b> on every seat — spend them at the other 18 clubs",
+        "<b>Take cash instead</b> where your club's bylaws allow it",
+        "You approve every guest. Name, index, home club, rating",
+        "Set your own price. Weekend rates are yours to set"]},
+    {n:"Three rounds a year",price:0,per:"covers your Passport",
+     for:"Host three times and your own travel membership is free.",
+     cta:"See the maths",ghost:true,
+     f:["3 hosted rounds = <b>Passport waived</b> ($1,800)",
+        "Credits on top, roughly <b>$1,200–2,400</b> of access",
+        "Your guest fees covered when you travel"]},
+    {n:"Founding Host",price:0,per:"by invitation",
+     for:"The first hosts at each club. Permanent standing.",
+     cta:"By invitation",ghost:true,
+     f:["<b>Reserve tier free</b>, permanently","Founding Host mark on your profile",
+        "First look at every new club we open",
+        "Convert credits to your club's <b>caddie fund</b> instead"]}
+  ];
+  var ECON=[
+    {k:"Traveller memberships",s:"1,500 members at $1,800. This is the line that does not depend on a single round being played.",v:"$2.70M"},
+    {k:"Take rate on seats",s:"18% of the member's asking price. 4,000 rounds at a $250 average take.",v:"$1.00M"},
+    {k:"Credit spread",s:"A traveller buys $1,000 of credits; a host redeems $850 of access. You keep the difference, plus breakage.",v:"$310K"},
+    {k:"Concierge",s:"200 arranged rounds at $750. Somebody paying $8,000 for a round does not argue about $750.",v:"$150K"},
+    {k:"Club partnerships",s:"Clubs with dead Monday-to-Thursday sheets selling official access on a revenue share.",v:"upside"}
+  ];
+
+  function planCard(p){
+    return '<div class="plan'+(p.feature?' plan--feature':'')+'">'+
+      (p.tag?'<span class="plan__tag">'+esc(p.tag)+'</span>':'')+
+      '<div class="plan__n">'+esc(p.n)+'</div>'+
+      '<div class="plan__p num">'+(p.price?'<span class="amt">'+money(p.price)+'</span>':'<span class="amt">Free</span>')+
+        '<span class="per">'+esc(p.per)+'</span></div>'+
+      '<p class="plan__for">'+esc(p.for)+'</p>'+
+      '<ul>'+p.f.map(li).join("")+'</ul>'+
+      '<button class="'+(p.ghost?'btn-line':'pill-cta')+'" data-plan="'+esc(p.n)+'">'+esc(p.cta)+'</button>'+
+    '</div>';
+  }
+  function renderPlans(){
+    var host=$("#planWrap");
+    if(SIDE==="econ"){
+      var total=ECON.filter(function(r){return r.v.indexOf("$")===0;})
+        .reduce(function(a,r){
+          var n=parseFloat(r.v.replace(/[$MK,]/g,""));
+          return a+(r.v.indexOf("M")>-1?n*1e6:n*1e3);},0);
+      host.innerHTML='<p class="sub" style="margin-bottom:6px">Five revenue lines at modest scale. '+
+        'Illustrative shape, not a forecast — and a lawyer should look at holding customer credit balances '+
+        'before you do it.</p><div class="econ">'+
+        ECON.map(function(r){
+          return '<div class="econ__row"><div class="k">'+r.k+'<small>'+r.s+'</small></div>'+
+                 '<div class="v num">'+r.v+'</div></div>';}).join("")+
+        '<div class="econ__row econ__row--tot"><div class="k">Annual revenue at that scale</div>'+
+        '<div class="v num">'+money(total)+'</div></div></div>'+
+        '<p class="note" style="margin-top:16px">Not a volume business. A few thousand travellers priced '+
+        'properly beats a hundred thousand browsing for free. The membership line alone covers the company '+
+        'before a single seat changes hands.</p>';
+      return;
+    }
+    var set=SIDE==="host"?HOST:TRAVELER;
+    host.innerHTML='<div class="plans">'+set.map(planCard).join("")+'</div>'+
+      (SIDE==="host"
+        ? '<p class="note" style="margin-top:20px"><b style="color:var(--ink)">Why credits and not just cash.</b> '+
+          'Most private club bylaws treat taking money for guest play as commercial use of your membership. '+
+          'Credits are access, not income — easier to defend to a board, and nobody looks like they needed '+
+          'the money. Take cash where your club permits it; take credits everywhere else.</p>'
+        : '<p class="note" style="margin-top:20px">Guest fees are always paid to the club directly and are '+
+          'never part of your membership. Prices on the tee sheet show both halves.</p>');
+  }
+
   var tt;
   function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");
     clearTimeout(tt);tt=setTimeout(function(){e.classList.remove("on");},3000);}
@@ -1597,6 +1777,7 @@ body{padding-bottom:64px;}
     $$(".nav button,.tabbar button").forEach(function(b){b.setAttribute("aria-current",String(b.dataset.nav===p));});
     if(p==="profile")renderProfile();
     if(p==="score")renderScore();
+    if(p==="join")renderPlans();
     if(p==="mine")renderMine();
     if(p==="host")priceHint();
     if(p==="discover"){renderGrid();renderDetail();}
@@ -1701,6 +1882,20 @@ body{padding-bottom:64px;}
       return;
     }
 
+    var sd=e.target.closest("[data-side]");
+    if(sd){
+      SIDE=sd.dataset.side;
+      $$(".side button").forEach(function(b){b.setAttribute("aria-pressed",String(b===sd));});
+      renderPlans(); return;
+    }
+    var pl=e.target.closest("[data-plan]");
+    if(pl){
+      var nm=pl.dataset.plan;
+      if(nm==="Clubhouse"){ toast("You're already on Clubhouse — browsing is free."); return; }
+      if(!ME.onboarded){ openGate(); return; }
+      toast(nm+" — this is a prototype, so nothing is charged.");
+      return;
+    }
     if(e.target.id==="sc-clear"){ SCORES[SC_CLUB+":"+SC_TEES]=[]; renderScore(); toast("Card cleared."); return; }
     if(e.target.id==="gpsBtn"){ readGPS(); return; }
     if(e.target.id==="gpsDemo"){ gpsWorked(); return; }
@@ -1867,7 +2062,7 @@ body{padding-bottom:64px;}
     return '<option value="'+c.id+'">'+esc(c.name)+' — '+esc(c.city)+', '+c.state+'</option>';}).join("");
 
   loadMe();
-  renderGrid();renderMine();renderProfile();renderScore();live();priceHint();
+  renderGrid();renderMine();renderProfile();renderScore();renderPlans();live();priceHint();
   if(!ME.onboarded) setTimeout(openGate,1900);
   requestAnimationFrame(function(){
     document.querySelector(".landing").classList.add("go");
